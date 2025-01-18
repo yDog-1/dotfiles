@@ -17,7 +17,7 @@ HISTFILE=~/.zsh_history
 #
 # Environment Variables
 #
-export EDITOR='vim'
+export EDITOR="code --wait"
 export BROWSER="wslview"
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
