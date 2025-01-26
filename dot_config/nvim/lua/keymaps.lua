@@ -5,9 +5,9 @@ vim.g.mapleader = ' '
 
 -- jjでノーマルモードに戻る
 map(
-  'i',
-  'jj',
-  '<Esc>',
+  'i', 
+  'jj', 
+  '<Esc>', 
   { silent = true }
 )
 
@@ -58,4 +58,56 @@ map('n', '<Leader><CR>', 'i<CR><Esc>')
 -- Space + o, O で、行の上下に空白行を作成
 map('n', '<Leader>o', 'o<Esc>')
 map('n', '<Leader>O', 'O<Esc>')
+
+-- ターミナル
+local tMaps = {
+  {"<C-W>n",      function () vim.cmd("new") end}, 
+  {"<C-W><C-N>",  function () vim.cmd("new") end}, 
+  {"<C-W>q",      function () vim.cmd("quit") end}, 
+  {"<C-W><C-Q>",  function () vim.cmd("quit") end}, 
+  {"<C-W>c",      function () vim.cmd("close") end}, 
+  {"<C-W>o",      function () vim.cmd("only") end}, 
+  {"<C-W><C-O>",  function () vim.cmd("only") end}, 
+  {"<C-W><Down>", function () vim.cmd("wincmd j") end}, 
+  {"<C-W><C-J>",  function () vim.cmd("wincmd j") end}, 
+  {"<C-W>j",      function () vim.cmd("wincmd j") end}, 
+  {"<C-W><Up>",   function () vim.cmd("wincmd k") end}, 
+  {"<C-W><C-K>",  function () vim.cmd("wincmd k") end}, 
+  {"<C-W>k",      function () vim.cmd("wincmd k") end}, 
+  {"<C-W><Left>", function () vim.cmd("wincmd h") end}, 
+  {"<C-W><C-H>",  function () vim.cmd("wincmd h") end}, 
+  {"<C-W><BS>",   function () vim.cmd("wincmd h") end}, 
+  {"<C-W>h",      function () vim.cmd("wincmd h") end}, 
+  {"<C-W><Right>",function () vim.cmd("wincmd l") end}, 
+  {"<C-W><C-L>",  function () vim.cmd("wincmd l") end}, 
+  {"<C-W>l",      function () vim.cmd("wincmd l") end}, 
+  {"<C-W>w",      function () vim.cmd("wincmd w") end}, 
+  {"<C-W><C-W>",  function () vim.cmd("wincmd w") end}, 
+  {"<C-W>W",      function () vim.cmd("wincmd W") end}, 
+  {"<C-W>t",      function () vim.cmd("wincmd t") end}, 
+  {"<C-W><C-T>",  function () vim.cmd("wincmd t") end}, 
+  {"<C-W>b",      function () vim.cmd("wincmd b") end}, 
+  {"<C-W><C-B>",  function () vim.cmd("wincmd b") end}, 
+  {"<C-W>p",      function () vim.cmd("wincmd p") end}, 
+  {"<C-W><C-P>",  function () vim.cmd("wincmd p") end}, 
+  {"<C-W>P",      function () vim.cmd("wincmd P") end}, 
+  {"<C-W>r",      function () vim.cmd("wincmd r") end}, 
+  {"<C-W><C-R>",  function () vim.cmd("wincmd r") end}, 
+  {"<C-W>R",      function () vim.cmd("wincmd R") end}, 
+  {"<C-W>x",      function () vim.cmd("wincmd x") end}, 
+  {"<C-W><C-X>",  function () vim.cmd("wincmd x") end}, 
+  {"<C-W>K",      function () vim.cmd("wincmd K") end}, 
+  {"<C-W>J",      function () vim.cmd("wincmd J") end}, 
+  {"<C-W>H",      function () vim.cmd("wincmd H") end}, 
+  {"<C-W>L",      function () vim.cmd("wincmd L") end}, 
+  {"<C-W>T",      function () vim.cmd("wincmd T") end}, 
+  {"<C-W>=",      function () vim.cmd("wincmd =") end}, 
+  {"<C-W>-",      function () vim.cmd("wincmd -") end}, 
+  {"<C-W>+",      function () vim.cmd("wincmd +") end}, 
+  {"<C-W>z",      function () vim.cmd("pclose") end}, 
+  "<C-W><C-Z>",  function () vim.cmd("pclose") end}, 
+}
+for i = 1, #tMaps do
+  map('t', tMaps[i][1], tMaps[i][2])
+end
 
