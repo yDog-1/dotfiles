@@ -14,7 +14,7 @@ config.color_scheme = 'Andromeda'
 
 -- フォント設定
 config.font = wezterm.font_with_fallback ({
-  { family='Moralerspace Argon HW' },
+  { family='Moralerspace Argon HWNF' },
 })
 config.font_size = 13
 
