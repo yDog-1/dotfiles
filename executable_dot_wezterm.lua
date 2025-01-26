@@ -33,7 +33,7 @@ config.launch_menu = {
 -- デフォルト起動シェルの設定
 config.default_prog = { 'wsl.exe', '-d', 'Ubuntu', '--cd', '~' }
 -- 背景の透明度
-config.window_background_opacity = 0.80
+config.window_background_opacity = 0.90
 
 -- ウィンドウを閉じる確認
 config.window_close_confirmation = 'NeverPrompt'
