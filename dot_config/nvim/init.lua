@@ -1,5 +1,5 @@
 -- プラグインマネージャ
-require("config.lazy")
+require('config.lazy')
 
 -- オプションの設定
 require('options')
@@ -8,8 +8,8 @@ require('options')
 require('keymaps')
 
 -- プラグインをロードする
-require("lazy").setup("plugins")
+require('lazy').setup('plugins')
 
--- カラースキーマ
-require('color_scheme')
+-- プラグインのキーマップ
+require('plg_keymaps')
 
