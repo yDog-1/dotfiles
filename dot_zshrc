@@ -19,9 +19,14 @@ HISTFILE=~/.zsh_history
 export EDITOR="vim"
 export BROWSER="wslview"
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+bindkey -v
+
 
 # Development Tools
 #
+# Neovim
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
 # Homebrew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
