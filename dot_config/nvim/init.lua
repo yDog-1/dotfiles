@@ -1,15 +1,2 @@
--- プラグインマネージャ
-require('config.lazy')
-
--- オプションの設定
-require('options')
-
--- キーマップ設定
-require('keymaps')
-
--- プラグインをロードする
-require('lazy').setup('plugins')
-
--- プラグインのキーマップ
-require('plg_keymaps')
-
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
