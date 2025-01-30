@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
+require("keybinds")
 
 -- 設定のホットリロード
 config.automatically_reload_config = true
@@ -30,7 +31,6 @@ config.launch_menu = {
 		args = { "pwsh", "-nol", "-wd", "~" },
 	},
 }
-
 -- デフォルト起動シェルの設定
 config.default_prog = { "wsl.exe", "-d", "Ubuntu", "--cd", "~" }
 -- 背景の透明度

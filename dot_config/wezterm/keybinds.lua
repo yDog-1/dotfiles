@@ -83,4 +83,10 @@ config.keys = {
 		key = "c",
 		action = act.CloseCurrentTab({ confirm = false }),
 	},
+	-- ウィンドウを最大化
+	{
+		mods = "LEADER",
+		key = "F11",
+		action = wezterm.window.maximize(),
+	},
 }
