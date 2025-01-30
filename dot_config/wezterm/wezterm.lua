@@ -1,6 +1,9 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
-require("keybinds")
+local keybinds = require("keybinds")
+
+config.keys = keybinds.keys
+config.leader = keybinds.leader
 
 -- 設定のホットリロード
 config.automatically_reload_config = true
