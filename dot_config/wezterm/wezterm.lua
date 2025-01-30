@@ -1,7 +1,9 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local keybinds = require("keybinds")
+local mux = wezterm.mux
 
+-- キーバインドを設定
 config.keys = keybinds.keys
 config.leader = keybinds.leader
 
@@ -51,6 +53,12 @@ config.mouse_bindings = {
 		action = wezterm.action.PasteFrom("Clipboard"),
 	},
 }
+
+-- 起動時にウィンドウを最大化
+wezterm.on("gui-startup", function()
+	local _, _, window = mux.spawn_window({})
+	window:gui_window():mux_window()
+end)
 
 -- タブの見た目
 config.use_fancy_tab_bar = false

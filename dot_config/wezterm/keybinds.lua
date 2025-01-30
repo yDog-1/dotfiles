@@ -25,8 +25,8 @@ return {
 		{ mods = "LEADER", key = "j", action = act.ActivatePaneDirection("Down") },
 		{ mods = "LEADER", key = "k", action = act.ActivatePaneDirection("Up") },
 		-- タブを移動
-		{ mods = "LEADER", key = "L", action = act.ActivateTabRelative(1) },
-		{ mods = "LEADER", key = "H", action = act.ActivateTabRelative(-1) },
+		{ mods = "LEADER|CTRL", key = "l", action = act.ActivateTabRelative(1) },
+		{ mods = "LEADER|CTRL", key = "h", action = act.ActivateTabRelative(-1) },
 		-- ペインを閉じる
 		{ mods = "LEADER", key = "c", action = act.CloseCurrentPane({ confirm = false }) },
 		-- タブを閉じる
