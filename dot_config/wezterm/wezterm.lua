@@ -57,7 +57,7 @@ config.mouse_bindings = {
 -- 起動時にウィンドウを最大化
 wezterm.on("gui-startup", function()
 	local _, _, window = mux.spawn_window({})
-	window:gui_window():mux_window()
+	window:gui_window():maximize()
 end)
 
 -- タブの見た目
