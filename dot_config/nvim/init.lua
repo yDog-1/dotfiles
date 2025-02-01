@@ -1,4 +1,9 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.lazy")
-require("config.keymaps")
-require("lazy").setup("plugins")
+-- プラグインマネージャ
+require('config.lazy')
+
+-- オプションの設定
+require('options')
+
+-- キーマップ設定
+require('keymaps')
+
