@@ -39,7 +39,7 @@ config.font_size = 13
 -- Launcher Menu
 config.launch_menu = {
 	{
-		label = "WSL2 Ubuntu",
+		label = "WSL:Ubuntu",
     domain = { DomainName = 'WSL:Ubuntu' },
 	},
 	{
@@ -48,11 +48,19 @@ config.launch_menu = {
     domain = { DomainName = 'local' },
 	},
 }
-
+config.wsl_domains = {
+    {
+      name = "WSL:Ubuntu",
+      distribution = "Ubuntu",
+      default_cwd = "~",
+      default_prog = { "zsh" }
+  },
+}
 -- デフォルト起動ドメインの設定
 config.default_domain = 'WSL:Ubuntu'
 -- デフォルト起動シェルの設定
 config.default_prog = { "pwsh", "-nol", "-wd", "~" }
+
 -- 背景の透明度
 config.window_background_opacity = 0.80
 
