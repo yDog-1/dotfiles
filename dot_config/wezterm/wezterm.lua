@@ -1,16 +1,28 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local keybinds = require("keybinds")
-
--- キーバインドを設定
-config.keys = keybinds.keys
-config.leader = keybinds.leader
+local autocmd = require("autocmd")
 
 -- 設定のホットリロード
 config.automatically_reload_config = true
 
 -- 日本語入力を出来るようにする
 config.use_ime = true
+
+-- キーバインドを設定
+config.keys = keybinds.keys
+config.key_tables = keybinds.key_tables
+config.leader = keybinds.leader
+
+-- マウス操作の挙動設定
+config.mouse_bindings = {
+	-- 右クリックでクリップボードから貼り付け
+	{
+		event = { Down = { streak = 1, button = "Right" } },
+		mods = "NONE",
+		action = wezterm.action.PasteFrom("Clipboard"),
+	},
+}
 
 config.color_schemes = {
 	["Tokyo Night"] = {
@@ -28,80 +40,41 @@ config.font_size = 13
 config.launch_menu = {
 	{
 		label = "WSL2 Ubuntu",
-		args = { "wsl.exe", "-d", "Ubuntu", "--cd", "~" },
+    domain = { DomainName = 'WSL:Ubuntu' },
 	},
 	{
 		label = "PowerShell",
 		args = { "pwsh", "-nol", "-wd", "~" },
+    domain = { DomainName = 'local' },
 	},
 }
+
+-- デフォルト起動ドメインの設定
+config.default_domain = 'WSL:Ubuntu'
 -- デフォルト起動シェルの設定
-config.default_prog = { "wsl.exe", "-d", "Ubuntu", "--cd", "~" }
+config.default_prog = { "pwsh", "-nol", "-wd", "~" }
 -- 背景の透明度
 config.window_background_opacity = 0.80
 
 -- ウィンドウを閉じる確認をしない
 config.window_close_confirmation = "NeverPrompt"
 
--- マウス操作の挙動設定
-config.mouse_bindings = {
-	-- 右クリックでクリップボードから貼り付け
-	{
-		event = { Down = { streak = 1, button = "Right" } },
-		mods = "NONE",
-		action = wezterm.action.PasteFrom("Clipboard"),
-	},
-}
-
--- 起動時にウィンドウを最大化
-local mux = wezterm.mux
-wezterm.on("gui-startup", function()
-	local _, _, window = mux.spawn_window({})
-	window:gui_window():maximize()
-end)
-
 -- タブの見た目
 config.use_fancy_tab_bar = false
-local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
-tabline.setup({
-	options = {
-		-- theme = "catppuccin-mocha",
-		theme = "cyberpunk",
-		-- theme = "Cobalt Neon",
-		section_separators = {
-			left = wezterm.nerdfonts.ple_upper_left_triangle,
-			right = wezterm.nerdfonts.ple_lower_right_triangle,
-		},
-		component_separators = {
-			left = wezterm.nerdfonts.ple_forwardslash_separator,
-			right = wezterm.nerdfonts.ple_forwardslash_separator,
-		},
-		tab_separators = {
-			left = wezterm.nerdfonts.ple_upper_left_triangle,
-			right = wezterm.nerdfonts.ple_lower_right_triangle,
-		},
-		color_overrides = {
-			tab = {
-				active = { fg = "#091833", bg = "#59c2c6" },
-			},
-		},
-	},
-	sections = {
-		tab_active = {
-			"index",
-			{ "process", padding = { left = 0, right = 1 } },
-			"",
-			{ "cwd", padding = { left = 1, right = 0 } },
-			{ "zoomed", padding = 1 },
-		},
-		tab_inactive = {
-			"index",
-			{ "process", padding = { left = 0, right = 1 } },
-			"󰉋",
-			{ "cwd", padding = { left = 1, right = 0 } },
-			{ "zoomed", padding = 1 },
-		},
-	},
-})
+config.show_new_tab_button_in_tab_bar = false
+config.tab_max_width = 32
+config.window_decorations = "RESIZE"
+config.window_padding = {
+  left = 0,
+  right = 0,
+  top = 0,
+  bottom = 0,
+}
+config.status_update_interval = 500
+
+-- 自動実行
+for _, cmd in pairs(autocmd) do
+  wezterm.on(cmd.event_name, cmd.callback)
+end
 
 return config
