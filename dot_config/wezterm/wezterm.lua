@@ -32,7 +32,13 @@ config.color_schemes = {
 
 -- フォント設定
 config.font = wezterm.font_with_fallback({
-	{ family = "Moralerspace Argon HWNF" },
+	{
+		family = "Moralerspace Argon HW",
+	},
+	-- {
+	-- 	family = "icomoon",
+	-- 	assume_emoji_presentation = true,
+	-- },
 })
 config.font_size = 13
 
@@ -40,24 +46,24 @@ config.font_size = 13
 config.launch_menu = {
 	{
 		label = "WSL:Ubuntu",
-    domain = { DomainName = 'WSL:Ubuntu' },
+		domain = { DomainName = "WSL:Ubuntu" },
 	},
 	{
 		label = "PowerShell",
 		args = { "pwsh", "-nol", "-wd", "~" },
-    domain = { DomainName = 'local' },
+		domain = { DomainName = "local" },
 	},
 }
 config.wsl_domains = {
-    {
-      name = "WSL:Ubuntu",
-      distribution = "Ubuntu",
-      default_cwd = "~",
-      default_prog = { "zsh" }
-  },
+	{
+		name = "WSL:Ubuntu",
+		distribution = "Ubuntu",
+		default_cwd = "~",
+		default_prog = { "zsh" },
+	},
 }
 -- デフォルト起動ドメインの設定
-config.default_domain = 'WSL:Ubuntu'
+config.default_domain = "WSL:Ubuntu"
 -- デフォルト起動シェルの設定
 config.default_prog = { "pwsh", "-nol", "-wd", "~" }
 
@@ -73,16 +79,16 @@ config.show_new_tab_button_in_tab_bar = false
 config.tab_max_width = 32
 config.window_decorations = "RESIZE"
 config.window_padding = {
-  left = 0,
-  right = 0,
-  top = 0,
-  bottom = 0,
+	left = 0,
+	right = 0,
+	top = 0,
+	bottom = 0,
 }
 config.status_update_interval = 500
 
 -- 自動実行
 for _, cmd in pairs(autocmd) do
-  wezterm.on(cmd.event_name, cmd.callback)
+	wezterm.on(cmd.event_name, cmd.callback)
 end
 
 return config
