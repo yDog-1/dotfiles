@@ -100,34 +100,3 @@ set("t", "<C-W>+",      function () vim.cmd("wincmd +") end )
 set("t", "<C-W>z",      function () vim.cmd("pclose") end )
 set("t", "<C-W><C-Z>",  function () vim.cmd("pclose") end )
 
--- 組み込み LSP キーマッピング
------------------
--- カーソル下のシンボルの情報をホバー表示
-set('n', 'K',  '<cmd>lua vim.lsp.buf.hover()<CR>')
-
--- フォーマットを整える
-set('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-
--- カーソル下のシンボルの参照を一覧表示
-set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-
--- 定義ジャンプ
-set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
--- 型定義にジャンプ
-set('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-
--- 宣言にジャンプ
-set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-
--- カーソル下のシンボルの実装をクイックフィックスウィンドウにリスト...できてる？
-set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-
--- 変数のリネーム
-set('n', 'gn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-
--- VSCodeの電球的な
-set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
--- 電球箇所にジャンプ
-set('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-set('n', 'g[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-
