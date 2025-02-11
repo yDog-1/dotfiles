@@ -13,10 +13,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- <Leader>をスペースキーに設定
-vim.keymap.set("", "<Space>", "<Nop>")
-vim.g.mapleader = ' '
-
 require("lazy").setup({
   spec = {
     { import = "plugins" },

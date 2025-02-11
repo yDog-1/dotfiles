@@ -1,5 +1,9 @@
 local set = vim.keymap.set
 
+-- <Leader>をスペースキーに設定
+vim.keymap.set("", "<Space>", "<Nop>")
+vim.g.mapleader = ' '
+
 -- jjでノーマルモードに戻る
 set(
   'i',
