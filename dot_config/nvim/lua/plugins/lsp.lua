@@ -1,3 +1,8 @@
+local lsp_servers = {
+	"lua_ls",
+	"ts_ls",
+}
+
 local set = vim.keymap.set
 -- カーソル下のシンボの情報をホバー表示
 set("n", "K", vim.lsp.buf.hover)
@@ -18,3 +23,48 @@ set("n", "<Leader>ca", vim.lsp.buf.code_action)
 -- 電球箇所にジャンプ
 set("n", "<Leader>cn", vim.diagnostic.goto_next)
 set("n", "<Leader>cp", vim.diagnostic.goto_prev)
+
+return {
+	{
+		"williamboman/mason.nvim",
+		opts = true,
+	},
+	-- Neovim での LSP 設定APIを提供
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			"williamboman/mason-lspconfig.nvim",
+			"Shougo/ddc-source-lsp",
+		},
+		config = function()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local nvim_lsp = require("lspconfig")
+
+			require("mason-lspconfig").setup_handlers({
+				function(server_name)
+					nvim_lsp[server_name].setup({
+						capabilities = capabilities,
+					})
+				end,
+				-- 以下のように個別に設定することも可能
+				----------------------------------------------
+				-- ["lua_ls"] = function()
+				--   require("lspconfig")["lua_ls"].setup({
+				--     capabilities = capabilities,
+				--     settings = {},
+				--   })
+				-- end,
+			})
+		end,
+	},
+	-- mason.nvim と nvim-lspconfig の連携
+	{
+		"williamboman/mason-lspconfig.nvim",
+		dependencies = {
+			"williamboman/mason.nvim",
+		},
+		opts = {
+			ensure_installed = lsp_servers,
+		},
+	},
+}

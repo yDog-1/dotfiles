@@ -12,12 +12,6 @@ set(
   { silent = true }
 )
 
--- Space + h, j, k, l で、ウィンドウの移動
-set('n', '<Leader>h', '<C-w>h')
-set('n', '<Leader>j', '<C-w>j')
-set('n', '<Leader>k', '<C-w>k')
-set('n', '<Leader>l', '<C-w>l')
-
 -- Alt-h, Alt-l でタブの切り替え
 set('n', '<M-h>', function() vim.cmd('tabNext') end)
 set('n', '<M-l>', function() vim.cmd('tabnext') end)

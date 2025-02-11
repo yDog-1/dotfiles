@@ -1,7 +1,7 @@
 local o = vim.opt
 
 -- ヘルプ言語
-o.helplang = 'ja,en'
+o.helplang = "ja,en"
 
 -- クリップボードをシステムと共有
 o.clipboard = "unnamedplus"
@@ -29,12 +29,8 @@ o.showmatch = true
 -- 行番号の表示
 o.number = true
 
--- 補完メニュー
-o.wildmenu = true
-o.wildmode = {
-  list = true,
-  longest = true
-}
+-- 補完の設定
+o.completeopt = { "menu", "menuone", "noselect" }
 
 -- 検索
 o.hlsearch = true
@@ -56,4 +52,4 @@ o.showbreak = ">>>"
 
 -- 折り畳み設定
 o.foldmethod = "syntax"
-
+o.foldlevel = 99
