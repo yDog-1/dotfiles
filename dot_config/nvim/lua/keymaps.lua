@@ -5,41 +5,29 @@ vim.keymap.set("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
 
 -- jjでノーマルモードに戻る
-set(
-  'i',
-  'jj',
-  '<Esc>',
-  { silent = true }
-)
-
--- Alt-h, Alt-l でタブの切り替え
-set('n', '<M-h>', function() vim.cmd('tabNext') end)
-set('n', '<M-l>', function() vim.cmd('tabnext') end)
-
--- Ctrl-j と Ctrl-k で 段落の前後に移動
-set('n', '<C-j>', '}')
-set('n', '<C-k>', '{')
+set("i", "jj", "<Esc>", { silent = true })
 
 -- Alt-j, Alt-k で上下の行と入れ替える
 -- 最上、最下の行では何も起こさない
-set('n', '<M-j>', function()
-  local current_line = vim.api.nvim_win_get_cursor(0)[1]
-  local last_line = vim.api.nvim_buf_line_count(0)
-  if current_line < last_line then
-    vim.cmd('move .+1')
-  end
-end
-)
-set('n', '<M-k>', function()
-  local current_line = vim.api.nvim_win_get_cursor(0)[1]
-  if current_line > 1 then
-    vim.cmd('move .-2')
-  end
-end
-)
+set("n", "<M-j>", function()
+	local current_line = vim.api.nvim_win_get_cursor(0)[1]
+	local last_line = vim.api.nvim_buf_line_count(0)
+	if current_line < last_line then
+		vim.cmd("move .+1")
+	end
+end)
+set("n", "<M-k>", function()
+	local current_line = vim.api.nvim_win_get_cursor(0)[1]
+	if current_line > 1 then
+		vim.cmd("move .-2")
+	end
+end)
+
+-- Leader + n で、ハイライトを消す
+set("n", "<Leader>n", ":nohlsearch<CR>", { silent = true, desc = "Clear search highlights" })
 
 -- Space + Enter で、カーソルの位置で改行
-set('n', '<Leader><CR>', 'i<CR><Esc>')
+set("n", "<Leader><CR>", "i<CR><Esc>", { desc = "Insert newline from cursor" })
 
 -- Space + o, O で、行の上下に空白行を作成
 set("n", "<Leader>o", 'o<Esc>0"_d$', { desc = "Insert newline below" })
