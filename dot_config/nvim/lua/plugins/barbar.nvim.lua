@@ -1,3 +1,7 @@
+require("plugins.which-key.spec").add({
+	mode = "n",
+	{ "<Leader>b", group = "buffer" },
+})
 
 return {
 	"romgrk/barbar.nvim",

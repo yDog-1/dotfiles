@@ -3,6 +3,10 @@ local lsp_servers = {
 	"ts_ls",
 }
 
+require("plugins.which-key.spec").add({
+	mode = "n",
+	{ "<Leader>c", group = "code" },
+})
 
 return {
 	{
