@@ -29,6 +29,7 @@ return {
 	-- スニペット
 	{
 		"L3MON4D3/LuaSnip",
+		lazy = true,
 		dependencies = {
 			-- 補完と連携
 			"saadparwaiz1/cmp_luasnip",
@@ -101,11 +102,11 @@ return {
 				mapping = cmp.mapping.preset.insert({
 					["<C-d>"] = cmp.mapping.scroll_docs(-4),
 					["<C-u>"] = cmp.mapping.scroll_docs(4),
-					["<C-e>"] = cmp.mapping.complete(),
+					["<C-e>"] = cmp.mapping.abort(),
 					["<C-g>"] = cmp.mapping.abort(),
 
 					["<CR>"] = cmp.mapping(function(fallback)
-						-- 何も選択していないとき
+						-- 何も選択していないときは改行
 						if cmp.get_active_entry() == nil then
 							fallback()
 							return
@@ -146,19 +147,29 @@ return {
 			-- `/` cmdline setup.
 			cmp.setup.cmdline("/", {
 				mapping = cmp.mapping.preset.cmdline(),
+				view = {
+					entries = { name = "wildmenu", separator = "|" },
+				},
 				sources = {
 					{ name = "buffer" },
 				},
 			})
 
-			-- `:` cmdline setup.
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
+				view = {
+					entries = { name = "wildmenu", separator = "|" },
+				},
 				sources = cmp.config.sources({
 					{ name = "path" },
-					{ name = "cmdline" },
+				}, {
+					{
+						name = "cmdline",
+						option = {
+							ignore_cmds = { "Man", "!" },
+						},
+					},
 				}),
-				matching = { disallow_symbol_nonprefix_matching = false },
 			})
 		end,
 	},
