@@ -1,42 +1,29 @@
+
 return {
-  "romgrk/barbar.nvim",
-  dependencies = {
-    "lewis6991/gitsigns.nvim",
-  },
-  init = function()
-    vim.g.barbar_auto_setup = false
-  end,
-  opts = function()
-    local set = vim.keymap.set
-    -- タブの切り替え
-    set("n", "H", function()
-      vim.cmd("BufferPrevious")
-    end)
-    set("n", "L", function()
-      vim.cmd("BufferNext")
-    end)
-
-    -- タブの入れ替え
-    set("n", "<Leader>h", function()
-      vim.cmd("BufferMovePrevious")
-    end)
-    set("n", "<Leader>l", function()
-      vim.cmd("BufferMoveNext")
-    end)
-
-    -- タブのピン
-    set("n", "<Leader>bp", function()
-      vim.cmd("BufferPin")
-    end)
-    -- バッファを閉じる
-    set("n", "<Leader>bc", function()
-      vim.cmd("BufferClose")
-    end)
-
-    return {
-      animation = false,
-      clickable = false,
-    }
-  end,
-  version = "^1.0.0", -- optional: only update when a new 1.x version is released
+	"romgrk/barbar.nvim",
+	dependencies = {
+		"lewis6991/gitsigns.nvim",
+	},
+	version = "^1.0.0",
+	init = function()
+		vim.g.barbar_auto_setup = false
+	end,
+	event = "BufEnter",
+	keys = {
+		{ "H", ":BufferPrevious<CR>", desc = "switch prev tab", silent = true },
+		{ "L", ":BufferNext<CR>", desc = "switch next tab", silent = true },
+		{ "<Leader>b<", ":BufferMovePrevious<CR>", desc = "move tab left", silent = true },
+		{ "<Leader>b>", ":BufferMoveNext<CR>", desc = "move tab right", silent = true },
+		{ "<Leader>bp", ":BufferPin<CR>", desc = "pin tab", silent = true },
+		{ "<Leader>bc", ":BufferClose<CR>", desc = "close tab", silent = true },
+		{ "<Leader>bo", ":BufferCloseAllButCurrentOrPinned<CR>", desc = "close other tabs", silent = true },
+	},
+	opts = {
+		animation = false,
+		auto_hide = 1,
+		clickable = false,
+		icons = {
+			button = false,
+		},
+	},
 }
