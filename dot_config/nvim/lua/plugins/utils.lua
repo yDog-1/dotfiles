@@ -114,4 +114,32 @@ return {
 		end,
 	},
 	-- セッションを自動保存
+	{
+		"rmagatti/auto-session",
+		lazy = false,
+		opts = function()
+			local set = vim.keymap.set
+			-- セッションの保存
+			set("n", "<Leader>ss", ":SessionSave ", { desc = "Save session" })
+			-- セッションの読み込み
+			set("n", "<Leader>fss", ":Autosession search<CR>", { desc = "Load session" })
+			-- セッションの削除
+			set("n", "<Leader>fsd", ":Autosession delete<CR>", { desc = "Delete session" })
+
+			local add = require("plugins.which-key.spec").add
+			add({
+				mode = "n",
+				{ "<Leader>s", group = "session" },
+			})
+			add({
+				mode = "n",
+				{ "<Leader>fs", group = "session" },
+			})
+			return {
+				allowed_dirs = {
+					"~/dev",
+				},
+			}
+		end,
+	},
 }
