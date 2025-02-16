@@ -7,9 +7,6 @@ return {
 			local lazygit = Terminal:new({
 				cmd = "lazygit",
 				direction = "float",
-				float_opts = {
-					border = "single",
-				},
 				hidden = true,
 			})
 
@@ -17,8 +14,9 @@ return {
 				lazygit:toggle()
 			end
 
-			vim.keymap.set("n", "<leader>g", lazygit_toggle, { noremap = true, silent = true })
+			vim.keymap.set("n", "<leader>g", lazygit_toggle, { noremap = true, silent = true, desc = "lazygit" })
 			return {
+				direction = "float",
 				open_mapping = { [[<c-\>]], [[<c-¥>]] },
 			}
 		end,
