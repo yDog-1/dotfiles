@@ -1,5 +1,13 @@
--- skkeleton と nvim-cmp が同時に動くと重いので無効化
-local cmp_enabled = true
+local cmp_sources = {
+	{ name = "path" },
+	{ name = "copilot" },
+	{ name = "nvim_lsp" },
+	{ name = "luasnip" },
+	{ name = "buffer" },
+}
+
+-- skkeleton と nvim-cmp の連携
+local ime_disabled = true
 local toggle_cmp = vim.api.nvim_create_augroup("toggle_cmp", { clear = true })
 vim.api.nvim_create_autocmd("User", {
 	group = toggle_cmp,
@@ -7,12 +15,12 @@ vim.api.nvim_create_autocmd("User", {
 	desc = "skkeletonで日本語入力中は補完を無効に",
 	callback = function()
 		local cmp = require("cmp")
-		if vim.g["skkeleton#mode"] == "" and not cmp_enabled then
-			cmp.setup({ enabled = true })
-			cmp_enabled = true
-		elseif cmp_enabled then
-			cmp.setup({ enabled = false })
-			cmp_enabled = false
+		if vim.g["skkeleton#mode"] == "" and not ime_disabled then
+			cmp.setup({ sources = cmp.config.sources(cmp_sources) })
+			ime_disabled = true
+		elseif ime_disabled then
+			cmp.setup({ sources = { { name = "skkeleton" } } })
+			ime_disabled = false
 		end
 	end,
 })
@@ -46,6 +54,8 @@ return {
 			"L3MON4D3/LuaSnip",
 			-- copilot
 			"zbirenbaum/copilot-cmp",
+			-- skkeleton
+			"uga-rosa/cmp-skkeleton",
 		},
 		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
@@ -81,8 +91,12 @@ return {
 					end,
 				},
 				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
+					completion = cmp.config.window.bordered({
+						zindex = 100,
+					}),
+					documentation = cmp.config.window.bordered({
+						zindex = 100,
+					}),
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -127,13 +141,7 @@ return {
 						end
 					end, { "i", "s" }),
 				}),
-				sources = cmp.config.sources({
-					{ name = "path" },
-					{ name = "copilot" },
-					{ name = "luasnip" },
-					{ name = "nvim_lsp" },
-					{ name = "buffer" },
-				}),
+				sources = cmp.config.sources(cmp_sources),
 			})
 			-- `/` cmdline setup.
 			cmp.setup.cmdline("/", {
@@ -158,13 +166,13 @@ return {
 		"vim-skk/skkeleton",
 		dependencies = {
 			"vim-denops/denops.vim",
-			"delphinus/skkeleton_indicator.nvim",
 		},
 		keys = {
 			-- <C-j>, <C-k>でskkeletonの切り替え
 			{ "<C-j>", "<Plug>(skkeleton-enable)", mode = { "i", "c", "t" } },
 			{ "<C-k>", "<Plug>(skkeleton-disable)", mode = { "i", "c", "t" } },
 		},
+		lazy = true,
 		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
 			vim.fn["skkeleton#config"]({
@@ -188,13 +196,19 @@ return {
 			})
 			-- <CR> で確定
 			vim.fn["skkeleton#register_keymap"]("henkan", "<CR>", "kakutei")
+			require("denops-lazy").load("skkeleton", { wait_load = false })
 		end,
 	},
 	-- skkeletonの入力中、右下にインジケータを表示
 	{
 		"delphinus/skkeleton_indicator.nvim",
 		lazy = true,
+		event = "User DenopsReady",
 		branch = "v2",
-		opts = {},
+		config = function()
+			require("skkeleton_indicator").setup({
+				zindex = 150,
+			})
+		end,
 	},
 }
