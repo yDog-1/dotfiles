@@ -27,6 +27,10 @@ set("n", "<Leader>cp", vim.diagnostic.goto_prev)
 return {
 	{
 		"williamboman/mason.nvim",
+		dependencies = {
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+		},
+		lazy = true,
 		opts = true,
 	},
 	-- Neovim での LSP 設定APIを提供
@@ -36,6 +40,8 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"Shougo/ddc-source-lsp",
 		},
+		event = { "BufReadPre" },
+		cmd = "Mason",
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local nvim_lsp = require("lspconfig")
@@ -46,14 +52,23 @@ return {
 						capabilities = capabilities,
 					})
 				end,
-				-- 以下のように個別に設定することも可能
+				-- 個別設定
 				----------------------------------------------
-				-- ["lua_ls"] = function()
-				--   require("lspconfig")["lua_ls"].setup({
-				--     capabilities = capabilities,
-				--     settings = {},
-				--   })
-				-- end,
+				["lua_ls"] = function()
+					require("lspconfig")["lua_ls"].setup({
+						capabilities = capabilities,
+						settings = {
+							Lua = {
+								diagnostics = {
+									globals = {
+										"vim",
+										"client",
+									},
+								},
+							},
+						},
+					})
+				end,
 			})
 		end,
 	},
@@ -63,6 +78,7 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 		},
+		lazy = true,
 		opts = {
 			ensure_installed = lsp_servers,
 		},
