@@ -142,4 +142,24 @@ return {
 			}
 		end,
 	},
+	-- 存在しないディレクトリを自動で作成
+	{
+		"jghauser/mkdir.nvim",
+		event = { "BufWritePre", "FileWritePre" },
+	},
+	-- 括弧などを自動で閉じる
+	{
+		"cohama/lexima.vim",
+		event = "InsertEnter",
+		init = function()
+			vim.g.lexima_ctrlh_as_backspace = 1
+		end,
+	},
+	-- 囲い文字を上手く扱えるように
+	{
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
+		opts = {},
+	},
 }
