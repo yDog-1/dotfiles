@@ -42,8 +42,8 @@ end
 set('n', '<Leader><CR>', 'i<CR><Esc>')
 
 -- Space + o, O で、行の上下に空白行を作成
-set('n', '<Leader>o', 'o<Esc>')
-set('n', '<Leader>O', 'O<Esc>')
+set("n", "<Leader>o", 'o<Esc>0"_d$', { desc = "Insert newline below" })
+set("n", "<Leader>O", 'O<Esc>0"_d$', { desc = "Insert newline above" })
 
 -- ターミナルでエスケープ
 set("t", "<Esc>", "<C-\\><C-n>")
