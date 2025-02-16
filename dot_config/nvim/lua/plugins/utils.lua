@@ -71,4 +71,47 @@ return {
 			vim.notify = require("notify")
 		end,
 	},
+	-- chzmoi
+	{
+		"xvzc/chezmoi.nvim",
+		lazy = true,
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+		},
+		keys = {
+			{
+				"<leader>.",
+				function()
+					vim.cmd("cd" .. vim.g.chezmoidir)
+					require("telescope").extensions.chezmoi.find_files()
+				end,
+				desc = "Find chezmoi files",
+			},
+		},
+		-- chezmoiのファイルを開いたらこのプラグインを読み込む
+		event = "BufReadPre " .. vim.g.chezmoidir .. "/*",
+		opts = function()
+			-- chezmoiのファイルを開いたら編集モードにする
+			vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+				pattern = { vim.g.chezmoidir .. "/*" },
+				callback = function(ev)
+					local bufnr = ev.buf
+					local edit_watch = function()
+						require("chezmoi.commands.__edit").watch(bufnr)
+					end
+					vim.schedule(edit_watch)
+				end,
+			})
+
+			-- telescope.nvim
+			local telescope = require("telescope")
+			telescope.load_extension("chezmoi")
+			return {
+				edit = {
+					watch = true,
+				},
+			}
+		end,
+	},
+	-- セッションを自動保存
 }
