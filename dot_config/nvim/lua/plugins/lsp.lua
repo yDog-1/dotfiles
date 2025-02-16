@@ -3,26 +3,6 @@ local lsp_servers = {
 	"ts_ls",
 }
 
-local set = vim.keymap.set
--- カーソル下のシンボの情報をホバー表示
-set("n", "K", vim.lsp.buf.hover)
--- カーソル下のシンボルの参照を一覧表示
-set("n", "<Leader>cr", vim.lsp.buf.references)
--- 定義ジャンプ
-set("n", "<Leader>cd", vim.lsp.buf.definition)
--- 型定義にジャンプ
-set("n", "<Leader>ct", vim.lsp.buf.type_definition)
--- 宣言にジャンプ
-set("n", "<Leader>cD", vim.lsp.buf.declaration)
--- カーソル下のシンボルの実装をクイックフィックスウィンドウにリスト...できてる？
-set("n", "<Leader>ci", vim.lsp.buf.implementation)
--- 変数のリネーム
-set("n", "<Leader>cR", vim.lsp.buf.rename)
--- VSCodeの電球的な
-set("n", "<Leader>ca", vim.lsp.buf.code_action)
--- 電球箇所にジャンプ
-set("n", "<Leader>cn", vim.diagnostic.goto_next)
-set("n", "<Leader>cp", vim.diagnostic.goto_prev)
 
 return {
 	{
@@ -81,6 +61,33 @@ return {
 		lazy = true,
 		opts = {
 			ensure_installed = lsp_servers,
+		},
+	},
+	-- UI/UXを改善
+	{
+		"nvimdev/lspsaga.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		event = { "BufReadPre" },
+		keys = {
+			{ "K", "<cmd>Lspsaga hover_doc<CR>", desc = "ホバー" },
+			{ "<Leader>fc", "<cmd>Lspsaga finder<CR>", desc = "宣言を一覧表示" },
+			{ "<Leader>cd", "<cmd>Lspsaga peek_definition<CR>", desc = "定義を確認" },
+			{ "<Leader>ct", "<cmd>Lspsaga peek_type_definition<CR>", desc = "型定義を確認" },
+			{ "<Leader>cn", "<cmd>Lspsaga rename<CR>", desc = "リネーム" },
+			{ "<Leader>co", "<cmd>Lspsaga outline<CR>", desc = "アウトラインを表示" },
+			{ "<Leader>cc", "<cmd>Lspsaga incoming_calls<CR>", desc = "呼び出し元を表示" },
+			{ "<Leader>cC", "<cmd>Lspsaga outgoing_calls<CR>", desc = "呼び出し先を表示" },
+			{ "<Leader>ca", "<cmd>Lspsaga code_action<CR>", desc = "コードアクション" },
+			{ "<Leader>cn", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "次の diagnostic" },
+			{ "<Leader>cp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", desc = "前の diagnostic" },
+		},
+		opts = {
+			lightbulb = {
+				enable = false,
+			},
 		},
 	},
 }
