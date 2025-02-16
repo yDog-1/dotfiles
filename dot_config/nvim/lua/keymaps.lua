@@ -45,12 +45,12 @@ set('n', '<Leader><CR>', 'i<CR><Esc>')
 set('n', '<Leader>o', 'o<Esc>')
 set('n', '<Leader>O', 'O<Esc>')
 
--- ウィンドウ操作
-set('n', '<C-h>', '<C-w>h')
-set('n', '<C-j>', '<C-w>j')
-set('n', '<C-k>', '<C-w>k')
-set('n', '<C-l>', '<C-w>l')
 -- ターミナルでエスケープ
 set("t", "<Esc>", "<C-\\><C-n>")
 
 
+-- ウィンドウ操作
+set("n", "<C-h>", "<C-w>h")
+set("n", "<C-j>", "<C-w>j")
+set("n", "<C-k>", "<C-w>k")
+set("n", "<C-l>", "<C-w>l")
