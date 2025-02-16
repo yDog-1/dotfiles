@@ -162,4 +162,24 @@ return {
 		event = "VeryLazy",
 		opts = {},
 	},
+	-- 検索補助
+	{
+		"kevinhwang91/nvim-hlslens",
+		keys = {
+			{
+				"n",
+				[[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+				desc = "Search next",
+			},
+			{
+				"N",
+				[[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+			},
+			{ "*", [[*<Cmd>lua require('hlslens').start()<CR>]] },
+			{ "#", [[#<Cmd>lua require('hlslens').start()<CR>]] },
+			{ "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]] },
+			{ "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]] },
+		},
+		opts = {},
+	},
 }
