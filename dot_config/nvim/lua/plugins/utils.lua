@@ -1,24 +1,18 @@
+vim.g.chezmoidir = os.getenv("HOME") .. "/.local/share/chezmoi"
 return {
-	-- 日本語ドキュメント
-	{ "vim-jp/vimdoc-ja" },
-	{
-		-- アイコンプラグイン
-		-- 前提ライブラリ
-		"nvim-tree/nvim-web-devicons",
-		lazy = true,
-	},
-	{
-		-- UIコンポーネントライブラリ
-		-- 前提ライブラリ
-		"MunifTanjim/nui.nvim",
-		lazy = true,
-	},
+	-- アイコンプラグイン
+	{ "nvim-tree/nvim-web-devicons", lazy = true },
+	-- UIコンポーネントライブラリ
+	{ "MunifTanjim/nui.nvim", lazy = true },
+	-- 便利ライブラリ
+	{ "nvim-lua/plenary.nvim", lazy = true },
 	-- Vimの対応言語を増やし、ハイライト・インデント・ファイルタイプの検出機能を拡張するプラグイン
-	{ "sheerun/vim-polyglot" },
+	{ "sheerun/vim-polyglot", event = { "BufReadPre", "BufNewFile" } },
+	-- syntax highlightなどをいい感じにするプラグイン
 	{
-		-- syntax highlightなどをいい感じにするプラグイン
-		-- vim-polyglotといい感じに併用してくれる
+		-- 何もしなくても vim-polyglot といい感じに連携してくれる
 		"nvim-treesitter/nvim-treesitter",
+		event = { "BufReadPre", "BufNewFile" },
 		build = ":TSUpdate",
 		config = function()
 			local configs = require("nvim-treesitter.configs")
@@ -35,8 +29,8 @@ return {
 			opt.foldexpr = "nvim_treesitter#foldexpr()"
 		end,
 	},
+	-- インデントを強調表示
 	{
-		-- インデントを強調表示
 		"shellRaining/hlchunk.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
@@ -51,8 +45,8 @@ return {
 			},
 		},
 	},
+	-- ステータスラインをカスタマイズ
 	{
-		-- ステータスラインをカスタマイズ
 		"nvim-lualine/lualine.nvim",
 		opts = {
 			options = {
@@ -64,8 +58,8 @@ return {
 			},
 		},
 	},
+	-- 通知を表示
 	{
-		-- 通知を表示
 		"rcarriga/nvim-notify",
 		config = function()
 			vim.notify = require("notify")
