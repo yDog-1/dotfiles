@@ -13,7 +13,7 @@ return {
 					require("conform").format({ async = true })
 				end,
 				mode = "n",
-				desc = "Format buffer",
+				desc = "コードをフォーマット",
 			},
 		},
 		opts = {
@@ -31,9 +31,7 @@ return {
 	},
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		dependencies = {
-			"williamboman/mason.nvim",
-		},
+		lazy = true,
 		opts = {
 			ensure_installed = install_tools,
 		},
