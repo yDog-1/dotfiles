@@ -33,9 +33,6 @@ set("n", "<Leader><CR>", "i<CR><Esc>", { desc = "Insert newline from cursor" })
 set("n", "<Leader>o", 'o<Esc>0"_d$', { desc = "Insert newline below" })
 set("n", "<Leader>O", 'O<Esc>0"_d$', { desc = "Insert newline above" })
 
--- ターミナルでエスケープ
-set("t", "<Esc>", "<C-\\><C-n>")
-
 -- Xをブラックホール register に割り当て
 set({ "n", "v" }, "x", '"_x')
 set({ "n", "v" }, "X", '"_d')
