@@ -171,11 +171,28 @@ return {
 			{
 				"N",
 				[[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+				desc = "Search previous",
 			},
-			{ "*", [[*<Cmd>lua require('hlslens').start()<CR>]] },
-			{ "#", [[#<Cmd>lua require('hlslens').start()<CR>]] },
-			{ "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]] },
-			{ "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]] },
+			{
+				"*",
+				[[*<Cmd>lua require('hlslens').start()<CR>]],
+				desc = "Search word under cursor",
+			},
+			{
+				"#",
+				[[#<Cmd>lua require('hlslens').start()<CR>]],
+				desc = "Search word under cursor backward",
+			},
+			{
+				"g*",
+				[[g*<Cmd>lua require('hlslens').start()<CR>]],
+				desc = "Search word under cursor (whole word)",
+			},
+			{
+				"g#",
+				[[g#<Cmd>lua require('hlslens').start()<CR>]],
+				desc = "Search word under cursor backward (whole word)",
+			},
 		},
 		opts = {},
 	},
