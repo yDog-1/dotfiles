@@ -72,12 +72,15 @@ return {
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
 		},
+		cmd = {
+			"Telescope chezmoi",
+		},
 		keys = {
 			{
 				"<leader>.",
 				function()
-					vim.cmd("cd" .. vim.g.chezmoidir)
 					require("telescope").extensions.chezmoi.find_files()
+					vim.cmd("cd" .. vim.g.chezmoidir)
 				end,
 				desc = "Find chezmoi files",
 			},
