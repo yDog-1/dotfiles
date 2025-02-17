@@ -214,6 +214,4 @@ return {
 			require("denops-lazy").load("treemonkey")
 		end,
 	},
-	-- which-key
-	require("plugins/which-key"),
 }
