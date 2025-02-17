@@ -18,6 +18,9 @@ return {
 			-- ヘルプタグ
 			{ "<Leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Help tags" },
 		},
+		cmd = {
+			"Telescope",
+		},
 		dependencies = {
 			-- `vim.ui.select`を telescope で開く
 			"nvim-telescope/telescope-ui-select.nvim",
