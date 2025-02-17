@@ -75,16 +75,6 @@ return {
 		cmd = {
 			"Telescope chezmoi",
 		},
-		keys = {
-			{
-				"<leader>.",
-				function()
-					require("telescope").extensions.chezmoi.find_files()
-					vim.cmd("cd" .. vim.g.chezmoidir)
-				end,
-				desc = "Find chezmoi files",
-			},
-		},
 		-- chezmoiのファイルを開いたらこのプラグインを読み込む
 		event = "BufReadPre " .. vim.g.chezmoidir .. "/*",
 		opts = function()
