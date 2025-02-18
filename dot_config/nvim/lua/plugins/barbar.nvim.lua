@@ -1,6 +1,6 @@
 require("plugins.which-key.spec").add({
 	mode = "n",
-	{ "<Leader>b", group = "buffer" },
+	{ "<Leader>b", group = "barbar" },
 })
 
 return {
