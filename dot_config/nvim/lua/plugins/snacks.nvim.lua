@@ -5,6 +5,7 @@ return {
 	keys = {
 		{ "<leader>.", "<cmd>lua Snacks.dashboard()<CR>", desc = "Dashboard" },
 		{ "<leader>gB", "<cmd>lua Snacks.gitbrowse()<CR>", desc = "Browse git repository" },
+		{ "<leader>fr", "<cmd>lua Snacks.dashboard.pick('oldfiles')<CR>", desc = "Recent files" },
 	},
 	opts = {
 		dashboard = {
