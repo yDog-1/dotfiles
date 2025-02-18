@@ -1,6 +1,6 @@
 require("plugins.which-key.spec").add({
 	mode = "n",
-	{ "<Leader>b", group = "barbar" },
+	{ "<Leader>b", group = "barbar", icon = { icon = "󰓩 ", color = "purple" } },
 })
 
 return {
