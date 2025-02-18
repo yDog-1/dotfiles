@@ -10,6 +10,39 @@ require("plugins.which-key.spec").add({
 
 return {
 	{
+		"lambdalisue/vim-gin",
+		lazy = true,
+		cmd = {
+			"Gin",
+			"GinBuffer",
+			"GinBranch",
+			"GinBrowse",
+			"GinCd",
+			"GinLcd",
+			"GinTcd",
+			"GinChaperon",
+			"GinDiff",
+			"GinEdit",
+			"GinLog",
+			"GinPatch",
+			"GinStatus",
+		},
+		keys = {
+			{ "<Leader>gp", "<cmd>Gin push<CR>", desc = "Push" },
+			{ "<Leader>gP", "<cmd>Gin pull --autostash<CR>", desc = "Pull" },
+			{ "<leader>gs", "<Cmd>GinStatus<Cr>", desc = "Status" },
+			{ "<leader>gb", "<Cmd>GinBranch<Cr>", desc = "Branch" },
+			{ "<leader>gl", "<Cmd>GinLog<Cr>", desc = "Log" },
+			{ "<leader>gc", "<Cmd>Gin commit<Cr>", desc = "Commit" },
+			{ "<leader>gf", ":Gin fetch ", desc = "Fetch" },
+			{ "<leader>gm", ":Gin merge ", desc = "Merge" },
+			{ "<leader>g<C-r>", ":Gin rebase --autostash ", desc = "Rebase" },
+		},
+		config = function()
+			require("denops-lazy").load("vim-gin", { wait_load = false })
+		end,
+	},
+	{
 		"lewis6991/gitsigns.nvim",
 		event = "BufRead",
 		keys = function()
@@ -38,10 +71,10 @@ return {
 					desc = "Previous hunk",
 				},
 				-- Actions
-				{ "<leader>gs", gitsigns.stage_hunk, desc = "Stage hunk" },
+				{ "<leader>ga", gitsigns.stage_hunk, desc = "Stage hunk" },
 				{ "<leader>gr", gitsigns.reset_hunk, desc = "Reset hunk" },
 				{
-					"<leader>gs",
+					"<leader>ga",
 					function()
 						gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 					end,
@@ -56,12 +89,12 @@ return {
 					mode = "v",
 					desc = "Reset hunk",
 				},
-				{ "<leader>gS", gitsigns.stage_buffer, desc = "Stage buffer" },
+				{ "<leader>gA", gitsigns.stage_buffer, desc = "Stage buffer" },
 				{ "<leader>gR", gitsigns.reset_buffer, desc = "Reset buffer" },
 				{ "<leader>gp", gitsigns.preview_hunk, desc = "Preview hunk" },
 				{ "<leader>gi", gitsigns.preview_hunk_inline, desc = "Preview hunk inline" },
 				{
-					"<leader>gb",
+					"<leader>g<C-b>",
 					function()
 						gitsigns.blame_line({ full = true })
 					end,
