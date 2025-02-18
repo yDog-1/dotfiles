@@ -4,6 +4,7 @@ return {
 	lazy = false,
 	keys = {
 		{ "<leader>.", "<cmd>lua Snacks.dashboard()<CR>", desc = "Dashboard" },
+		{ "<leader>gb", "<cmd>lua Snacks.gitbrowse()<CR>", desc = "Browse git repository" },
 	},
 	opts = {
 		dashboard = {
