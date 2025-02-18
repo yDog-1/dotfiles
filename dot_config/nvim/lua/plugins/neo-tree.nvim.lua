@@ -5,7 +5,8 @@ return {
 		branch = "v3.x",
 		keys = {
 			-- ネオツリーを開く
-			{ "<Leader>e", ":Neotree filesystem reveal left<CR>", desc = "Open neotree" },
+			{ "<Leader>e", "<cmd>Neotree filesystem reveal_force_cwd left<CR>", desc = "Open Neo-tree" },
+			{ "<Leader>E", "<cmd>Neotree filesystem reveal_force_cwd float<CR>", desc = "Open float Neo-tree" },
 		},
 		cmd = "Neotree",
 		opts = function(_, opts)
