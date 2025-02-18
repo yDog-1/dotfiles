@@ -22,6 +22,16 @@ return {
 				{ event = events.FILE_RENAMED, handler = on_move },
 			})
 
+			-- オープン時に Neo-tree を自動で閉じる
+			vim.list_extend(opts.event_handlers, {
+				{
+					event = events.FILE_OPEN_REQUESTED,
+					handler = function()
+						require("neo-tree.command").execute({ action = "close" })
+					end,
+				},
+			})
+
 			opts.filesystem = {
 				filtered_items = {
 					hide_dotfiles = false,
