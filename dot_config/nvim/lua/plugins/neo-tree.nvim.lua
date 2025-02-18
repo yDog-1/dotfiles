@@ -38,6 +38,18 @@ return {
 					hide_gitignored = false,
 					hide_hidden = false,
 				},
+			}
+
+			opts.window = {
+				mappings = {
+					["P"] = {
+						"toggle_preview",
+						config = {
+							use_float = true,
+						},
+					},
+				},
+			}
 		end,
 	},
 }
