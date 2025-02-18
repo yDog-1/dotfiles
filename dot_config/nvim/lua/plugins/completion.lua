@@ -1,4 +1,5 @@
 local cmp_sources = {
+	{ name = "nvim_lsp_signature_help" },
 	{ name = "path" },
 	{ name = "copilot" },
 	{ name = "nvim_lsp" },
@@ -53,6 +54,8 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			-- スニペット
 			"L3MON4D3/LuaSnip",
+			-- 関数のシグネチャを表示
+			"hrsh7th/cmp-nvim-lsp-signature-help",
 			-- copilot
 			"zbirenbaum/copilot-cmp",
 			-- skkeleton
@@ -142,6 +145,9 @@ return {
 						end
 					end, { "i", "s" }),
 				}),
+				experimental = {
+					ghost_text = true,
+				},
 				sources = cmp.config.sources(cmp_sources),
 			})
 			-- `/` cmdline setup.
