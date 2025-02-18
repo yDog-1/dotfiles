@@ -95,12 +95,13 @@ return {
 					end,
 				},
 				window = {
-					completion = cmp.config.window.bordered({
+					completion = {
+						scrollbar = false,
 						zindex = 100,
-					}),
-					documentation = cmp.config.window.bordered({
+					},
+					documentation = {
 						zindex = 100,
-					}),
+					},
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-d>"] = cmp.mapping.scroll_docs(-4),
