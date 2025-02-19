@@ -37,6 +37,7 @@ return {
 						end,
 					},
 					{ icon = " ", key = "s", desc = "Session", action = ":Autosession search" },
+					{ icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
 					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 				},
 				{
