@@ -96,6 +96,8 @@ return {
 						[[<Cmd>lua vim.notify("Gin pull")<Cr><Cmd>Gin pull<Cr>]],
 						opts({ desc = "Pull" })
 					)
+					keymap({ "n" }, "if", "<Plug>(gin-action-fixup:instant-fixup)", opts({ desc = "Fixup" }))
+					keymap({ "n" }, "ir", "<Plug>(gin-action-fixup:instant-reword)", opts({ desc = "Reword" }))
 				end,
 			})
 
