@@ -15,6 +15,23 @@ require("plugins.which-key.spec").add({
 
 return {
 	{
+		"sindrets/diffview.nvim",
+		lazy = true,
+		keys = {
+			{ "<leader>gd", "<cmd>DiffviewOpen<CR>", desc = "Open diffview" },
+		},
+		opts = {
+			keymaps = {
+				view = {
+					{ "n", "<C-q>", "<cmd>DiffviewClose<CR>", { desc = "Close diffview" } },
+				},
+				file_panel = {
+					{ "n", "<C-q>", "<cmd>DiffviewClose<CR>", { desc = "Close diffview" } },
+				},
+			},
+		},
+	},
+	{
 		"lambdalisue/vim-gin",
 		lazy = true,
 		cmd = {
@@ -129,14 +146,6 @@ return {
 						gitsigns.blame_line({ full = true })
 					end,
 					desc = "Blame on the current line",
-				},
-				{ "<leader>gd", gitsigns.diffthis, desc = "Index diff" },
-				{
-					"<leader>gD",
-					function()
-						gitsigns.diffthis("~")
-					end,
-					desc = "HEAD diff",
 				},
 				{ "<leader>gq", gitsigns.setqflist, desc = "Open hunks list" },
 				{
