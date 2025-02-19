@@ -5,6 +5,11 @@ require("plugins.which-key.spec").add({
 
 require("plugins.which-key.spec").add({
 	mode = "n",
+	{ "<C-g>", proxy = "<Leader>g" },
+})
+
+require("plugins.which-key.spec").add({
+	mode = "n",
 	{ "<Leader>gt", group = "Toggle" },
 })
 
