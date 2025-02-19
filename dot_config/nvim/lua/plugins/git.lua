@@ -15,23 +15,6 @@ require("plugins.which-key.spec").add({
 
 return {
 	{
-		"sindrets/diffview.nvim",
-		lazy = true,
-		keys = {
-			{ "<leader>gd", "<cmd>DiffviewOpen<CR>", desc = "Open diffview" },
-		},
-		opts = {
-			keymaps = {
-				view = {
-					{ "n", "<C-q>", "<cmd>DiffviewClose<CR>", { desc = "Close diffview" } },
-				},
-				file_panel = {
-					{ "n", "<C-q>", "<cmd>DiffviewClose<CR>", { desc = "Close diffview" } },
-				},
-			},
-		},
-	},
-	{
 		"lambdalisue/vim-gin",
 		lazy = true,
 		cmd = {
@@ -54,7 +37,8 @@ return {
 			{ "<Leader>gP", "<cmd>Gin pull --autostash<CR>", desc = "Pull" },
 			{ "<leader>gs", "<Cmd>GinStatus<Cr>", desc = "Status" },
 			{ "<leader>gb", "<Cmd>GinBranch<Cr>", desc = "Branch" },
-			{ "<leader>gl", "<Cmd>GinLog<Cr>", desc = "Log" },
+			{ "<leader>gd", "<Cmd>GinDiff<Cr>", desc = "Diff" },
+			{ "<leader>gl", "<Cmd>GinLog --graph<Cr>", desc = "Log" },
 			{ "<leader>gc", "<Cmd>Gin commit<Cr>", desc = "Commit" },
 			{ "<leader>gf", ":Gin fetch ", desc = "Fetch" },
 			{ "<leader>gm", ":Gin merge ", desc = "Merge" },
