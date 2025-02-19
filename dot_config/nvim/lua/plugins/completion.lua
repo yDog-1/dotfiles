@@ -5,6 +5,7 @@ local cmp_sources = {
 	{ name = "nvim_lsp" },
 	{ name = "luasnip" },
 	{ name = "buffer" },
+	{ name = "git" },
 }
 
 -- skkeleton と nvim-cmp の連携
@@ -60,6 +61,8 @@ return {
 			"zbirenbaum/copilot-cmp",
 			-- skkeleton
 			"uga-rosa/cmp-skkeleton",
+			-- Git
+			"petertriho/cmp-git",
 		},
 		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
