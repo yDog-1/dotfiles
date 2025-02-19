@@ -45,3 +45,6 @@ set("n", "<C-h>", "<C-w>h")
 set("n", "<C-j>", "<C-w>j")
 set("n", "<C-k>", "<C-w>k")
 set("n", "<C-l>", "<C-w>l")
+
+-- Quickfix
+set("n", "<Leader>q", "<cmd>copen<CR>", { desc = "Open quickfix" })
