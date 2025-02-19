@@ -21,7 +21,12 @@ vim.api.nvim_create_autocmd("User", {
 			cmp.setup({ sources = cmp.config.sources(cmp_sources) })
 			ime_disabled = true
 		elseif ime_disabled then
-			cmp.setup({ sources = { { name = "skkeleton" } } })
+			cmp.setup({
+				sources = {
+					{ name = "skkeleton" },
+					{ name = "copilot" },
+				},
+			})
 			ime_disabled = false
 		end
 	end,
