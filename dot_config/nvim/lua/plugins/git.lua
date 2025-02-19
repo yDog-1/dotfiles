@@ -10,7 +10,7 @@ require("plugins.which-key.spec").add({
 
 require("plugins.which-key.spec").add({
 	mode = "n",
-	{ "<Leader>gt", group = "Toggle" },
+	{ "<Leader>t", group = "Toggle" },
 })
 
 return {
@@ -54,7 +54,7 @@ return {
 			require("denops-lazy").load("vim-gin", { wait_load = false })
 
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "gin-diff", "gin-log", "gin-status" },
+				pattern = { "gin", "gin-diff", "gin-log", "gin-status" },
 				callback = function()
 					local keymap = vim.keymap.set
 					local opts = function(o)
