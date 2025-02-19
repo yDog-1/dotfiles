@@ -48,3 +48,10 @@ set("n", "<C-l>", "<C-w>l")
 
 -- Quickfix
 set("n", "<Leader>q", "<cmd>copen<CR>", { desc = "Open quickfix" })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "qf",
+	callback = function()
+		set("n", "q", "<cmd>cclose<CR>", { desc = "Close quickfix", noremap = true, buffer = true })
+	end,
+})
