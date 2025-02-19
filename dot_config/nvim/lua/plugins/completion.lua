@@ -68,6 +68,9 @@ return {
 			"uga-rosa/cmp-skkeleton",
 			-- Git
 			"petertriho/cmp-git",
+			-- コマンドラインでの `input()` プロンプトの補完
+			-- vim-gin の action で使う
+			"teramako/cmp-cmdline-prompt.nvim",
 		},
 		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
@@ -184,6 +187,13 @@ return {
 							ignore_cmds = { "Man", "!" },
 						},
 					},
+				}),
+			})
+
+			-- input()
+			cmp.setup.cmdline("@", {
+				sources = cmp.config.sources({
+					{ name = "cmdline-prompt" },
 				}),
 			})
 		end,
