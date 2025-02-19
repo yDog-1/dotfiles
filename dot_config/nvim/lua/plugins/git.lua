@@ -73,14 +73,29 @@ return {
 				pattern = { "gin-diff", "gin-log", "gin-status" },
 				callback = function()
 					local keymap = vim.keymap.set
-					local opts = { buffer = true, noremap = true }
-					keymap({ "n" }, "c", "<Cmd>Gin commit<Cr>", opts)
-					keymap({ "n" }, "s", "<Cmd>GinStatus<Cr>", opts)
-					keymap({ "n" }, "L", "<Cmd>GinLog --graph --oneline<Cr>", opts)
-					keymap({ "n" }, "d", "<Cmd>GinDiff --cached<Cr>", opts)
-					keymap({ "n" }, "q", "<Cmd>bdelete<Cr>", opts)
-					keymap({ "n" }, "p", [[<Cmd>lua vim.notify("Gin push")<Cr><Cmd>Gin push<Cr>]], opts)
-					keymap({ "n" }, "P", [[<Cmd>lua vim.notify("Gin pull")<Cr><Cmd>Gin pull<Cr>]], opts)
+					local opts = function(o)
+						for k, v in pairs({ buffer = true, noremap = true }) do
+							o[k] = v
+						end
+						return o
+					end
+					keymap({ "n" }, "c", "<Cmd>Gin commit<Cr>", opts({ desc = "Commit" }))
+					keymap({ "n" }, "s", "<Cmd>GinStatus<Cr>", opts({ desc = "Status" }))
+					keymap({ "n" }, "L", "<Cmd>GinLog --graph --oneline<Cr>", opts({ desc = "Log" }))
+					keymap({ "n" }, "d", "<Cmd>GinDiff --staged<Cr>", opts({ desc = "Diff" }))
+					keymap({ "n" }, "q", "<Cmd>bdelete<Cr>", opts({ desc = "Close" }))
+					keymap(
+						{ "n" },
+						"p",
+						[[<Cmd>lua vim.notify("Gin push")<Cr><Cmd>Gin push<Cr>]],
+						opts({ desc = "Push" })
+					)
+					keymap(
+						{ "n" },
+						"P",
+						[[<Cmd>lua vim.notify("Gin pull")<Cr><Cmd>Gin pull<Cr>]],
+						opts({ desc = "Pull" })
+					)
 				end,
 			})
 
@@ -88,9 +103,14 @@ return {
 				pattern = "gin-status",
 				callback = function()
 					local keymap = vim.keymap.set
-					local opts = { buffer = true, noremap = true }
-					keymap({ "n" }, "h", "<Plug>(gin-action-stage)", opts)
-					keymap({ "n" }, "l", "<Plug>(gin-action-unstage)", opts)
+					local opts = function(o)
+						for k, v in pairs({ buffer = true, noremap = true }) do
+							o[k] = v
+						end
+						return o
+					end
+					keymap({ "n" }, "h", "<Plug>(gin-action-stage)", opts({ desc = "Stage" }))
+					keymap({ "n" }, "l", "<Plug>(gin-action-unstage)", opts({ desc = "Unstage" }))
 				end,
 			})
 		end,
