@@ -60,6 +60,12 @@ return {
 			{ "<leader>gm", ":Gin merge ", desc = "Merge" },
 			{ "<leader>g<C-r>", ":Gin rebase --autostash ", desc = "Rebase" },
 		},
+		init = function()
+			-- git での確認をスキップ
+			vim.g["gin_proxy_apply_without_confirm"] = 1
+			-- エディタの開き方
+			vim.g["gin_proxy_editor_opener"] = "split"
+		end,
 		config = function()
 			require("denops-lazy").load("vim-gin", { wait_load = false })
 
