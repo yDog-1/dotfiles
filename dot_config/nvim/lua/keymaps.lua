@@ -24,7 +24,7 @@ set("n", "<M-k>", function()
 end)
 
 -- Leader + n で、ハイライトを消す
-set("n", "<Leader>n", ":nohlsearch<CR>", { silent = true, desc = "Clear search highlights" })
+set("n", "<Leader>n", "<cmd>nohlsearch<CR>", { desc = "Clear search highlights" })
 
 -- Space + Enter で、カーソルの位置で改行
 set("n", "<Leader><CR>", "i<CR><Esc>", { desc = "Insert newline from cursor" })
