@@ -6,6 +6,7 @@ local cmp_sources = {
 	{ name = "luasnip" },
 	{ name = "buffer" },
 	{ name = "git" },
+	{ name = "lazydev", group_index = 0 },
 }
 
 -- skkeleton と nvim-cmp の連携
@@ -33,6 +34,16 @@ vim.api.nvim_create_autocmd("User", {
 })
 
 return {
+	-- Neovimに最適化された LuaLS
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {
+			library = {
+				"LazyVim",
+			},
+		},
+	},
 	-- スニペット
 	{
 		"L3MON4D3/LuaSnip",
