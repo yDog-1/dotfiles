@@ -141,7 +141,7 @@ return {
 				},
 				{ "<leader>gA", gitsigns.stage_buffer, desc = "Stage buffer" },
 				{ "<leader>gR", gitsigns.reset_buffer, desc = "Reset buffer" },
-				{ "<leader>gp", gitsigns.preview_hunk, desc = "Preview hunk" },
+				{ "<leader>gh", gitsigns.preview_hunk, desc = "Preview hunk" },
 				{ "<leader>gi", gitsigns.preview_hunk_inline, desc = "Preview hunk inline" },
 				{
 					"<leader>g<C-b>",
@@ -159,9 +159,9 @@ return {
 					desc = "Open all hunks list",
 				},
 				-- Toggles
-				{ "<leader>gtb", gitsigns.toggle_current_line_blame, desc = "Blame" },
-				{ "<leader>gtd", gitsigns.toggle_deleted, desc = "Deleted" },
-				{ "<leader>gtw", gitsigns.toggle_word_diff, desc = "Word diff" },
+				{ "<leader>tb", gitsigns.toggle_current_line_blame, desc = "Blame" },
+				{ "<leader>td", gitsigns.toggle_deleted, desc = "Deleted" },
+				{ "<leader>tw", gitsigns.toggle_word_diff, desc = "Word diff" },
 				-- Text object
 				{ "ih", gitsigns.select_hunk, mode = { "o", "x" }, desc = "inner hunk" },
 			}
