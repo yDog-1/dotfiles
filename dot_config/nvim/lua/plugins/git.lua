@@ -63,6 +63,9 @@ return {
 						end
 						return o
 					end
+					set("n", "a", function()
+						require("telescope.builtin").keymaps({ default_text = "gin-action " })
+					end, opts({ desc = "Find gin-action" }))
 					set({ "n" }, "<CR>", "<Plug>(gin-action-show:split)", opts({ desc = "Show detail" }))
 					set({ "n" }, "c", "<Cmd>Gin commit<Cr>", opts({ desc = "Commit" }))
 					set({ "n" }, "s", "<Cmd>GinStatus<Cr>", opts({ desc = "Status" }))
