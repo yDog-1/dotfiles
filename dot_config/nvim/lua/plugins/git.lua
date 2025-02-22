@@ -8,11 +8,6 @@ require("plugins.which-key.spec").add({
 	{ "<C-g>", proxy = "<Leader>g" },
 })
 
-require("plugins.which-key.spec").add({
-	mode = "n",
-	{ "<Leader>t", group = "Toggle" },
-})
-
 return {
 	{
 		"lambdalisue/vim-gin",
@@ -161,10 +156,6 @@ return {
 					end,
 					desc = "Open all hunks list",
 				},
-				-- Toggles
-				{ "<leader>tb", gitsigns.toggle_current_line_blame, desc = "Blame" },
-				{ "<leader>td", gitsigns.toggle_deleted, desc = "Deleted" },
-				{ "<leader>tw", gitsigns.toggle_word_diff, desc = "Word diff" },
 				-- Text object
 				{ "ih", gitsigns.select_hunk, mode = { "o", "x" }, desc = "inner hunk" },
 			}
