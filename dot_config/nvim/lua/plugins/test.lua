@@ -82,6 +82,13 @@ return {
 			end
 
 			require("neotest").setup(opts)
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "neotest-summary", "neotest-output-pannel" },
+				callback = function()
+					vim.keymap.set("n", "q", "<C-w>q", { desc = "quit" })
+				end,
+			})
 		end,
 		keys = {
 			{
