@@ -13,7 +13,7 @@ return {
 					require("conform").format({ async = true })
 				end,
 				mode = "n",
-				desc = "コードをフォーマット",
+				desc = "format cuurent file",
 			},
 		},
 		opts = {
