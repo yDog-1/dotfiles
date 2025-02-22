@@ -47,7 +47,6 @@ return {
 				end,
 			},
 			output = { open_on_run = true },
-			status = { virtual_text = true },
 			summary = { open = "topleft vsplit | vertical resize 50" },
 		},
 		config = function(_, opts)
