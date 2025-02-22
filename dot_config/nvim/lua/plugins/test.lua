@@ -102,6 +102,7 @@ return {
 				"<leader>tf",
 				function()
 					require("neotest").run.run(vim.fn.expand("%"))
+					require("neotest").summary.open()
 				end,
 				desc = "run file",
 			},
@@ -110,6 +111,7 @@ return {
 				function()
 					---@diagnostic disable-next-line: undefined-field
 					require("neotest").run.run(vim.uv.cwd())
+					require("neotest").summary.open()
 				end,
 				desc = "all files",
 			},
@@ -117,6 +119,7 @@ return {
 				"<leader>tS",
 				function()
 					require("neotest").run.run({ suite = true })
+					require("neotest").summary.open()
 				end,
 				desc = "suite",
 			},
@@ -124,6 +127,7 @@ return {
 				"<leader>tn",
 				function()
 					require("neotest").run.run()
+					require("neotest").summary.open()
 				end,
 				desc = "nearest",
 			},
@@ -131,6 +135,7 @@ return {
 				"<leader>tl",
 				function()
 					require("neotest").run.run_last()
+					require("neotest").summary.open()
 				end,
 				desc = "last",
 			},
