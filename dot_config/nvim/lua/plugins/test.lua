@@ -34,6 +34,18 @@ return {
 					},
 				},
 			},
+			consumers = {
+				-- テスト完了時に通知
+				notify = function(client)
+					client.listeners.results = function(_, _, partial)
+						if partial then
+							return
+						end
+						require("neotest.lib").notify("Tests completed")
+					end
+					return {}
+				end,
+			},
 			output = { open_on_run = true },
 			status = { virtual_text = true },
 			summary = { open = "topleft vsplit | vertical resize 50" },
