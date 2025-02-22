@@ -56,47 +56,38 @@ return {
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = { "gin", "gin-diff", "gin-log", "gin-status" },
 				callback = function()
-					local keymap = vim.keymap.set
+					local set = vim.keymap.set
 					local opts = function(o)
 						for k, v in pairs({ buffer = true, noremap = true }) do
 							o[k] = v
 						end
 						return o
 					end
-					keymap({ "n" }, "c", "<Cmd>Gin commit<Cr>", opts({ desc = "Commit" }))
-					keymap({ "n" }, "s", "<Cmd>GinStatus<Cr>", opts({ desc = "Status" }))
-					keymap({ "n" }, "L", "<Cmd>GinLog --graph --oneline<Cr>", opts({ desc = "Log" }))
-					keymap({ "n" }, "d", "<Cmd>GinDiff --staged<Cr>", opts({ desc = "Diff" }))
-					keymap({ "n" }, "q", "<Cmd>bdelete<Cr>", opts({ desc = "Close" }))
-					keymap(
-						{ "n" },
-						"p",
-						[[<Cmd>lua vim.notify("Gin push")<Cr><Cmd>Gin push<Cr>]],
-						opts({ desc = "Push" })
-					)
-					keymap(
-						{ "n" },
-						"P",
-						[[<Cmd>lua vim.notify("Gin pull")<Cr><Cmd>Gin pull<Cr>]],
-						opts({ desc = "Pull" })
-					)
-					keymap({ "n" }, "if", "<Plug>(gin-action-fixup:instant-fixup)", opts({ desc = "Fixup" }))
-					keymap({ "n" }, "ir", "<Plug>(gin-action-fixup:instant-reword)", opts({ desc = "Reword" }))
+					set({ "n" }, "<CR>", "<Plug>(gin-action-show:split)", opts({ desc = "Show detail" }))
+					set({ "n" }, "c", "<Cmd>Gin commit<Cr>", opts({ desc = "Commit" }))
+					set({ "n" }, "s", "<Cmd>GinStatus<Cr>", opts({ desc = "Status" }))
+					set({ "n" }, "L", "<Cmd>GinLog --graph<Cr>", opts({ desc = "Log" }))
+					set({ "n" }, "d", "<Cmd>GinDiff --staged<Cr>", opts({ desc = "Diff" }))
+					set({ "n" }, "q", "<Cmd>bdelete<Cr>", opts({ desc = "Close" }))
+					set({ "n" }, "p", [[<Cmd>lua vim.notify("Gin push")<Cr><Cmd>Gin push<Cr>]], opts({ desc = "Push" }))
+					set({ "n" }, "P", [[<Cmd>lua vim.notify("Gin pull")<Cr><Cmd>Gin pull<Cr>]], opts({ desc = "Pull" }))
+					set({ "n" }, "if", "<Plug>(gin-action-fixup:instant-fixup)", opts({ desc = "Fixup" }))
+					set({ "n" }, "ir", "<Plug>(gin-action-fixup:instant-reword)", opts({ desc = "Reword" }))
 				end,
 			})
 
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = "gin-status",
 				callback = function()
-					local keymap = vim.keymap.set
+					local set = vim.keymap.set
 					local opts = function(o)
 						for k, v in pairs({ buffer = true, noremap = true }) do
 							o[k] = v
 						end
 						return o
 					end
-					keymap({ "n" }, "h", "<Plug>(gin-action-stage)", opts({ desc = "Stage" }))
-					keymap({ "n" }, "l", "<Plug>(gin-action-unstage)", opts({ desc = "Unstage" }))
+					set({ "n" }, "h", "<Plug>(gin-action-stage)", opts({ desc = "Stage" }))
+					set({ "n" }, "l", "<Plug>(gin-action-unstage)", opts({ desc = "Unstage" }))
 				end,
 			})
 		end,
