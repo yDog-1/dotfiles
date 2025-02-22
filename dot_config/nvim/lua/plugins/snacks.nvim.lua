@@ -33,7 +33,6 @@ return {
 						desc = "Config",
 						action = function()
 							require("telescope").extensions.chezmoi.find_files()
-							vim.cmd("cd" .. vim.g.chezmoidir)
 						end,
 					},
 					{ icon = " ", key = "s", desc = "Session", action = ":Autosession search" },

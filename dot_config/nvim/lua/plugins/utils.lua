@@ -77,7 +77,6 @@ return {
 				"<leader>fc",
 				function()
 					require("telescope").extensions.chezmoi.find_files()
-					vim.cmd("cd" .. vim.g.chezmoidir)
 				end,
 				desc = "Find chezmoi files",
 			},
