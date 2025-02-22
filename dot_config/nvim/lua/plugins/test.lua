@@ -24,18 +24,22 @@ return {
 				branch = "main",
 			},
 		},
-		opts = function(_, opts)
-			opts.adapters = opts.adapters or {}
-			opts.adapters["neotest-vitest"] = {}
-			opts.adapters["neotest-golang"] = {
-				go_test_args = {
-					"-v",
-					"-race",
+		opts = {
+			adapters = {
+				["neotest-vitest"] = {},
+				["neotest-golang"] = {
+					go_test_args = {
+						"-v",
+						"-race",
+					},
 				},
-			}
-		end,
-		-- adapters が設定されている場合は、その設定を読み込む
+			},
+			output = { open_on_run = true },
+			status = { virtual_text = true },
+			summary = { open = "topleft vsplit | vertical resize 50" },
+		},
 		config = function(_, opts)
+			-- adapters が設定されている場合は、その設定を読み込む
 			if opts.adapters then
 				local adapters = {}
 				for name, config in pairs(opts.adapters or {}) do
