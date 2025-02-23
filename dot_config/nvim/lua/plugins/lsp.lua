@@ -132,7 +132,6 @@ return {
 			{ "<Leader>cf", format, desc = "format current file" },
 		},
 		dependencies = { "neovim/nvim-lspconfig" },
-		opts = {},
 	},
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
