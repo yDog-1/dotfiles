@@ -17,15 +17,18 @@ local ensure_installed = {
 	"graphql",
 	"jsonls",
 	"yamlls",
+	"terraform-ls",
 
 	-- Linter
 	"biome",
-	"commitlint",
+	"gitlint",
 	"golangci-lint",
 	"hadolint",
+	"tflint",
 
 	-- Formatter
 	"stylua",
+	"dprint",
 }
 
 return {
@@ -54,9 +57,33 @@ return {
 			local nvim_lsp = require("lspconfig")
 
 			local stylua = require("efmls-configs.formatters.stylua")
-			local languages = {
-				lua = { stylua },
-			}
+			local gitlint = require("efmls-configs.linters.gitlint")
+			local golangci_lint = require("efmls-configs.linters.golangci_lint")
+			local hadolint = require("efmls-configs.linters.hadolint")
+			local terraform_fmt = require("efmls-configs.formatters.terraform_fmt")
+			local biome = require("efmls-configs.formatters.biome")
+
+			local languages = (function()
+				local lgs = {
+					lua = { stylua },
+					gitcommit = { gitlint },
+					go = { golangci_lint },
+					dockerfile = { hadolint },
+					terraform = { terraform_fmt },
+				}
+
+				local alt_js = {
+					"javascript",
+					"javascriptreact",
+					"typescript",
+					"typescriptreact",
+				}
+				for _, v in pairs(alt_js) do
+					lgs[v] = { biome }
+				end
+
+				return lgs
+			end)()
 
 			local efmls_config = {
 				filetypes = vim.tbl_keys(languages),
