@@ -33,6 +33,7 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		lazy = true,
 		opts = {
+			auto_update = true,
 			ensure_installed = install_tools,
 		},
 	},
