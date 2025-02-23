@@ -48,6 +48,8 @@ return {
 		event = { "BufReadPre" },
 		cmd = "Mason",
 		config = function()
+			vim.cmd("MasonToolsInstall")
+
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local nvim_lsp = require("lspconfig")
 
