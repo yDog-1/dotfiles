@@ -53,6 +53,66 @@ local efm_config = require("plugins.lsp.efm_config").setup({
 					default = true,
 				},
 			},
+			{
+				kind = "formatters",
+				name = "deno_fmt",
+				settings = {
+					default = true,
+					options = {
+						rootMarkers = {
+							"deno.json",
+							"deno.jsonc",
+						},
+						requireMarker = true,
+					},
+				},
+			},
+			{
+				kind = "formatters",
+				name = "dprint",
+				settings = {
+					default = true,
+					options = {
+						requireMarker = true,
+					},
+				},
+			},
+			{
+				kind = "linters",
+				name = "eslint",
+				settings = {
+					default = true,
+					options = {
+						requireMarker = true,
+					},
+				},
+			},
+			{
+				kind = "formatters",
+				name = "prettier",
+				settings = {
+					default = true,
+					options = {
+						requireMarker = true,
+					},
+				},
+			},
+		},
+		sql = {
+			{
+				kind = "linters",
+				name = "sqlfluff",
+				settings = {
+					default = true,
+				},
+			},
+			{
+				kind = "formatters",
+				name = "sql-formatter",
+				settings = {
+					default = true,
+				},
+			},
 		},
 	},
 })

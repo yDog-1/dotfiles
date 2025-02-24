@@ -24,11 +24,15 @@ local ensure_installed = {
 	"golangci-lint",
 	"hadolint",
 	"tflint",
+	"eslint",
+	"sqlfluff",
 
 	-- Formatter
 	"stylua",
 	"biome",
 	"dprint",
+	"prettier",
+	"sql-formatter"
 }
 
 return {
@@ -55,7 +59,6 @@ return {
 
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local nvim_lsp = require("lspconfig")
-
 
 			-- 保存時にフォーマット
 			local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})
