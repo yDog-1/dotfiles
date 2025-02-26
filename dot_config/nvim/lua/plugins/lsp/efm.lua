@@ -104,13 +104,22 @@ local efm_config = require("plugins.lsp.efm_config").setup({
 				name = "sqlfluff",
 				settings = {
 					default = true,
+					options = {
+						lintCommand = "sqlfluff lint --format github-annotation-native -n --disable-progress-bar ${INPUT}",
+						rootMarkers = { ".sqlfluff" },
+					},
 				},
 			},
 			{
 				kind = "formatters",
-				name = "sql-formatter",
+				name = "sqlfluff",
 				settings = {
-					default = true,
+					default = false,
+					options = {
+						formatCommand = "sqlfluff fix -n --disable-progress-bar -",
+						formatStdin = true,
+						rootMarkers = { ".sqlfluff" },
+					},
 				},
 			},
 		},
