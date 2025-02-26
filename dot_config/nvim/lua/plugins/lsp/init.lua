@@ -32,7 +32,6 @@ local ensure_installed = {
 	"biome",
 	"dprint",
 	"prettier",
-	"sql-formatter"
 }
 
 return {
