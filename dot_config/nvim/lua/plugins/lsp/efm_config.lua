@@ -24,7 +24,7 @@ local function apply_config(tool_config)
 		settings = require("efmls-configs." .. tool_config.kind .. "." .. tool_config.name)
 	end
 	local options = tool_config.settings.options or {}
-	vim.tbl_extend("force", settings, options)
+	settings = vim.tbl_extend("force", settings, options)
 	return settings
 end
 require("efmls-configs.formatters.taplo")
@@ -69,11 +69,11 @@ function M.setup(config)
 		},
 		init_options = {
 			documentFormatting = true,
-			rangeFormatting = true,
+			documentRangeFormatting = true,
 			hover = true,
 			documentSymbol = true,
 			codeAction = true,
-			completion = false,
+			completion = true,
 		},
 	}
 	return efmls_config
