@@ -213,4 +213,32 @@ return {
 			require("denops-lazy").load("treemonkey")
 		end,
 	},
+	-- 画面中央にバッファを寄せる
+	{
+		"shortcuts/no-neck-pain.nvim",
+		version = "*",
+		opts = {
+			width = 150,
+			autocmds = {
+				enableOnTabEnter = true,
+				skipEnteringNoNeckPainBuffer = true,
+			},
+		},
+		buffers = {
+			colors = {
+				blend = 1,
+			},
+		},
+		config = function(_, opts)
+			local nnpGrp = vim.api.nvim_create_augroup("no-neck-pain", {})
+			vim.api.nvim_create_autocmd({ "BufReadPre" }, {
+				group = nnpGrp,
+				callback = function()
+					require("no-neck-pain").enable()
+					vim.api.nvim_del_augroup_by_id(nnpGrp)
+				end,
+			})
+			require("no-neck-pain").setup(opts)
+		end,
+	},
 }
