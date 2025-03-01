@@ -92,6 +92,9 @@ return {
 										"vim",
 										"client",
 									},
+									disable = {
+										"missing-fields",
+									},
 								},
 							},
 						},
