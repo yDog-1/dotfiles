@@ -13,7 +13,7 @@ return {
 			sections = {
 				{ section = "header" },
 				{
-					{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+					{ icon = " ", key = "f", desc = "Find File", action = "<cmd>Telescope smart_open<CR>" },
 					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
 					{
 						icon = " ",
