@@ -42,6 +42,17 @@ return {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown({}),
 					},
+					["smart_open"] = {
+						match_algorithm = "fzf",
+						mappings = {
+							-- https://github.com/danielfalk/smart-open.nvim/issues/71
+							i = {
+								["<C-w>"] = function()
+									vim.api.nvim_input("<C-s-w>")
+								end,
+							},
+						},
+					},
 				},
 			})
 			telescope.load_extension("ui-select")
