@@ -39,7 +39,7 @@ o.ignorecase = true
 o.smartcase = true
 
 -- ファイル名の表示
-o.laststatus = 2
+o.laststatus = 3
 
 -- ウィンドウ分割
 o.splitbelow = true
