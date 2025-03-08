@@ -18,6 +18,7 @@ local ensure_installed = {
 	"jsonls",
 	"yamlls",
 	"terraform-ls",
+	"taplo",
 
 	-- Linter
 	"gitlint",
@@ -26,12 +27,14 @@ local ensure_installed = {
 	"tflint",
 	"eslint",
 	"sqlfluff",
+	"yamllint",
 
 	-- Formatter
 	"stylua",
 	"biome",
 	"dprint",
 	"prettier",
+	"yq",
 }
 
 return {

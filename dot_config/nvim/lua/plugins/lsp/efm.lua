@@ -123,6 +123,29 @@ local efm_config = require("plugins.lsp.efm_config").setup({
 				},
 			},
 		},
+		yaml = {
+			{
+				kind = "linters",
+				name = "yamllint",
+				settings = {
+					default = true,
+				},
+							},
+							{
+				kind = "formatters",
+				name = "yq",
+				settings = {
+					default = true,
+				},
+			}
+		},
+		toml ={
+			kind = "formatters",
+			name = "taplo",
+			settings = {
+				default = true,
+			},
+		},
 	},
 })
 
