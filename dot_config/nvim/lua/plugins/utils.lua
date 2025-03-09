@@ -213,4 +213,12 @@ return {
 			require("denops-lazy").load("treemonkey")
 		end,
 	},
+	-- バッファを正面に表示してくれる
+	{
+		"shortcuts/no-neck-pain.nvim",
+		version = false,
+		keys = {
+			{ "<C-w>m", "<cmd>NoNeckPain<CR>", desc = "Move window to center" },
+		},
+	},
 }
