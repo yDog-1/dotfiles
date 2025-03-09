@@ -19,6 +19,7 @@ local ensure_installed = {
 	"yamlls",
 	"terraform-ls",
 	"taplo",
+	"markdown-oxide",
 
 	-- Linter
 	"gitlint",
@@ -101,6 +102,18 @@ return {
 								},
 							},
 						},
+					})
+				end,
+
+				["markdown_oxide"] = function()
+					require("lspconfig")["markdown_oxide"].setup({
+						capabilities = vim.tbl_deep_extend("force", capabilities, {
+							workspace = {
+								didChangeWatchedFiles = {
+									dynamicRegistration = true,
+								},
+							},
+						}),
 					})
 				end,
 
