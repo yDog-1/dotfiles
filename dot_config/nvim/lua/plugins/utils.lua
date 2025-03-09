@@ -145,10 +145,56 @@ return {
 	},
 	-- 括弧などを自動で閉じる
 	{
-		"cohama/lexima.vim",
+		"hrsh7th/nvim-insx",
 		event = "InsertEnter",
-		init = function()
-			vim.g.lexima_ctrlh_as_backspace = 1
+		config = function()
+			require("insx.preset.standard").setup()
+
+			local insx = require("insx")
+			local esc = require("insx.helper.regex").esc
+			local option = { mode = "i" }
+
+			-- delete_pairs by <C-h>
+			for _, quote in ipairs({ '"', "'", "`" }) do
+				insx.add(
+					"<C-h>",
+					insx.with(
+						require("insx.recipe.delete_pair").strings({
+							open_pat = esc(quote),
+							close_pat = esc(quote),
+						}),
+						{}
+					)
+				)
+			end
+			for open, close in pairs({
+				["("] = ")",
+				["["] = "]",
+				["{"] = "}",
+			}) do
+				insx.add(
+					"<C-h>",
+					insx.with(
+						require("insx.recipe.delete_pair")({
+							open_pat = esc(open),
+							close_pat = esc(close),
+						}),
+						{}
+					),
+					option
+				)
+				insx.add(
+					"<C-h>",
+					insx.with(
+						require("insx.recipe.pair_spacing").decrease({
+							open_pat = esc(open),
+							close_pat = esc(close),
+						}),
+						{}
+					),
+					option
+				)
+			end
 		end,
 	},
 	-- 囲い文字を上手く扱えるように
