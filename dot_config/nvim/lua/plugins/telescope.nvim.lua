@@ -57,6 +57,7 @@ return {
 			})
 			telescope.load_extension("ui-select")
 			telescope.load_extension("smart_open")
+			telescope.load_extension("chezmoi")
 		end,
 	},
 	{

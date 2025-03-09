@@ -99,9 +99,6 @@ return {
 				end,
 			})
 
-			-- telescope.nvim
-			local telescope = require("telescope")
-			telescope.load_extension("chezmoi")
 			return {
 				edit = {
 					watch = true,
