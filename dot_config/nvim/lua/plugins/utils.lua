@@ -103,6 +103,9 @@ return {
 				edit = {
 					watch = true,
 				},
+				telescope = {
+					select = { "<CR>", "<C-v>" }
+				},
 			}
 		end,
 	},
