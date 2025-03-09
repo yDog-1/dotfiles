@@ -3,10 +3,14 @@ return {
 		"OXY2DEV/markview.nvim",
 		lazy = false,
 		branch = "main",
+		keys = {
+			{ "<Leader>lm", "<cmd>Markview toggle<CR>", { desc = "Toggle Markview" } },
+		},
 		---@module "markview"
 		---@type mkv.config
 		opts = {
 			preview = {
+				enable = false,
 				filetypes = { "markdown", "Avante" },
 				ignore_buftypes = {},
 			},
@@ -46,6 +50,13 @@ return {
 			}
 
 			opts = vim.tbl_deep_extend("force", opts, style_opts)
+
+			vim.api.nvim_create_autocmd("filetype", {
+				pattern = "Avante",
+				callback = function()
+					vim.cmd("Markview Enable")
+				end,
+			})
 
 			require("markview").setup(opts)
 		end,
