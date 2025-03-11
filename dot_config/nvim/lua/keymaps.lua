@@ -30,8 +30,8 @@ set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save" })
 set("n", "<Leader>n", "<cmd>nohlsearch<CR>", { desc = "Clear search highlights" })
 
 -- 折り畳まれた行でもカーソルの移動を直感的に
-set({ "n", "v" }, "j", "gj")
-set({ "n", "v" }, "k", "gk")
+set({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+set({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
 -- Space + Enter で、カーソルの位置で改行
 set("n", "<Leader><CR>", "i<CR><Esc>", { desc = "Insert newline from cursor" })
