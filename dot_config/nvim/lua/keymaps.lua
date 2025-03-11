@@ -59,3 +59,13 @@ vim.api.nvim_create_autocmd("FileType", {
 		set("n", "q", "<cmd>cclose<CR>", { desc = "Close quickfix", noremap = true, buffer = true })
 	end,
 })
+
+-- https://zenn.dev/vim_jp/articles/2024-10-07-vim-insert-uppercase
+-- 直前に入力した word を大文字に変換
+vim.keymap.set("i", "<C-l>", function()
+	local line = vim.fn.getline(".")
+	local col = vim.fn.getpos(".")[3]
+	local substring = line:sub(1, col - 1)
+	local result = vim.fn.matchstr(substring, [[\v<(\k(<)@!)*$]])
+	return "<C-w>" .. result:upper()
+end, { expr = true })
