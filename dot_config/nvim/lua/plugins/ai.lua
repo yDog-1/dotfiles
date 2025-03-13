@@ -1,52 +1,68 @@
-local function get_current_os()
-	local os = {
-		"mac",
-		"linux",
-		"unix",
-		"sun",
-		"bsd",
-		"win32",
-		"win64",
-		"wsl",
-	}
-	for _, v in ipairs(os) do
-		if vim.fn.has(v) == 1 then
-			return v
-		end
-	end
-end
-
-local avante_build = (function()
-	local os = get_current_os()
-	if os == "win32" or os == "win64" then
-		return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-	else
-		return "make"
-	end
-end)()
+require("plugins.which-key.spec").add({
+	mode = { "n", "v" },
+	{ "<Leader>a", group = "AI", icon = { icon = "󰧑 ", color = "red" } },
+})
 
 return {
 	{
-		"yetone/avante.nvim",
-		lazy = false,
-		version = false,
-		build = avante_build,
-		dependencies = {
-			"stevearc/dressing.nvim",
+		"olimorris/codecompanion.nvim",
+		keys = {
+			{ "<Leader>aa", "<cmd>CodeCompanionActions<CR>", mode = { "n", "v" }, desc = "Action palette" },
+			{ "<Leader>ao", "<cmd>CodeCompanionChat<CR>", desc = "Chat" },
+			{ "<Leader>ai", "<cmd>CodeCompanion<CR>", desc = "Inline assistant" },
+			{ "ga", "<cmd>CodeCompanionChat Add<CR>", desc = "Add selected text to the chat" },
 		},
-		---@module "avante"
-		---@type avante.Config
 		opts = {
-			provider = "copilot",
-			copilot = {
-				endpoint = "https://api.githubcopilot.com",
-				model = "claude-3.7-sonnet",
-				timeout = 30000,
-				temperature = 0,
-				max_tokens = 4096,
+			adapters = {
+				copilot = function()
+					return require("codecompanion.adapters").extend("copilot", {
+						schema = {
+							model = {
+								default = "claude-3.7-sonnet",
+							},
+						},
+					})
+				end,
 			},
-			behaviour = {
-				auto_suggestions = false,
+			strategies = {
+				chat = {
+					adapter = "copilot",
+					slash_commands = {
+						["buffer"] = {
+							opts = {
+								provider = "telescope",
+							},
+						},
+						["file"] = {
+							opts = {
+								provider = "telescope",
+							},
+						},
+						["symbols"] = {
+							opts = {
+								provider = "telescope",
+							},
+						},
+					},
+					inline = {
+						adapter = "copilot",
+					},
+				},
+			},
+			display = {
+				action_palette = {
+					provider = "telescope",
+				},
+				chat = {
+					window = {
+						position = "right",
+						width = 0.25,
+					},
+					show_settings = true,
+				},
+			},
+			opts = {
+				language = "日本語",
 			},
 		},
 	},

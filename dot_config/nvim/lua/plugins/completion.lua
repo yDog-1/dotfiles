@@ -7,6 +7,7 @@ local cmp_sources = {
 	{ name = "buffer" },
 	{ name = "git" },
 	{ name = "lazydev", group_index = 0 },
+	{ name = "codecompanion" }
 }
 
 -- skkeleton と nvim-cmp の連携
