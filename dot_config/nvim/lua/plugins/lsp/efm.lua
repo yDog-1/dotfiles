@@ -146,6 +146,15 @@ local efm_config = require("plugins.lsp.efm_config").setup({
 				default = true,
 			},
 		},
+		markdown = {
+			{
+				kind = "linters",
+				name = "markdownlint",
+				settings = {
+					default = true,
+				},
+			},
+		},
 	},
 })
 
