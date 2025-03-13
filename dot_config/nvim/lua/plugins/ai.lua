@@ -62,6 +62,11 @@ return {
 		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
 			require("copilot").setup({
+				filetypes = {
+					yaml = true,
+					markdown = true,
+					gitcommit = true,
+				},
 				suggestion = { enabled = false },
 				pannel = { enabled = false },
 			})
