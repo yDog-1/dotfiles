@@ -11,8 +11,9 @@ return {
 		opts = {
 			preview = {
 				enable = false,
-				filetypes = { "markdown", "Avante" },
+				filetypes = { "markdown", "codecompanion" },
 				ignore_buftypes = {},
+				icon_provider = "devicons",
 			},
 			markdown = {
 				list_items = {
@@ -51,10 +52,10 @@ return {
 
 			opts = vim.tbl_deep_extend("force", opts, style_opts)
 
-			vim.api.nvim_create_autocmd("filetype", {
-				pattern = "Avante",
+			vim.api.nvim_create_autocmd("BufEnter", {
+				pattern = [[*CodeCompanion*]],
 				callback = function()
-					vim.cmd("Markview Enable")
+					vim.cmd("Markview enable")
 				end,
 			})
 
