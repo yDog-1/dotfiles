@@ -6,11 +6,45 @@ require("plugins.which-key.spec").add({
 return {
 	{
 		"olimorris/codecompanion.nvim",
+		lazy = true,
 		keys = {
 			{ "<Leader>aa", "<cmd>CodeCompanionActions<CR>", mode = { "n", "v" }, desc = "Action palette" },
 			{ "<Leader>ao", "<cmd>CodeCompanionChat<CR>", desc = "Chat" },
 			{ "<Leader>ai", "<cmd>CodeCompanion<CR>", desc = "Inline assistant" },
 			{ "ga", "<cmd>CodeCompanionChat Add<CR>", desc = "Add selected text to the chat" },
+			{ "<Leader>gG", "<Cmd>CodeCompanion /commit<CR>", desc = "Generate a commit message" },
+			{
+				"<Leader>ae",
+				function()
+					require("codecompanion").prompt("explain")
+				end,
+				mode = "v",
+				desc = "Explain how code in a buffer works",
+			},
+			{
+				"<Leader>tg",
+				function()
+					require("codecompanion").prompt("tests")
+				end,
+				mode = "v",
+				desc = "Generate unit tests",
+			},
+			{
+				"<Leader>cF",
+				function()
+					require("codecompanion").prompt("fix")
+				end,
+				mode = "v",
+				desc = "Fix the code",
+			},
+			{
+				"<Leader>ce",
+				function()
+					require("codecompanion").prompt("lsp")
+				end,
+				mode = "v",
+				desc = "Explain the LSP diagnostics",
+			},
 		},
 		opts = {
 			adapters = {
