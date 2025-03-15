@@ -221,4 +221,11 @@ return {
 			{ "<C-w>m", "<cmd>NoNeckPain<CR>", desc = "Move window to center" },
 		},
 	},
+	{
+		"thinca/vim-qfreplace",
+		lazy = true,
+		keys = {
+			{ "<Leader>Q", "<cmd>Qfreplace<CR>", desc = "Replace in quickfix" },
+		},
+	},
 }
