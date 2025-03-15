@@ -1,5 +1,5 @@
 require("plugins.which-key.spec").add({
-	mode = "n",
+	mode = { "n", "v" },
 	{ "<Leader>c", group = "code" },
 })
 

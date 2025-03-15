@@ -1,6 +1,6 @@
 ---@diagnostic disable: missing-fields
 require("plugins.which-key.spec").add({
-	mode = "n",
+	mode = { "n", "v" },
 	{ "<Leader>t", group = "test", icon = { icon = " ", color = "cyan" } },
 })
 
