@@ -29,6 +29,7 @@ local ensure_installed = {
 	"eslint",
 	"sqlfluff",
 	"yamllint",
+	"markdownlint",
 
 	-- Formatter
 	"stylua",
