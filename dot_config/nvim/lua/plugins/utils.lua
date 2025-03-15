@@ -104,7 +104,7 @@ return {
 					watch = true,
 				},
 				telescope = {
-					select = { "<CR>", "<C-v>" }
+					select = { "<CR>", "<C-v>" },
 				},
 			}
 		end,
@@ -116,11 +116,11 @@ return {
 		opts = function()
 			local set = vim.keymap.set
 			-- セッションの保存
-			set("n", "<Leader>ss", ":SessionSave ", { desc = "Save session" })
+			set("n", "<Leader>ss", "<cmd>SessionSave ", { desc = "Save session" })
 			-- セッションの読み込み
-			set("n", "<Leader>fss", ":Autosession search<CR>", { desc = "Load session" })
+			set("n", "<Leader>fss", "<cmd>Autosession search<CR>", { desc = "Load session" })
 			-- セッションの削除
-			set("n", "<Leader>fsd", ":Autosession delete<CR>", { desc = "Delete session" })
+			set("n", "<Leader>fsd", "<cmd>Autosession delete<CR>", { desc = "Delete session" })
 
 			local add = require("plugins.which-key.spec").add
 			add({
