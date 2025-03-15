@@ -49,7 +49,7 @@ return {
 			require("denops-lazy").load("vim-gin", { wait_load = false })
 
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "gin", "gin-diff", "gin-log", "gin-status" },
+				pattern = { "gin", "gin-diff", "gin-log", "gin-status", "gin-branch" },
 				callback = function()
 					local set = vim.keymap.set
 					local opts = function(o)
