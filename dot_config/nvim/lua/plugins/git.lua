@@ -66,7 +66,7 @@ return {
 					set({ "n" }, "s", "<Cmd>GinStatus<Cr>", opts({ desc = "Status" }))
 					set({ "n" }, "L", "<Cmd>GinLog --graph<Cr>", opts({ desc = "Log" }))
 					set({ "n" }, "d", "<Cmd>GinDiff --staged<Cr>", opts({ desc = "Diff" }))
-					set({ "n" }, "q", "<Cmd>bdelete<Cr>", opts({ desc = "Close" }))
+					set({ "n" }, "q", "<Cmd>BufferClose<Cr>", opts({ desc = "Close" }))
 					set({ "n" }, "p", [[<Cmd>lua vim.notify("Gin push")<Cr><Cmd>Gin push<Cr>]], opts({ desc = "Push" }))
 					set({ "n" }, "P", [[<Cmd>lua vim.notify("Gin pull")<Cr><Cmd>Gin pull<Cr>]], opts({ desc = "Pull" }))
 					set({ "n" }, "if", "<Plug>(gin-action-fixup:instant-fixup)", opts({ desc = "Fixup" }))
