@@ -38,6 +38,7 @@ return {
 			{ "<leader>gf", ":Gin fetch ", desc = "Fetch" },
 			{ "<leader>gm", ":Gin merge ", desc = "Merge" },
 			{ "<leader>g<C-r>", ":Gin rebase --autostash ", desc = "Rebase" },
+			{ "<leader>gC", "<Cmd>GinCd<Cr>", desc = "Change cwd to git root dir" },
 		},
 		init = function()
 			-- git での確認をスキップ
