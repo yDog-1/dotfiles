@@ -8,27 +8,6 @@ return {
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	-- Vimの対応言語を増やし、ハイライト・インデント・ファイルタイプの検出機能を拡張するプラグイン
 	{ "sheerun/vim-polyglot", event = { "BufReadPre", "BufNewFile" } },
-	-- syntax highlightなどをいい感じにするプラグイン
-	{
-		-- 何もしなくても vim-polyglot といい感じに連携してくれる
-		"nvim-treesitter/nvim-treesitter",
-		event = { "BufReadPre", "BufNewFile" },
-		build = ":TSUpdate",
-		config = function()
-			local configs = require("nvim-treesitter.configs")
-
-			configs.setup({
-				auto_install = true,
-				highlight = { enable = true },
-				indent = { enable = true },
-			})
-
-			-- 折り畳みの設定
-			local opt = vim.opt
-			opt.foldmethod = "expr"
-			opt.foldexpr = "nvim_treesitter#foldexpr()"
-		end,
-	},
 	-- インデントを強調表示
 	{
 		"shellRaining/hlchunk.nvim",
