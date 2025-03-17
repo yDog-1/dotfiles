@@ -32,6 +32,13 @@ local efm_config = require("plugins.lsp.efm_config").setup({
 				settings = {
 					default = true,
 				},
+			},
+			{
+				kind = "formatters",
+				name = "goimports",
+				settings = {
+					default = true,
+				},
 			}
 		},
 		dockerfile = {

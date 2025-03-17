@@ -37,6 +37,10 @@ local ensure_installed = {
 	"dprint",
 	"prettier",
 	"yq",
+	"goimports",
+
+	-- Tool
+	"gomodifytags",
 }
 
 return {
