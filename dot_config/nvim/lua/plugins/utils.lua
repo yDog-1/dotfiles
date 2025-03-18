@@ -189,7 +189,7 @@ return {
 		},
 		lazy = true,
 		config = function()
-			require("denops-lazy").load("treemonkey")
+			require("denops-lazy").load("treemonkey.nvim")
 		end,
 	},
 	-- バッファを正面に表示してくれる
