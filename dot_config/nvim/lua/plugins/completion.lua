@@ -134,7 +134,7 @@ return {
 
 					["<CR>"] = cmp.mapping(function(fallback)
 						-- 何も選択していないときは改行
-						if cmp.get_active_entry() == nil then
+						if cmp.get_selected_index() == nil then
 							fallback()
 							return
 						end
