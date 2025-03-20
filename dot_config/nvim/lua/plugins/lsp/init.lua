@@ -184,7 +184,6 @@ return {
 			local highlights = {
 				"GlancePreviewNormal",
 				"GlanceListCursorLine",
-				"GlancePreviewMatch",
 				"GlancePreviewLineNr",
 				"GlancePreviewCursorLine",
 				"GlancePreviewBorderBottom",
