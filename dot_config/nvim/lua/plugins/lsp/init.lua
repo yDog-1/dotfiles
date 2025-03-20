@@ -13,6 +13,7 @@ local ensure_installed = {
 	"lua_ls",
 	"ts_ls",
 	"gopls",
+	"golangci-lint-langserver",
 	"sqls",
 	"graphql",
 	"jsonls",
@@ -23,7 +24,6 @@ local ensure_installed = {
 
 	-- Linter
 	"gitlint",
-	"golangci-lint",
 	"hadolint",
 	"tflint",
 	"eslint",

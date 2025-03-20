@@ -20,16 +20,6 @@ local efm_config = require("plugins.lsp.efm_config").setup({
 		},
 		go = {
 			{
-				kind = "linters",
-				name = "golangci_lint",
-				settings = {
-					default = true,
-					options = {
-						rootMarkers = { "go.mod" },
-					}
-				},
-			},
-			{
 				kind = "formatters",
 				name = "gofmt",
 				settings = {
