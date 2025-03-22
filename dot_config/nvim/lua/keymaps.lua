@@ -23,9 +23,6 @@ set("n", "<M-k>", function()
 	end
 end)
 
--- 保存
-set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save" })
-
 -- Leader + n で、ハイライトを消す
 set("n", "<Leader>n", "<cmd>nohlsearch<CR>", { desc = "Clear search highlights" })
 
