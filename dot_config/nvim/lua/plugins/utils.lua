@@ -105,9 +105,12 @@ return {
 				{ "<Leader>s", group = "session" },
 			})
 			return {
-				allowed_dirs = {
-					"~/dev",
+				auto_save = true,
+				suppressed_dirs = {
+					"~/",
 				},
+				close_unsupported_windows = true,
+				use_git_branch = true,
 			}
 		end,
 	},
