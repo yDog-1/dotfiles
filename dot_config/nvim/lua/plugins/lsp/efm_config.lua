@@ -70,10 +70,10 @@ function M.setup(config)
 		init_options = {
 			documentFormatting = true,
 			documentRangeFormatting = true,
-			hover = true,
-			documentSymbol = true,
-			codeAction = true,
-			completion = true,
+			hover = false,
+			documentSymbol = false,
+			codeAction = false,
+			completion = false,
 		},
 	}
 	return efmls_config
