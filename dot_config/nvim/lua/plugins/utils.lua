@@ -92,23 +92,17 @@ return {
 	{
 		"rmagatti/auto-session",
 		lazy = false,
+		keys = {
+			{ "<Leader>ss", ":SessionSave ", desc = "Save session" },
+			{ "<Leader>sf", "<cmd>SessionSearch<CR>", desc = "Search session" },
+			{ "<Leader>sd", "<cmd>Autosession delete<CR>", desc = "Delete session" },
+			{ "<Leader>sr", "<cmd>SessionRestore<CR>", desc = "Restore session" },
+		},
 		opts = function()
-			local set = vim.keymap.set
-			-- セッションの保存
-			set("n", "<Leader>ss", ":SessionSave ", { desc = "Save session" })
-			-- セッションの読み込み
-			set("n", "<Leader>fss", "<cmd>Autosession search<CR>", { desc = "Load session" })
-			-- セッションの削除
-			set("n", "<Leader>fsd", "<cmd>Autosession delete<CR>", { desc = "Delete session" })
-
 			local add = require("plugins.which-key.spec").add
 			add({
 				mode = "n",
 				{ "<Leader>s", group = "session" },
-			})
-			add({
-				mode = "n",
-				{ "<Leader>fs", group = "session" },
 			})
 			return {
 				allowed_dirs = {
