@@ -1,16 +1,3 @@
-local cmp_sources = {
-	{ name = "nvim_lsp_signature_help" },
-	{ name = "path" },
-	{ name = "copilot" },
-	{ name = "nvim_lsp" },
-	{ name = "luasnip" },
-	{ name = "buffer" },
-	{ name = "git" },
-	{ name = "lazydev", group_index = 0 },
-	{ name = "codecompanion" },
-}
-
--- skkeleton と nvim-cmp の連携
 local ime_disabled = true
 local toggle_cmp = vim.api.nvim_create_augroup("toggle_cmp", { clear = true })
 vim.api.nvim_create_autocmd("User", {
@@ -18,197 +5,117 @@ vim.api.nvim_create_autocmd("User", {
 	pattern = { "skkeleton-mode-changed" },
 	desc = "skkeletonで日本語入力中は補完を無効に",
 	callback = function()
-		local cmp = require("cmp")
+		local menu = require("blink.cmp.completion.windows.menu")
 		if vim.g["skkeleton#mode"] == "" and not ime_disabled then
-			cmp.setup({ sources = cmp.config.sources(cmp_sources) })
+			menu.auto_show = true
 			ime_disabled = true
 		elseif ime_disabled then
-			cmp.setup({
-				sources = {
-					{ name = "skkeleton" },
-					{ name = "copilot" },
-				},
-			})
+			menu.auto_show = false
 			ime_disabled = false
 		end
 	end,
 })
 
+local keymap = {
+	preset = "none",
+	["<C-N>"] = { "show", "select_next" },
+	["<C-P>"] = { "select_prev" },
+	["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+	["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+	["<C-Y>"] = { "accept" },
+	["<CR>"] = { "select_and_accept", "fallback" },
+	["<C-G>"] = { "cancel", "fallback" },
+	["<C-space>"] = { "show" },
+	["<C-E>"] = { "hide" },
+	["<C-J>"] = { "hide", "fallback" },
+	["<C-K>"] = { "show_documentation", "fallback" },
+	["<C-S>"] = { "show_signature" },
+	["<C-U>"] = { "scroll_documentation_up", "fallback" },
+	["<C-D>"] = { "scroll_documentation_down" },
+}
+
 return {
-	-- Neovimに最適化された LuaLS
 	{
-		"folke/lazydev.nvim",
-		ft = "lua",
-		opts = {
-			library = {
-				"LazyVim",
-			},
-		},
-	},
-	-- スニペット
-	{
-		"L3MON4D3/LuaSnip",
-		lazy = true,
+		"saghen/blink.cmp",
 		dependencies = {
-			-- 補完と連携
-			"saadparwaiz1/cmp_luasnip",
-			-- VSCode風スニペット
 			"rafamadriz/friendly-snippets",
-		},
-	},
-	-- 補完
-	{
-		"hrsh7th/nvim-cmp",
-		dependencies = {
-			-- VSCode風アイコン表示
-			"onsails/lspkind.nvim",
-			-- バッファ
-			"hrsh7th/cmp-buffer",
-			-- パス
-			"hrsh7th/cmp-path",
-			-- コマンドライン
-			"hrsh7th/cmp-cmdline",
-			-- LSPソース
-			"hrsh7th/cmp-nvim-lsp",
-			-- スニペット
 			"L3MON4D3/LuaSnip",
-			-- 関数のシグネチャを表示
-			"hrsh7th/cmp-nvim-lsp-signature-help",
-			-- copilot
-			"zbirenbaum/copilot-cmp",
-			-- skkeleton
-			"uga-rosa/cmp-skkeleton",
-			-- Git
-			"petertriho/cmp-git",
-			-- コマンドラインでの `input()` プロンプトの補完
-			-- vim-gin の action で使う
-			"teramako/cmp-cmdline-prompt.nvim",
+			"fang2hou/blink-copilot",
 		},
+		version = "*",
 		event = { "InsertEnter", "CmdlineEnter" },
-		config = function()
-			local cmp = require("cmp")
-			local luasnip = require("luasnip")
-			local lspkind = require("lspkind")
-			require("luasnip.loaders.from_vscode").lazy_load()
-			lspkind.init({
-				symbol_map = {
-					Copilot = " ",
-				},
-			})
-
-			cmp.setup({
-				formatting = {
-					format = lspkind.cmp_format({
-						mode = "symbol", -- アイコンのみを表示する
-						maxwidth = {
-							menu = function()
-								-- ウィンドウの45%の幅
-								return math.floor(0.45 * vim.o.columns)
-							end,
-							abbr = 50,
-						},
-						-- はみ出た文字列を省略するときの文字
-						ellipsis_char = "...",
-						show_labelDetails = true,
-					}),
-				},
-				snippet = {
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
-					end,
-				},
-				window = {
-					completion = {
-						scrollbar = false,
-						zindex = 100,
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			keymap = keymap,
+			appearance = {
+				nerd_font_variant = "mono",
+			},
+			sources = {
+				default = { "lazydev", "lsp", "path", "snippets", "buffer", "copilot" },
+				providers = {
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						score_offset = 70,
 					},
-					documentation = {
-						zindex = 100,
+					lsp = {
+						score_offset = 60,
 					},
-				},
-				mapping = cmp.mapping.preset.insert({
-					["<C-d>"] = cmp.mapping.scroll_docs(-4),
-					["<C-u>"] = cmp.mapping.scroll_docs(4),
-					["<C-e>"] = cmp.mapping.abort(),
-					["<C-g>"] = cmp.mapping.abort(),
-
-					["<CR>"] = cmp.mapping(function(fallback)
-						-- 何も選択していないときは改行
-						if cmp.get_selected_index() == nil then
-							fallback()
-							return
-						end
-						-- スニペットが展開可能なときは展開
-						if luasnip.expandable() then
-							luasnip.expand()
-							return
-						end
-						-- それ以外は補完を確定
-						cmp.confirm({
-							select = true,
-						})
-					end),
-
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif luasnip.locally_jumpable(1) then
-							luasnip.jump(1)
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif luasnip.locally_jumpable(-1) then
-							luasnip.jump(-1)
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-				}),
-				experimental = {
-					ghost_text = true,
-				},
-				sources = cmp.config.sources(cmp_sources),
-			})
-			-- `/` cmdline setup.
-			cmp.setup.cmdline("/", {
-				mapping = cmp.mapping.preset.cmdline(),
-				view = {
-					entries = { name = "wildmenu", separator = "|" },
-				},
-				sources = {
-					{ name = "buffer" },
-				},
-			})
-
-			cmp.setup.cmdline(":", {
-				mapping = cmp.mapping.preset.cmdline(),
-				view = {
-					entries = { name = "wildmenu", separator = "|" },
-				},
-				sources = cmp.config.sources({
-					{ name = "path" },
-				}, {
-					{
-						name = "cmdline",
-						option = {
-							ignore_cmds = { "Man", "!" },
+					snippets = {
+						score_offset = 30,
+					},
+					buffer = {
+						opts = {
+							-- 全てのバッファから補完
+							get_bufnrs = vim.api.nvim_list_bufs,
 						},
 					},
-				}),
-			})
-
-			-- input()
-			cmp.setup.cmdline("@", {
-				sources = cmp.config.sources({
-					{ name = "cmdline-prompt" },
-				}),
-			})
-		end,
+					copilot = {
+						name = "copilot",
+						module = "blink-copilot",
+						score_offset = 95,
+						async = true,
+					},
+					codecompanion = {
+						name = "codecompanion",
+						module = "codecompanion.providers.completion.blink",
+						score_offset = 100,
+					},
+				},
+				min_keyword_length = function(ctx)
+					-- :wq, :qa -> menu doesn't popup
+					-- :Lazy, :help -> menu popup
+					if ctx.mode == "cmdline" and ctx.line:find("^%l+$") ~= nil then
+						return 4
+					end
+					return 0
+				end,
+				per_filetype = {
+					codecompanion = { "codecompanion", "buffer" },
+					gitcommit = { "snippets", "copilot" },
+				},
+			},
+			signature = {
+				enabled = true,
+			},
+			cmdline = {
+				keymap = keymap,
+				completion = {
+					menu = {
+						auto_show = true,
+					},
+				},
+			},
+			-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+			-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+			-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+			--
+			-- See the fuzzy documentation for more information
+			-- TODO: どういうものか調べる
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+		},
+		opts_extend = { "sources.default" },
 	},
 	{
 		"vim-skk/skkeleton",
@@ -242,8 +149,6 @@ return {
 				-- キャンセルの挙動
 				immediatelyCancel = false,
 			})
-			-- <CR> で確定
-			vim.fn["skkeleton#register_keymap"]("henkan", "<CR>", "kakutei")
 			require("denops-lazy").load("skkeleton", { wait_load = false })
 		end,
 	},

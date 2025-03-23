@@ -65,7 +65,7 @@ return {
 		config = function()
 			vim.cmd("MasonToolsInstall")
 
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			local nvim_lsp = require("lspconfig")
 
 			-- 保存時にフォーマット
@@ -238,6 +238,16 @@ return {
 					-- 背景を透過
 					winblend = 0,
 				},
+			},
+		},
+	},
+	-- LuaLS setup
+	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				"lazy.nvim"
 			},
 		},
 	},
