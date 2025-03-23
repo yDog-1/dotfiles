@@ -123,9 +123,7 @@ return {
 				end,
 
 				efm = function()
-					require("lspconfig").efm.setup(vim.tbl_extend("force", require("plugins.lsp.efm"), {
-						cabilities = capabilities,
-					}))
+					require("lspconfig").efm.setup(require("plugins.lsp.efm"))
 				end,
 			})
 		end,
