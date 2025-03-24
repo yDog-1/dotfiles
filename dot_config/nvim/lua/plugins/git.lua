@@ -33,6 +33,7 @@ return {
 			{ "<leader>gs", "<Cmd>GinStatus<Cr>", desc = "Status" },
 			{ "<leader>gb", "<Cmd>GinBranch<Cr>", desc = "Branch" },
 			{ "<leader>gd", "<Cmd>GinDiff<Cr>", desc = "Diff" },
+			{ "<leader>gD", "<Cmd>GinPatch ++no-worktree<Cr>", desc = "Patch" },
 			{ "<leader>gl", "<Cmd>GinLog --graph<Cr>", desc = "Log" },
 			{ "<leader>gc", "<Cmd>Gin commit<Cr>", desc = "Commit" },
 			{ "<leader>gf", ":Gin fetch ", desc = "Fetch" },
