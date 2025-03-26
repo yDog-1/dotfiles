@@ -37,7 +37,7 @@ return {
 			{ "<Leader>gP", "<cmd>Gin pull --autostash<CR>", desc = "Pull" },
 			{ "<leader>gs", "<Cmd>GinStatus<Cr>", desc = "Status" },
 			{ "<leader>gbr", "<Cmd>GinBranch<Cr>", desc = "Branch" },
-			{ "<leader>gd", "<Cmd>GinDiff<Cr>", desc = "Diff" },
+			{ "<leader>gd", "<Cmd>GinDiff ++processor=delta\\ -n<Cr>", desc = "Diff" },
 			{ "<leader>gD", "<Cmd>GinPatch ++no-worktree<Cr>", desc = "Patch" },
 			{ "<leader>gl", "<Cmd>GinLog --graph<Cr>", desc = "Log" },
 			{ "<leader>gc", "<Cmd>Gin commit<Cr>", desc = "Commit" },
@@ -71,7 +71,7 @@ return {
 					set({ "n" }, "c", "<Cmd>Gin commit<Cr>", opts({ desc = "Commit" }))
 					set({ "n" }, "s", "<Cmd>GinStatus<Cr>", opts({ desc = "Status" }))
 					set({ "n" }, "L", "<Cmd>GinLog --graph<Cr>", opts({ desc = "Log" }))
-					set({ "n" }, "d", "<Cmd>GinDiff --staged<Cr>", opts({ desc = "Diff" }))
+					set({ "n" }, "d", "<Cmd>GinDiff ++processor=delta\\ -n --staged<Cr>", opts({ desc = "Diff" }))
 					set({ "n" }, "q", "<Cmd>BufferClose<Cr>", opts({ desc = "Close" }))
 					set({ "n" }, "p", [[<Cmd>lua vim.notify("Gin push")<Cr><Cmd>Gin push<Cr>]], opts({ desc = "Push" }))
 					set({ "n" }, "P", [[<Cmd>lua vim.notify("Gin pull")<Cr><Cmd>Gin pull<Cr>]], opts({ desc = "Pull" }))
