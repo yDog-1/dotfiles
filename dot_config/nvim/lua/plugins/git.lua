@@ -8,6 +8,11 @@ require("plugins.which-key.spec").add({
 	{ "<C-g>", proxy = "<Leader>g" },
 })
 
+require("plugins.which-key.spec").add({
+	mode = "n",
+	{ "<Leader>gb", group = "B~" },
+})
+
 return {
 	{
 		"lambdalisue/vim-gin",
@@ -31,7 +36,7 @@ return {
 			{ "<Leader>gp", "<cmd>Gin push<CR>", desc = "Push" },
 			{ "<Leader>gP", "<cmd>Gin pull --autostash<CR>", desc = "Pull" },
 			{ "<leader>gs", "<Cmd>GinStatus<Cr>", desc = "Status" },
-			{ "<leader>gb", "<Cmd>GinBranch<Cr>", desc = "Branch" },
+			{ "<leader>gbr", "<Cmd>GinBranch<Cr>", desc = "Branch" },
 			{ "<leader>gd", "<Cmd>GinDiff<Cr>", desc = "Diff" },
 			{ "<leader>gD", "<Cmd>GinPatch ++no-worktree<Cr>", desc = "Patch" },
 			{ "<leader>gl", "<Cmd>GinLog --graph<Cr>", desc = "Log" },
@@ -142,8 +147,9 @@ return {
 				{ "<leader>gR", gitsigns.reset_buffer, desc = "Reset buffer" },
 				{ "<leader>gh", gitsigns.preview_hunk, desc = "Preview hunk" },
 				{ "<leader>gi", gitsigns.preview_hunk_inline, desc = "Preview hunk inline" },
+				{ "<leader>gbl", gitsigns.blame, desc = "Blame" },
 				{
-					"<leader>g<C-b>",
+					"<leader>gbL",
 					function()
 						gitsigns.blame_line({ full = true })
 					end,
