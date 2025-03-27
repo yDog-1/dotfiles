@@ -3,6 +3,12 @@ require("plugins.which-key.spec").add({
 	{ "<Leader>a", group = "AI", icon = { icon = "󰧑 ", color = "red" } },
 })
 
+local openrouter_api_key = vim.fn.trim(vim.fn.system("head -n 1 ~/.config/llm/openrouter"))
+if vim.v.shell_error ~= 0 then
+	print("Error reading OpenRouter API key")
+	openrouter_api_key = ""
+end
+
 return {
 	{
 		"olimorris/codecompanion.nvim",
@@ -60,6 +66,20 @@ return {
 						schema = {
 							model = {
 								default = "claude-3.7-sonnet",
+							},
+						},
+					})
+				end,
+				openrouter_gemini = function()
+					return require("codecompanion.adapters").extend("openai_compatible", {
+						env = {
+							url = "https://openrouter.ai/api",
+							api_key = openrouter_api_key,
+							chat_url = "/v1/chat/completions",
+						},
+						schema = {
+							model = {
+								default = "google/gemini-2.5-pro-exp-03-25:free",
 							},
 						},
 					})
