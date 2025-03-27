@@ -7,6 +7,9 @@ return {
 	{
 		"olimorris/codecompanion.nvim",
 		lazy = true,
+		dependencies = {
+			"j-hui/fidget.nvim",
+		},
 		keys = {
 			{ "<Leader>aa", "<cmd>CodeCompanionActions<CR>", mode = { "n", "v" }, desc = "Action palette" },
 			{ "<Leader>ao", "<cmd>CodeCompanionChat<CR>", desc = "Chat" },
@@ -46,6 +49,10 @@ return {
 				desc = "Explain the LSP diagnostics",
 			},
 		},
+		config = function (_, opts)
+			require("plugins.ai.fidget-spinner"):init()
+			require("codecompanion").setup(opts)
+		end,
 		opts = {
 			adapters = {
 				copilot = function()
@@ -81,6 +88,12 @@ return {
 					inline = {
 						adapter = "copilot",
 					},
+					roles = {
+						llm = function(adapter)
+							return "  CodeCompanion (" .. adapter.formatted_name .. ")"
+						end,
+						user = "  Me",
+					},
 				},
 			},
 			display = {
@@ -88,11 +101,11 @@ return {
 					provider = "telescope",
 				},
 				chat = {
+					auto_scroll = false,
 					window = {
 						position = "right",
 						width = 0.25,
 					},
-					show_settings = true,
 				},
 			},
 			opts = {
