@@ -40,6 +40,9 @@ return {
 						-- キャンセルの挙動
 						immediatelyCancel = false,
 					})
+					vim.fn["skkeleton#register_kanatable"]("rom", {
+						jj = "escape",
+					})
 				end,
 			})
 			require("denops-lazy").load("skkeleton", { wait_load = false })
