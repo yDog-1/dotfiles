@@ -66,3 +66,6 @@ vim.keymap.set("i", "<C-l>", function()
 	local result = vim.fn.matchstr(substring, [[\v<(\k(<)@!)*$]])
 	return "<C-w>" .. result:upper()
 end, { expr = true })
+
+-- ターミナルモード
+set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
