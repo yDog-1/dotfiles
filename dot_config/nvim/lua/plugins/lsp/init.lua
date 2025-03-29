@@ -30,6 +30,7 @@ local ensure_installed = {
 	"sqlfluff",
 	"yamllint",
 	"markdownlint",
+	"golangci-lint",
 
 	-- Formatter
 	"stylua",
@@ -245,7 +246,7 @@ return {
 		ft = "lua", -- only load on lua files
 		opts = {
 			library = {
-				"lazy.nvim"
+				"lazy.nvim",
 			},
 		},
 	},
