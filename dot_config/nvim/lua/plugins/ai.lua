@@ -21,7 +21,7 @@ return {
 			{ "<Leader>ao", "<cmd>CodeCompanionChat<CR>", desc = "Chat" },
 			{ "<Leader>ai", "<cmd>CodeCompanion<CR>", desc = "Inline assistant" },
 			{ "ga", "<cmd>CodeCompanionChat Add<CR>", desc = "Add selected text to the chat" },
-			{ "<Leader>gG", "<Cmd>CodeCompanion /commit<CR>", desc = "Generate a commit message" },
+			{ "<Leader>gg", "<Cmd>CodeCompanion /commit<CR>", desc = "Generate a commit message" },
 			{
 				"<Leader>ae",
 				function()
@@ -55,7 +55,7 @@ return {
 				desc = "Explain the LSP diagnostics",
 			},
 		},
-		config = function (_, opts)
+		config = function(_, opts)
 			require("plugins.ai.fidget-spinner"):init()
 			require("codecompanion").setup(opts)
 		end,

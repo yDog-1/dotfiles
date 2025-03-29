@@ -4,6 +4,9 @@ local function lazygit_toggle()
 		cmd = "lazygit",
 		direction = "float",
 		hidden = true,
+		on_open = function()
+			vim.cmd("startinsert")
+		end,
 	})
 	lazygit:toggle()
 end
@@ -13,7 +16,7 @@ return {
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		keys = {
-			{ "<leader>gg", lazygit_toggle, silent = true, desc = "Lazygit" },
+			{ "<leader>gG", lazygit_toggle, silent = true, desc = "Lazygit" },
 			{ [[<C-\>]], desc = "Toggle terminal" },
 			{ [[<C-¥>]], desc = "Toggle terminal" },
 		},
