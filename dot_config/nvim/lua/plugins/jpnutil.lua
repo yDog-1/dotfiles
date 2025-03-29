@@ -17,24 +17,30 @@ return {
 		lazy = true,
 		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
-			vim.fn["skkeleton#config"]({
-				globalDictionaries = {
-					"~/.skk/SKK-JISYO.JIS2",
-					"~/.skk/SKK-JISYO.JIS3_4",
-					"~/.skk/SKK-JISYO.L",
-					"~/.skk/SKK-JISYO.geo",
-					"~/.skk/SKK-JISYO.jinmei",
-					"~/.skk/SKK-JISYO.lisp",
-					"~/.skk/SKK-JISYO.propernoun",
-					"~/.skk/SKK-JISYO.station",
-				},
-				-- 候補選択メニューが出るまでの数
-				showCandidatesCount = 2,
-				-- Denoのインメモリキャッシュで高速化
-				databasePath = "~/.cache/skkeleton/database.db",
-				sources = { "deno_kv" },
-				-- キャンセルの挙動
-				immediatelyCancel = false,
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "skkeleton-initialize-pre",
+				desc = "skkeletonの初期設定",
+				callback = function()
+					vim.fn["skkeleton#config"]({
+						globalDictionaries = {
+							"~/.skk/SKK-JISYO.JIS2",
+							"~/.skk/SKK-JISYO.JIS3_4",
+							"~/.skk/SKK-JISYO.L",
+							"~/.skk/SKK-JISYO.geo",
+							"~/.skk/SKK-JISYO.jinmei",
+							"~/.skk/SKK-JISYO.lisp",
+							"~/.skk/SKK-JISYO.propernoun",
+							"~/.skk/SKK-JISYO.station",
+						},
+						-- 候補選択メニューが出るまでの数
+						showCandidatesCount = 2,
+						-- Denoのインメモリキャッシュで高速化
+						databasePath = "~/.cache/skkeleton/database.db",
+						sources = { "deno_kv" },
+						-- キャンセルの挙動
+						immediatelyCancel = false,
+					})
+				end,
 			})
 			require("denops-lazy").load("skkeleton", { wait_load = false })
 		end,
