@@ -46,6 +46,7 @@ export DPRINT_INSTALL="/home/kokkoh/.dprint"
 export PATH="$DPRINT_INSTALL/bin:$PATH"
 complete -C /usr/bin/terraform terraform
 . "/home/kokkoh/.deno/env"
+. "$HOME/.local/bin/env"
 
 #
 # Plugins
