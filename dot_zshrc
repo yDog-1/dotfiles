@@ -18,6 +18,8 @@ HISTFILE=~/.zsh_history
 #
 export EDITOR="nvim"
 export BROWSER="wslview"
+export LANG="ja_JP.UTF-8"
+export LANGUAGE="ja_JP:ja"
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 bindkey -v
 
