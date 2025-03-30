@@ -1,0 +1,8 @@
+# vim: nomodeline
+
+model: openrouter/deepseek/deepseek-chat:free
+stream: false
+code-theme: monokai
+dark-mode: true
+vim: true
+chat-language: japanese
