@@ -1,8 +1,13 @@
 # vim: nomodeline
 
 model: openrouter/deepseek/deepseek-chat:free
+# キャッシュのために stream を無効化
 stream: false
+cache-prompts: true
 code-theme: monokai
 dark-mode: true
 vim: true
 chat-language: japanese
+# `ai` で終わるコメントをファイルに書き込むと、それをAIが認識する
+watch-files: true
+auto-commits: false
