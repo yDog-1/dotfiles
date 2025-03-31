@@ -153,7 +153,7 @@ return {
 		"nekowasabi/aider.vim",
 		dependencies = "vim-denops/denops.vim",
 		keys = {
-			{ "<leader>at", "<cmd>AiderRun<CR>", desc = "Run Aider" },
+			{ "<leader>ao", "<cmd>AiderRun<CR>", desc = "Run Aider" },
 			{ "<leader>aa", "<cmd>AiderAddCurrentFile<CR>", desc = "Add current file" },
 			{ "<leader>ar", "<cmd>AiderAddCurrentFileReadOnly<CR>", desc = "Add current file as read-only" },
 			{
@@ -177,10 +177,8 @@ return {
 			},
 		},
 		config = function()
-			vim.g.aider_command = "aider --no-auto-commits"
-			vim.g.aider_buffer_open_type = "floating"
-			vim.g.aider_floatwin_width = 100
-			vim.g.aider_floatwin_height = 20
+			vim.g.aider_command = "aider --watch-files"
+			vim.g.aider_buffer_open_type = "vsplit"
 
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "AiderOpen",
@@ -188,11 +186,14 @@ return {
 					local set = vim.keymap.set
 					set("t", "<Esc>", "<C-\\><C-n>", { buffer = args.buf })
 					set("t", "jj", "<Esc>", { buffer = args.buf })
-					set("n", "<Esc>", "<cmd>AiderHide<CR>", { buffer = args.buf })
-					set("n", "q", "<cmd>AiderHide<CR>", { buffer = args.buf })
+					set("n", "q", "<C-w>q", { buffer = args.buf })
+
 					local optl = vim.opt_local
 					optl.number = false
 					optl.relativenumber = false
+					optl.buflisted = false
+
+					vim.cmd("wincmd L")
 				end,
 			})
 			require("denops-lazy").load("aider.vim", { wait_load = true })
