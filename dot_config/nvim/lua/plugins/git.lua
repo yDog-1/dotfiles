@@ -76,6 +76,8 @@ return {
 					set({ "n" }, "P", [[<Cmd>lua vim.notify("Gin pull")<Cr><Cmd>Gin pull<Cr>]], opts({ desc = "Pull" }))
 					set({ "n" }, "if", "<Plug>(gin-action-fixup:instant-fixup)", opts({ desc = "Fixup" }))
 					set({ "n" }, "ir", "<Plug>(gin-action-fixup:instant-reword)", opts({ desc = "Reword" }))
+
+					vim.opt_local.buflisted = false
 				end,
 			})
 
