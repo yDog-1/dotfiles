@@ -70,7 +70,6 @@ return {
 					end, opts({ desc = "Find gin-action" }))
 					set({ "n" }, "c", "<Cmd>Gin commit<Cr>", opts({ desc = "Commit" }))
 					set({ "n" }, "s", "<Cmd>GinStatus<Cr>", opts({ desc = "Status" }))
-					set({ "n" }, "L", "<Cmd>GinLog --graph<Cr>", opts({ desc = "Log" }))
 					set({ "n" }, "d", "<Cmd>GinDiff ++processor=delta\\ -n --staged<Cr>", opts({ desc = "Diff" }))
 					set({ "n" }, "q", "<Cmd>BufferClose<Cr>", opts({ desc = "Close" }))
 					set({ "n" }, "p", [[<Cmd>lua vim.notify("Gin push")<Cr><Cmd>Gin push<Cr>]], opts({ desc = "Push" }))
