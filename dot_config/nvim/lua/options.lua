@@ -48,7 +48,7 @@ o.splitright = true
 -- 行の折り返し
 o.wrap = true
 o.linebreak = true
-o.showbreak = ">>>"
+o.showbreak = ""
 
 -- 折り畳み設定
 o.foldmethod = "syntax"
