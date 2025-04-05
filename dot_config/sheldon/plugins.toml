@@ -22,3 +22,18 @@ hooks.post = """
   bindkey '^x' zeno-insert-snippet
 """
 
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+hooks.post = """
+  if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+    autoload -Uz compinit
+    compinit
+  fi
+"""
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+hooks.post = """
+  bindkey '^k'  autosuggest-accept
+"""
