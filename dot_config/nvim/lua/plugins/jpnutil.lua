@@ -40,6 +40,7 @@ return {
 						-- キャンセルの挙動
 						immediatelyCancel = false,
 					})
+					vim.fn["skkeleton#register_keymap"]("henkan", "<CR>", "kakutei")
 					vim.fn["skkeleton#register_kanatable"]("rom", {
 						jj = "escape",
 					})
