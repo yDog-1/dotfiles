@@ -1,7 +1,14 @@
-require("plugins.which-key.spec").add({
-	mode = { "n", "v" },
-	{ "<Leader>a", group = "AI", icon = { icon = "󰧑 ", color = "red" } },
-})
+for _, spec in ipairs({
+	{ "AI", "<Leader>a", "󰧑 ", "red" },
+	{ "Aider", "<Leader>ai", " ", "green" },
+	{ "Avante", "<Leader>av", "󰧑 ", "red" },
+	{ "CodeCompanion", "<Leader>ac", " ", "purple" },
+}) do
+	require("plugins.which-key.spec").add({
+		mode = { "n", "v" },
+		{ spec[2], group = spec[1], icon = { icon = spec[3], color = spec[4] } },
+	})
+end
 
 local openrouter_api_key = vim.fn.trim(vim.fn.system("head -n 1 ~/.config/llm/openrouter"))
 if vim.v.shell_error ~= 0 then
