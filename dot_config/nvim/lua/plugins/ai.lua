@@ -16,7 +16,89 @@ if vim.v.shell_error ~= 0 then
 	openrouter_api_key = ""
 end
 
+vim.api.nvim_create_autocmd("filetype", {
+	pattern = "Avante",
+	callback = function()
+		require("markview")
+	end,
+})
+
+local function get_current_os()
+	local os = {
+		"mac",
+		"linux",
+		"unix",
+		"sun",
+		"bsd",
+		"win32",
+		"win64",
+		"wsl",
+	}
+	for _, v in ipairs(os) do
+		if vim.fn.has(v) == 1 then
+			return v
+		end
+	end
+end
+
+local avante_build = (function()
+	local os = get_current_os()
+	if os == "win32" or os == "win64" then
+		return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+	else
+		return "make"
+	end
+end)()
+
 return {
+	{
+		"yetone/avante.nvim",
+		event = "VeryLazy",
+		build = avante_build,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"stevearc/dressing.nvim",
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			"nvim-telescope/telescope.nvim",
+			"ibhagwan/fzf-lua",
+			"nvim-tree/nvim-web-devicons",
+			"zbirenbaum/copilot.lua",
+			{
+				-- support for image pasting
+				"HakonHarnes/img-clip.nvim",
+				event = "VeryLazy",
+				opts = {
+					-- recommended settings
+					default = {
+						embed_image_as_base64 = false,
+						prompt_for_file_name = false,
+						drag_and_drop = {
+							insert_mode = true,
+						},
+						-- required for Windows users
+						use_absolute_path = true,
+					},
+				},
+			},
+		},
+		version = false,
+		keys = {
+			{ "<Leader>ava", "<cmd>AvanteAsk<CR>", desc = "Ask" },
+		},
+		---@module "avante"
+		---@type avante.Config
+		opts = {
+			provider = "copilot",
+			copilot = {
+				model = "claude-3.7-sonnet",
+			},
+			behaviour = {
+				auto_suggestions = false,
+				auto_set_keymaps = false,
+			},
+		},
+	},
 	{
 		"olimorris/codecompanion.nvim",
 		lazy = true,
