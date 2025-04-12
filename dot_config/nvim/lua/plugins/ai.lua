@@ -20,11 +20,16 @@ return {
 			{ "<Leader>aca", "<cmd>CodeCompanionActions<CR>", mode = "n", desc = "Action palette" },
 			{ "<Leader>aco", "<cmd>CodeCompanionChat<CR>", desc = "Chat" },
 			{ "<Leader>aci", "<cmd>CodeCompanion<CR>", desc = "Inline assistant" },
-			{ "ga", "<cmd>CodeCompanionChat Add<CR>", desc = "Add selected text to the chat" },
 			{ "<Leader>gg", "<Cmd>CodeCompanion /commit<CR>", desc = "Generate a commit message" },
-			{ "<Leader>aa", "<cmd>CodeCompanionActions<CR>", mode = "v", desc = "Action palette" },
 			{
-				"<Leader>ae",
+				"<Leader>aca",
+				"<cmd>CodeCompanionChat Add<CR>",
+				mode = "v",
+				desc = "Add selected text to the chat",
+			},
+			{ "<Leader>aca", "<cmd>CodeCompanionActions<CR>", mode = "v", desc = "Action palette" },
+			{
+				"<Leader>ace",
 				function()
 					require("codecompanion").prompt("explain")
 				end,
@@ -153,27 +158,27 @@ return {
 		"nekowasabi/aider.vim",
 		dependencies = "vim-denops/denops.vim",
 		keys = {
-			{ "<leader>ao", "<cmd>AiderRun<CR>", desc = "Run Aider" },
-			{ "<leader>aa", "<cmd>AiderAddCurrentFile<CR>", desc = "Add current file" },
-			{ "<leader>ar", "<cmd>AiderAddCurrentFileReadOnly<CR>", desc = "Add current file as read-only" },
+			{ "<leader>aio", "<cmd>AiderRun<CR>", desc = "Run" },
+			{ "<leader>aia", "<cmd>AiderAddCurrentFile<CR>", desc = "Add current file" },
+			{ "<leader>air", "<cmd>AiderAddCurrentFileReadOnly<CR>", desc = "Add current file as read-only" },
 			{
-				"<leader>aw",
+				"<leader>aiw",
 				function()
 					local register_content = vim.fn.getreg("+")
 					vim.cmd("AiderAddWeb " .. register_content)
 				end,
 				desc = "Add web reference from clipboard",
 			},
-			{ "<leader>ax", "<cmd>AiderExit<CR>", desc = "Exit Aider" },
-			{ "<leader>ai", "<cmd>AiderAddIgnoreCurrentFile<CR>", desc = "Add current file to ignore" },
-			{ "<leader>aI", "<cmd>AiderOpenIgnore<CR>", desc = "Open ignore settings" },
-			{ "<leader>ap", "<cmd>AiderPaste<CR>", desc = "Paste to Aider" },
-			{ "<leader>ah", "<cmd>AiderHide<CR>", desc = "Hide Aider" },
+			{ "<leader>aix", "<cmd>AiderExit<CR>", desc = "Exit" },
+			{ "<leader>aii", "<cmd>AiderAddIgnoreCurrentFile<CR>", desc = "Add current file to ignore" },
+			{ "<leader>aiI", "<cmd>AiderOpenIgnore<CR>", desc = "Open ignore settings" },
+			{ "<leader>aip", "<cmd>AiderPaste<CR>", desc = "Paste" },
+			{ "<leader>aih", "<cmd>AiderHide<CR>", desc = "Hide" },
 			{
-				"<leader>av",
+				"<leader>aiv",
 				"<cmd>AiderVisualTextWithPrompt<CR>",
 				mode = "v",
-				desc = "Send visual selection with prompt for Aider",
+				desc = "Send prompt",
 			},
 		},
 		config = function()
