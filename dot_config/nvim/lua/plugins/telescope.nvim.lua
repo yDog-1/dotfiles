@@ -17,6 +17,8 @@ return {
 			{ "<Leader>fb", "<cmd>Telescope buffers<CR>", desc = "Buffers" },
 			-- ヘルプタグ
 			{ "<Leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Help tags" },
+			-- 最近使ったファイル
+			{ "<Leader>fr", "<cmd>Telescope oldfiles<CR>", desc = "Recent files" },
 		},
 		cmd = {
 			"Telescope",
