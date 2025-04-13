@@ -10,11 +10,7 @@ for _, spec in ipairs({
 	})
 end
 
-local openrouter_api_key = vim.fn.trim(vim.fn.system("head -n 1 ~/.config/llm/openrouter"))
-if vim.v.shell_error ~= 0 then
-	print("Error reading OpenRouter API key")
-	openrouter_api_key = ""
-end
+local openrouter_api_key = "cmd:bw get notes OPENROUTER_API_KEY"
 
 vim.api.nvim_create_autocmd("filetype", {
 	pattern = "Avante",
