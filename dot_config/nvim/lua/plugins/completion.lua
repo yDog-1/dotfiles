@@ -62,7 +62,7 @@ return {
 						score_offset = 60,
 					},
 					snippets = {
-						score_offset = 30,
+						score_offset = 90,
 					},
 					buffer = {
 						opts = {
@@ -73,7 +73,7 @@ return {
 					copilot = {
 						name = "copilot",
 						module = "blink-copilot",
-						score_offset = 95,
+						score_offset = 80,
 						async = true,
 					},
 					codecompanion = {
