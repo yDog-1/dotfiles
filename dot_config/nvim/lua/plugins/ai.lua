@@ -124,6 +124,10 @@ return {
 				select_model = "<leader>av?",
 				select_history = "<leader>avh",
 			},
+			file_selector = {
+				provider = "telescope",
+				provider_opts = {},
+			}
 		},
 	},
 	{

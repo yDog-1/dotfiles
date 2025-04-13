@@ -40,6 +40,7 @@ return {
 			"rafamadriz/friendly-snippets",
 			"L3MON4D3/LuaSnip",
 			"fang2hou/blink-copilot",
+			"saghen/blink.compat",
 		},
 		version = "*",
 		event = { "InsertEnter", "CmdlineEnter" },
@@ -51,7 +52,17 @@ return {
 				nerd_font_variant = "mono",
 			},
 			sources = {
-				default = { "lazydev", "lsp", "path", "snippets", "buffer", "copilot" },
+				default = {
+					"lazydev",
+					"lsp",
+					"path",
+					"snippets",
+					"buffer",
+					"copilot",
+					"avante_commands",
+					"avante_mentions",
+					"avante_files",
+				},
 				providers = {
 					lazydev = {
 						name = "LazyDev",
@@ -80,6 +91,24 @@ return {
 						name = "codecompanion",
 						module = "codecompanion.providers.completion.blink",
 						score_offset = 100,
+					},
+					avante_commands = {
+						name = "avante_commands",
+						module = "blink.compat.source",
+						score_offset = 90,
+						opts = {},
+					},
+					avante_files = {
+						name = "avante_files",
+						module = "blink.compat.source",
+						score_offset = 100,
+						opts = {},
+					},
+					avante_mentions = {
+						name = "avante_mentions",
+						module = "blink.compat.source",
+						score_offset = 1000,
+						opts = {},
 					},
 				},
 				min_keyword_length = function(ctx)
