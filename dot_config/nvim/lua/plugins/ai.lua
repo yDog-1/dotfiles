@@ -79,9 +79,6 @@ return {
 			},
 		},
 		version = false,
-		keys = {
-			{ "<Leader>ava", "<cmd>AvanteAsk<CR>", desc = "Ask" },
-		},
 		---@module "avante"
 		---@type avante.Config
 		opts = {
@@ -89,9 +86,43 @@ return {
 			copilot = {
 				model = "claude-3.7-sonnet",
 			},
+			vendors = {
+				["openrouter"] = {
+					__inherited_from = "openai",
+					endpoint = "https://openrouter.ai/api/v1",
+					api_key_name = openrouter_api_key,
+					model = "deepseek/deepseek-r1",
+				},
+				["openrouter-free"] = {
+					__inherited_from = "openai",
+					disable_tools = true,
+					endpoint = "https://openrouter.ai/api/v1",
+					api_key_name = openrouter_api_key,
+					model = "deepseek/deepseek-r1:free",
+				},
+			},
 			behaviour = {
 				auto_suggestions = false,
-				auto_set_keymaps = false,
+			},
+			mappings = {
+				ask = "<Leader>ava",
+				edit = "<leader>ave",
+				refresh = "<leader>avr",
+				focus = "<leader>avf",
+				stop = "<leader>avS",
+				toggle = {
+					default = "<leader>avt",
+					debug = "<leader>avd",
+					hint = "<leader>avh",
+					suggestion = "<leader>avs",
+					repomap = "<leader>avR",
+				},
+				files = {
+					add_current = "<leader>avc",
+					add_all_buffers = "<leader>avB",
+				},
+				select_model = "<leader>av?",
+				select_history = "<leader>avh",
 			},
 		},
 	},
