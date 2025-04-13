@@ -23,6 +23,13 @@ export LANGUAGE="ja_JP:ja"
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 bindkey -v
 
+#
+# Secrets
+#
+if [ -f ~/.secrets ]; then
+  source ~/.secrets
+fi
+
 
 # Development Tools
 #
