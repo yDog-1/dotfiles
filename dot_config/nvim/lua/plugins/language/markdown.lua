@@ -11,7 +11,7 @@ return {
 		opts = {
 			preview = {
 				enable = false,
-				filetypes = { "markdown", "codecompanion" },
+				filetypes = { "markdown", "codecompanion", "Avante" },
 				ignore_buftypes = {},
 				icon_provider = "devicons",
 			},

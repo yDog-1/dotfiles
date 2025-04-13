@@ -15,7 +15,7 @@ local openrouter_api_key = "cmd:bw get notes OPENROUTER_API_KEY"
 vim.api.nvim_create_autocmd("filetype", {
 	pattern = "Avante",
 	callback = function()
-		require("markview")
+		vim.cmd("Markview enable")
 	end,
 })
 
@@ -127,7 +127,7 @@ return {
 			file_selector = {
 				provider = "telescope",
 				provider_opts = {},
-			}
+			},
 		},
 	},
 	{
