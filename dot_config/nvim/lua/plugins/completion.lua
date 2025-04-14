@@ -28,7 +28,6 @@ local keymap = {
 	["<C-space>"] = { "show" },
 	["<C-E>"] = { "hide" },
 	["<C-K>"] = { "show_documentation", "fallback" },
-	["<C-S>"] = { "show_signature" },
 	["<C-U>"] = { "scroll_documentation_up", "fallback" },
 	["<C-D>"] = { "scroll_documentation_down" },
 }
