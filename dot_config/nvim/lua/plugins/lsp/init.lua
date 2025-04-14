@@ -38,6 +38,7 @@ local ensure_installed = {
 	"dprint",
 	"prettier",
 	"yq",
+	"jq",
 	"goimports",
 
 	-- Tool

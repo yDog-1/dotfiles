@@ -130,6 +130,15 @@ local efm_config = require("plugins.lsp.efm_config").setup({
 				},
 			},
 		},
+		json = {
+			{
+				kind = "formatters",
+				name = "jq",
+				settings = {
+					default = true,
+				},
+			},
+		},
 		yaml = {
 			{
 				kind = "linters",
