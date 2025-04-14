@@ -62,6 +62,7 @@ return {
 		},
 		cmd = {
 			"Telescope chezmoi",
+			"ChezmoiReAdd",
 		},
 		-- chezmoiのファイルを開いたらこのプラグインを読み込む
 		event = "BufReadPre " .. vim.g.chezmoidir .. "/*",
@@ -77,6 +78,12 @@ return {
 					vim.schedule(edit_watch)
 				end,
 			})
+
+			-- ChezmoiReAdd コマンドを作成
+			vim.api.nvim_create_user_command("ChezmoiReAdd", function()
+				vim.fn.system("chezmoi re-add")
+				vim.notify("Executed: chezmoi re-add", vim.log.levels.INFO)
+			end, { desc = "Execute chezmoi re-add" })
 
 			return {
 				edit = {
