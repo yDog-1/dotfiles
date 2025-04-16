@@ -220,7 +220,7 @@ return {
 			{ "<Leader>aci", "<cmd>CodeCompanion<CR>", desc = "Inline assistant" },
 			{ "<Leader>gg", "<Cmd>CodeCompanion /commit<CR>", desc = "Generate a commit message" },
 			{
-				"<Leader>aca",
+				"<Leader>acp",
 				"<cmd>CodeCompanionChat Add<CR>",
 				mode = "v",
 				desc = "Add selected text to the chat",
