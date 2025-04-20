@@ -26,8 +26,8 @@ bindkey -v
 #
 # Secrets
 #
-if [ -f ~/.secrets ]; then
-  source ~/.secrets
+if [ -f ~/.secrets.sh ]; then
+  source ~/.secrets.sh
 fi
 
 
