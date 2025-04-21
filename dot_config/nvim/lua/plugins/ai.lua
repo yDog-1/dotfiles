@@ -10,7 +10,7 @@ for _, spec in ipairs({
 	})
 end
 
-local openrouter_api_key = "cmd:bw get notes OPENROUTER_API_KEY"
+local openrouter_api_key = "OPENROUTER_API_KEY"
 
 vim.api.nvim_create_autocmd("filetype", {
 	pattern = "Avante",
@@ -82,6 +82,7 @@ return {
 			"nvim-lua/plenary.nvim", -- Required for Job and HTTP requests
 		},
 		-- comment the following line to ensure hub will be ready at the earliest
+	event = "BufEnter",
 		cmd = "MCPHub", -- lazy load by default
 		build = "npm install -g mcp-hub@latest", -- Installs required mcp-hub npm module
 		-- uncomment this if you don't want mcp-hub to be available globally or can't use -g
@@ -274,7 +275,7 @@ return {
 						},
 					})
 				end,
-				openrouter_gemini = function()
+				openrouter = function()
 					return require("codecompanion.adapters").extend("openai_compatible", {
 						env = {
 							url = "https://openrouter.ai/api",
@@ -283,7 +284,7 @@ return {
 						},
 						schema = {
 							model = {
-								default = "google/gemini-2.5-pro-exp-03-25:free",
+								default = "google/gemini-2.5-flash-preview",
 							},
 						},
 					})
