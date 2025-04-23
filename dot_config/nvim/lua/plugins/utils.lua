@@ -117,6 +117,9 @@ return {
 					"~/",
 				},
 				close_unsupported_windows = true,
+				bypass_save_filetypes = {
+					"codecompanion"
+				},
 				use_git_branch = true,
 			}
 		end,
