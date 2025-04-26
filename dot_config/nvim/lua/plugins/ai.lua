@@ -200,7 +200,11 @@ return {
 			},
 			system_prompt = function()
 				local hub = require("mcphub").get_hub_instance()
-				return hub:get_active_servers_prompt()
+				if hub then
+					return hub:get_active_servers_prompt()
+				else
+					return system_prompt -- 元のシステムプロンプトを返す
+				end
 			end,
 			custom_tools = function()
 				return {
