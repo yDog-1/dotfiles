@@ -1,6 +1,6 @@
 for _, spec in ipairs({
 	{ "AI", "<Leader>a", "󰧑 ", "red" },
-	{ "Aider", "<Leader>ai", " ", "green" },
+	{ "Aider", "<Leader>aI", " ", "green" },
 	{ "Avante", "<Leader>av", "󰧑 ", "red" },
 	{ "CodeCompanion", "<Leader>ac", " ", "purple" },
 }) do
@@ -367,24 +367,24 @@ return {
 		"nekowasabi/aider.vim",
 		dependencies = "vim-denops/denops.vim",
 		keys = {
-			{ "<leader>aio", "<cmd>AiderRun<CR>", desc = "Run" },
-			{ "<leader>aia", "<cmd>AiderAddCurrentFile<CR>", desc = "Add current file" },
-			{ "<leader>air", "<cmd>AiderAddCurrentFileReadOnly<CR>", desc = "Add current file as read-only" },
+			{ "<leader>aIo", "<cmd>AiderRun<CR>", desc = "Run" },
+			{ "<leader>aIa", "<cmd>AiderAddCurrentFile<CR>", desc = "Add current file" },
+			{ "<leader>aIr", "<cmd>AiderAddCurrentFileReadOnly<CR>", desc = "Add current file as read-only" },
 			{
-				"<leader>aiw",
+				"<leader>aIw",
 				function()
 					local register_content = vim.fn.getreg("+")
 					vim.cmd("AiderAddWeb " .. register_content)
 				end,
 				desc = "Add web reference from clipboard",
 			},
-			{ "<leader>aix", "<cmd>AiderExit<CR>", desc = "Exit" },
-			{ "<leader>aii", "<cmd>AiderAddIgnoreCurrentFile<CR>", desc = "Add current file to ignore" },
-			{ "<leader>aiI", "<cmd>AiderOpenIgnore<CR>", desc = "Open ignore settings" },
-			{ "<leader>aip", "<cmd>AiderPaste<CR>", desc = "Paste" },
-			{ "<leader>aih", "<cmd>AiderHide<CR>", desc = "Hide" },
+			{ "<leader>aIx", "<cmd>AiderExit<CR>", desc = "Exit" },
+			{ "<leader>aIi", "<cmd>AiderAddIgnoreCurrentFile<CR>", desc = "Add current file to ignore" },
+			{ "<leader>aII", "<cmd>AiderOpenIgnore<CR>", desc = "Open ignore settings" },
+			{ "<leader>aIp", "<cmd>AiderPaste<CR>", desc = "Paste" },
+			{ "<leader>aIh", "<cmd>AiderHide<CR>", desc = "Hide" },
 			{
-				"<leader>aiv",
+				"<leader>aIv",
 				"<cmd>AiderVisualTextWithPrompt<CR>",
 				mode = "v",
 				desc = "Send prompt",
