@@ -220,19 +220,18 @@ return {
 			"j-hui/fidget.nvim",
 		},
 		keys = {
-			{ "<Leader>aca", "<cmd>CodeCompanionActions<CR>", mode = "n", desc = "Action palette" },
-			{ "<Leader>aco", "<cmd>CodeCompanionChat<CR>", desc = "Chat" },
-			{ "<Leader>aci", "<cmd>CodeCompanion<CR>", desc = "Inline assistant" },
+			{ "<Leader>aA", "<cmd>CodeCompanionActions<CR>", mode = { "n", "v" }, desc = "Action palette" },
+			{ "<Leader>ao", "<cmd>CodeCompanionChat<CR>", desc = "Chat" },
+			{ "<Leader>ai", ":CodeCompanion<CR>", mode = { "n", "v" }, desc = "Inline assistant" },
 			{ "<Leader>gg", "<Cmd>CodeCompanion /commit<CR>", desc = "Generate a commit message" },
 			{
-				"<Leader>acp",
+				"<Leader>aa",
 				"<cmd>CodeCompanionChat Add<CR>",
 				mode = "v",
 				desc = "Add selected text to the chat",
 			},
-			{ "<Leader>aca", "<cmd>CodeCompanionActions<CR>", mode = "v", desc = "Action palette" },
 			{
-				"<Leader>ace",
+				"<Leader>ae",
 				function()
 					require("codecompanion").prompt("explain")
 				end,
