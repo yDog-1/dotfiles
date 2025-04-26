@@ -352,6 +352,18 @@ return {
 		},
 	},
 	{
+		"atusy/aibou.nvim",
+		keys = {
+			{
+				"<leader>aa",
+				function()
+					require("aibou.codecompanion").start()
+				end,
+				desc = "Start aibou",
+			},
+		},
+	},
+	{
 		"zbirenbaum/copilot.lua",
 		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
