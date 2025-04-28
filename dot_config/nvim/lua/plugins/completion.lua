@@ -66,13 +66,13 @@ return {
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
-						score_offset = 70,
+						score_offset = 90,
 					},
 					lsp = {
-						score_offset = 60,
+						score_offset = 90,
 					},
 					snippets = {
-						score_offset = 90,
+						score_offset = 60,
 					},
 					buffer = {
 						opts = {
@@ -83,7 +83,7 @@ return {
 					copilot = {
 						name = "copilot",
 						module = "blink-copilot",
-						score_offset = 80,
+						score_offset = 85,
 						async = true,
 					},
 					codecompanion = {
