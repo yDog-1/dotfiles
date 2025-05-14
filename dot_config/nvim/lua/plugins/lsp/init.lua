@@ -7,21 +7,24 @@ local format = function()
 	vim.lsp.buf.format({ name = "efm" })
 end
 
-local ensure_installed = {
-	-- LS
+local servers = {
 	"efm",
 	"lua_ls",
 	"ts_ls",
 	"gopls",
-	"golangci-lint-langserver",
+	"golangci_lint_ls",
 	"sqls",
 	"graphql",
 	"jsonls",
 	"yamlls",
-	"terraform-ls",
+	"terraformls",
 	"taplo",
-	"markdown-oxide",
+	"markdown_oxide",
+	"astro",
+	"tailwindcss",
+}
 
+local ensure_installed = {
 	-- Linter
 	"gitlint",
 	"hadolint",
@@ -55,7 +58,7 @@ return {
 		lazy = true,
 		opts = true,
 	},
-	-- Neovim での LSP 設定APIを提供
+	-- Neovim での LSP 設定を提供
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -68,7 +71,6 @@ return {
 			vim.cmd("MasonToolsInstall")
 
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			local nvim_lsp = require("lspconfig")
 
 			-- 保存時にフォーマット
 			local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})
@@ -85,49 +87,41 @@ return {
 				end,
 			})
 
-			require("mason-lspconfig").setup_handlers({
-				function(server_name)
-					nvim_lsp[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
-				-- 個別設定
-				----------------------------------------------
-				["lua_ls"] = function()
-					require("lspconfig")["lua_ls"].setup({
-						capabilities = capabilities,
-						settings = {
-							Lua = {
-								diagnostics = {
-									globals = {
-										"vim",
-										"client",
-									},
-									disable = {
-										"missing-fields",
-									},
-								},
+			vim.lsp.config("*", {
+				capabilities = capabilities,
+			})
+
+			vim.lsp.config("lua_ls", {
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = {
+								"vim",
+								"client",
+							},
+							disable = {
+								"missing-fields",
 							},
 						},
-					})
-				end,
-
-				["markdown_oxide"] = function()
-					require("lspconfig")["markdown_oxide"].setup({
-						capabilities = vim.tbl_deep_extend("force", capabilities, {
-							workspace = {
-								didChangeWatchedFiles = {
-									dynamicRegistration = true,
-								},
-							},
-						}),
-					})
-				end,
-
-				efm = function()
-					require("lspconfig").efm.setup(require("plugins.lsp.efm"))
-				end,
+					},
+				},
 			})
+
+			vim.lsp.config("markdown_oxide", {
+				capabilities = vim.tbl_deep_extend("force", capabilities, {
+					workspace = {
+						didChangeWatchedFiles = {
+							dynamicRegistration = true,
+						},
+					},
+				}),
+			})
+
+			vim.lsp.config("efm", {
+				require("lspconfig").efm.setup(require("plugins.lsp.efm")),
+			})
+
+			vim.lsp.enable(servers)
 		end,
 	},
 	-- mason.nvim と nvim-lspconfig の連携
@@ -137,6 +131,10 @@ return {
 			"williamboman/mason.nvim",
 		},
 		lazy = true,
+		opts = {
+			ensure_installed = servers,
+			automatic_enable = true,
+		},
 	},
 	-- efm Language Server と nvim-lspconfig の連携
 	{
