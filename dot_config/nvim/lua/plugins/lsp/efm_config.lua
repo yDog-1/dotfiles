@@ -37,6 +37,7 @@ local function alt_js_config(languages, tool_config)
 		"javascriptreact",
 		"typescript",
 		"typescriptreact",
+		"astro",
 	}
 	for _, alt in ipairs(alts) do
 		languages[alt] = {}

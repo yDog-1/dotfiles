@@ -53,3 +53,16 @@ o.showbreak = ""
 -- 折り畳み設定
 o.foldmethod = "syntax"
 o.foldlevel = 99
+
+-- filetype
+-- vim.filetype.add({
+-- 	extension = {
+-- 		astro = "astro",
+-- 	},
+-- })
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+	pattern = "*.astro",
+	callback = function()
+		o.filetype = "astro"
+	end,
+})
