@@ -74,8 +74,12 @@ return {
 
 			vim.api.nvim_create_autocmd("filetype", {
 				pattern = "markdown",
-				callback = function()
-					otter.activate(nil, true, false)
+				callback = function(o)
+					local buf = o.buf
+					-- Check if buffer is writable before activating Otter
+					if not vim.bo[buf].readonly then
+						otter.activate(nil, true, false)
+					end
 				end,
 			})
 		end,
