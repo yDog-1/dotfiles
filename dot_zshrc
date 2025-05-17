@@ -80,4 +80,7 @@ bindkey -M viins 'jj' vi-cmd-mode
 bindkey -M vicmd 'j' down-line-or-history
 # `Ctrl - p` で 履歴,メニューを遡る
 bindkey -M viins '^P' up-line-or-search
-
+# `Ctrl - o` でNeovimでコマンドを編集
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey "^O" edit-command-line
