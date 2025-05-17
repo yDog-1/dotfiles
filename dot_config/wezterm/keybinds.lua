@@ -31,26 +31,29 @@ return {
 		{ mods = "LEADER", key = "c", action = act.CloseCurrentPane({ confirm = false }) },
 		-- タブを閉じる
 		{ mods = "LEADER|CTRL", key = "c", action = act.CloseCurrentTab({ confirm = false }) },
-    -- スクロールモードに移行
-		{ mods = "LEADER", key = "@", action = act.ActivateKeyTable {
-        name = "SCROLL",
-        one_shot = false,
-      },
-    },
+		-- スクロールモードに移行
+		{
+			mods = "LEADER",
+			key = "@",
+			action = act.ActivateKeyTable({
+				name = "SCROLL",
+				one_shot = false,
+			}),
+		},
 	},
 
-  key_tables = {
-    -- スクロールモードで
-    SCROLL = {
-      { key = "u", action = act.ScrollByPage(-0.5) },
-      { key = "d", action = act.ScrollByPage(0.5) },
-      { key = "k", action = act.ScrollByLine(-1) },
-      { key = "j", action = act.ScrollByLine(1) },
-      { key = "t", action = act.ScrollToTop },
-      { key = "b", action = act.ScrollToBottom },
-      -- 
-      { key = "Escape", action = 'PopKeyTable' },
-      { key = "@", action = 'PopKeyTable' },
-  }
-  },
+	key_tables = {
+		-- スクロールモードで
+		SCROLL = {
+			{ key = "u", action = act.ScrollByPage(-0.5) },
+			{ key = "d", action = act.ScrollByPage(0.5) },
+			{ key = "k", action = act.ScrollByLine(-1) },
+			{ key = "j", action = act.ScrollByLine(1) },
+			{ key = "t", action = act.ScrollToTop },
+			{ key = "b", action = act.ScrollToBottom },
+			--
+			{ key = "Escape", action = "PopKeyTable" },
+			{ key = "@", action = "PopKeyTable" },
+		},
+	},
 }

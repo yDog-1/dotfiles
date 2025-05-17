@@ -32,7 +32,7 @@ local efm_config = require("plugins.lsp.efm_config").setup({
 				settings = {
 					default = true,
 				},
-			}
+			},
 		},
 		dockerfile = {
 			{

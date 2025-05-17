@@ -1,9 +1,8 @@
 -- オプションの設定
-require('options')
+require("options")
 
 -- キーマップ設定
-require('keymaps')
+require("keymaps")
 
 -- プラグインマネージャ
-require('config.lazy')
-
+require("config.lazy")
