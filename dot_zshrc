@@ -28,7 +28,6 @@ bindkey -v
 #
 if [ -f ~/.secrets.env ]; then
   source ~/.secrets.env
-  source ~/.bw.sh
 fi
 
 
