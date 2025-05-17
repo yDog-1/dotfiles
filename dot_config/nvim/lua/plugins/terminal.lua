@@ -29,14 +29,15 @@ return {
 			require("toggleterm").setup(opts)
 
 			-- `:wqa` でエラーを起こさずに閉じる設定
-			vim.api.nvim_create_autocmd({ "TermEnter" }, {
+			local grp = vim.api.nvim_create_augroup("ToggleTermClose", { clear = true })
+			vim.api.nvim_create_autocmd({ "TermOpen" }, {
+				group = grp,
 				callback = function()
 					for _, buffers in ipairs(vim.fn.getbufinfo()) do
 						local filetype = vim.bo[buffers.bufnr].filetype
 						if filetype == "toggleterm" then
-							vim.api.nvim_create_autocmd({ "BufWriteCmd", "FileWriteCmd", "FileAppendCmd" }, {
-								buffer = buffers.bufnr,
-								command = "q!",
+							vim.api.nvim_create_autocmd({ "QuitPre", "ExitPre" }, {
+								command = "bd! " .. buffers.bufnr,
 							})
 						end
 					end
