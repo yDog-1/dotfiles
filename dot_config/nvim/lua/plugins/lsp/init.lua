@@ -3,8 +3,19 @@ require("plugins.which-key.spec").add({
 	{ "<Leader>c", group = "code" },
 })
 
-local format = function()
-	vim.lsp.buf.format({ name = "efm" })
+local format = function(bufnr)
+	local efm = vim.lsp.get_clients({ name = "efm", bufnr = bufnr })
+	if not vim.tbl_isempty(efm) then
+		vim.lsp.buf.format({ name = "efm" })
+		return
+	end
+
+	local clients = vim.lsp.get_clients({ bufnr = bufnr })
+	if vim.tbl_isempty(clients) then
+		return
+	end
+
+	vim.lsp.buf.format()
 end
 
 local servers = {
@@ -77,14 +88,8 @@ return {
 			local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})
 			vim.api.nvim_create_autocmd("BufWritePost", {
 				group = lsp_fmt_group,
-				callback = function(ev)
-					local efm = vim.lsp.get_clients({ name = "efm", bufnr = ev.buf })
-
-					if vim.tbl_isempty(efm) then
-						return
-					end
-
-					format()
+				callback = function(o)
+					format(o.buf)
 				end,
 			})
 
