@@ -373,8 +373,6 @@ return {
 					markdown = true,
 					gitcommit = true,
 				},
-				suggestion = { enabled = false },
-				pannel = { enabled = false },
 			})
 		end,
 	},

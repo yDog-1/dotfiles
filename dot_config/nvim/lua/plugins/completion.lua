@@ -38,7 +38,6 @@ return {
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 			"L3MON4D3/LuaSnip",
-			"fang2hou/blink-copilot",
 			"saghen/blink.compat",
 		},
 		version = "*",
@@ -57,7 +56,6 @@ return {
 					"path",
 					"snippets",
 					"buffer",
-					"copilot",
 					"avante_commands",
 					"avante_mentions",
 					"avante_files",
@@ -79,12 +77,6 @@ return {
 							-- 全てのバッファから補完
 							get_bufnrs = vim.api.nvim_list_bufs,
 						},
-					},
-					copilot = {
-						name = "copilot",
-						module = "blink-copilot",
-						score_offset = 85,
-						async = true,
 					},
 					codecompanion = {
 						name = "codecompanion",
@@ -120,7 +112,7 @@ return {
 				end,
 				per_filetype = {
 					codecompanion = { "codecompanion", "buffer" },
-					gitcommit = { "snippets", "copilot" },
+					gitcommit = { "snippets" },
 				},
 			},
 			signature = {
