@@ -20,8 +20,8 @@ local keymap = {
 	preset = "none",
 	["<C-N>"] = { "show", "select_next" },
 	["<C-P>"] = { "select_prev" },
-	["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
-	["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+	["<Tab>"] = { "snippet_forward", "fallback" },
+	["<S-Tab>"] = { "snippet_backward", "fallback" },
 	["<C-Y>"] = { "accept" },
 	["<CR>"] = { "select_and_accept", "fallback" },
 	["<C-G>"] = { "cancel", "fallback" },
@@ -49,6 +49,11 @@ return {
 			appearance = {
 				nerd_font_variant = "mono",
 			},
+			completion = {
+				documentation = {
+					auto_show = true,
+				},
+			},
 			sources = {
 				default = {
 					"lazydev",
@@ -61,10 +66,13 @@ return {
 					"avante_files",
 				},
 				providers = {
+					path = {
+						score_offset = 110,
+					},
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
-						score_offset = 90,
+						score_offset = 92,
 					},
 					lsp = {
 						score_offset = 90,
