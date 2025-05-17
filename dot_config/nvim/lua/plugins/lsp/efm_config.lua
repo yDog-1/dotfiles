@@ -27,7 +27,6 @@ local function apply_config(tool_config)
 	settings = vim.tbl_extend("force", settings, options)
 	return settings
 end
-require("efmls-configs.formatters.taplo")
 
 ---@param languages table<string, tool_config[]>
 ---@param tool_config tool_config
