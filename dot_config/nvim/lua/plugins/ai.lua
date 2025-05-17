@@ -373,6 +373,9 @@ return {
 					markdown = true,
 					gitcommit = true,
 				},
+				suggestion = {
+					auto_trigger = true,
+				},
 			})
 		end,
 	},
