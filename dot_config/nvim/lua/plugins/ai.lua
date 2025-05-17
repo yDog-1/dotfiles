@@ -408,13 +408,16 @@ return {
 		},
 		config = function()
 			vim.g.aider_command = "aider --watch-files"
-			vim.g.aider_buffer_open_type = "vsplit"
+			vim.g.aider_buffer_open_type = "floating"
+			vim.g.aider_floatwin_width = 200
+			vim.g.aider_floatwin_height = 40
 
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "AiderOpen",
 				callback = function(args)
 					local set = vim.keymap.set
 					set("t", "<Esc>", "<C-\\><C-n>", { buffer = args.buf })
+					set({ "n", "t" }, "<Esc><Esc>", "<cmd>quit<CR>", { buffer = args.buf, desc = "Quit" })
 					set("t", "jj", "<Esc>", { buffer = args.buf })
 					set("n", "q", "<C-w>q", { buffer = args.buf })
 
@@ -422,8 +425,7 @@ return {
 					optl.number = false
 					optl.relativenumber = false
 					optl.buflisted = false
-
-					vim.cmd("wincmd L")
+					optl.filetype = "aider"
 				end,
 			})
 			require("denops-lazy").load("aider.vim", { wait_load = true })
