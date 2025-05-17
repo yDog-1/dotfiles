@@ -6,8 +6,6 @@ return {
 	{ "MunifTanjim/nui.nvim", lazy = true },
 	-- 便利ライブラリ
 	{ "nvim-lua/plenary.nvim", lazy = true },
-	-- Vimの対応言語を増やし、ハイライト・インデント・ファイルタイプの検出機能を拡張するプラグイン
-	{ "sheerun/vim-polyglot", event = { "BufReadPre", "BufNewFile" } },
 	-- インデントを強調表示
 	{
 		"shellRaining/hlchunk.nvim",
