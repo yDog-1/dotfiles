@@ -147,10 +147,6 @@ return {
 				}),
 			})
 
-			vim.lsp.config("efm", {
-				require("lspconfig").efm.setup(require("plugins.lsp.efm")),
-			})
-
 			vim.lsp.enable(servers)
 		end,
 	},
