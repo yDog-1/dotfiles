@@ -36,8 +36,11 @@ return {
 					for _, buffers in ipairs(vim.fn.getbufinfo()) do
 						local filetype = vim.bo[buffers.bufnr].filetype
 						if filetype == "toggleterm" then
-							vim.api.nvim_create_autocmd({ "QuitPre", "ExitPre" }, {
-								command = "bd! " .. buffers.bufnr,
+							local quitTermGrp =
+								vim.api.nvim_create_augroup("QuitTerm: " .. tostring(buffers.bufnr), { clear = true })
+							vim.api.nvim_create_autocmd({ "VimLeavePre", "ExitPre" }, {
+								group = quitTermGrp,
+								command = "quit! " .. buffers.bufnr,
 							})
 						end
 					end
