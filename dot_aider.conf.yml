@@ -1,6 +1,6 @@
 # vim: nomodeline
 
-model: openrouter/deepseek/deepseek-chat:free
+model: openrouter/google/gemini-2.5-flash-preview
 # キャッシュのために stream を無効化
 stream: false
 cache-prompts: true

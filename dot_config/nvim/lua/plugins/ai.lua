@@ -11,6 +11,12 @@ for _, spec in ipairs({
 end
 
 local openrouter_api_key = "OPENROUTER_API_KEY"
+local openrouterModels = {
+	Gemini_pro_OR = [[google/gemini-2.5-pro-preview]],
+	Gemini_flash_OR = [[google/gemini-2.5-flash-preview]],
+	Deepseek_OR = [[deepseek/deepseek-r1]],
+	Deepseek_free_OR = [[deepseek/deepseek-r1:free]],
+}
 
 vim.api.nvim_create_autocmd("filetype", {
 	pattern = "Avante",
@@ -111,21 +117,18 @@ return {
 			copilot = {
 				model = "claude-3.7-sonnet",
 			},
-			vendors = {
-				["openrouter"] = {
-					__inherited_from = "openai",
-					endpoint = "https://openrouter.ai/api/v1",
-					api_key_name = openrouter_api_key,
-					model = "deepseek/deepseek-r1",
-				},
-				["openrouter-free"] = {
-					__inherited_from = "openai",
-					disable_tools = true,
-					endpoint = "https://openrouter.ai/api/v1",
-					api_key_name = openrouter_api_key,
-					model = "deepseek/deepseek-r1:free",
-				},
-			},
+			vendors = (function()
+				local vendors = {}
+				for key, model in pairs(openrouterModels) do
+					vendors[key] = {
+						__inherited_from = "openrouter",
+						endpoint = "https://openrouter.ai/api/v1",
+						api_key_name = openrouter_api_key,
+						model = model,
+					}
+				end
+				return vendors
+			end)(),
 			behaviour = {
 				auto_suggestions = false,
 			},
@@ -254,7 +257,7 @@ return {
 						},
 						schema = {
 							model = {
-								default = "google/gemini-2.5-flash-preview",
+								default = openrouterModels["Gemini_flash_OR"],
 							},
 						},
 					})
