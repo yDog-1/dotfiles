@@ -166,7 +166,7 @@ return {
 		lazy = true,
 		opts = {
 			auto_update = true,
-			ensure_installed = ensure_installed,
+			ensure_installed = vim.list_extend(ensure_installed, servers),
 		},
 	},
 	-- UI/UXを改善
