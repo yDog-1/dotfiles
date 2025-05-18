@@ -1,8 +1,6 @@
 for _, spec in ipairs({
 	{ "AI", "<Leader>a", "󰧑 ", "red" },
-	{ "Aider", "<Leader>aI", " ", "green" },
 	{ "Avante", "<Leader>av", "󰧑 ", "red" },
-	{ "CodeCompanion", "<Leader>ac", " ", "purple" },
 }) do
 	require("plugins.which-key.spec").add({
 		mode = { "n", "v" },
@@ -190,48 +188,8 @@ return {
 			"j-hui/fidget.nvim",
 		},
 		keys = {
-			{ "<Leader>aA", "<cmd>CodeCompanionActions<CR>", mode = { "n", "v" }, desc = "Action palette" },
-			{ "<Leader>ao", "<cmd>CodeCompanionChat<CR>", desc = "Chat" },
-			{ "<Leader>ai", ":CodeCompanion<CR>", mode = { "n", "v" }, desc = "Inline assistant" },
+			{ "<Leader>ac", "<cmd>CodeCompanionChat<CR>", desc = "Chat" },
 			{ "<Leader>gg", "<Cmd>CodeCompanion /commit<CR>", desc = "Generate a commit message" },
-			{
-				"<Leader>aa",
-				"<cmd>CodeCompanionChat Add<CR>",
-				mode = "v",
-				desc = "Add selected text to the chat",
-			},
-			{
-				"<Leader>ae",
-				function()
-					require("codecompanion").prompt("explain")
-				end,
-				mode = "v",
-				desc = "Explain how code in a buffer works",
-			},
-			{
-				"<Leader>tg",
-				function()
-					require("codecompanion").prompt("tests")
-				end,
-				mode = "v",
-				desc = "Generate unit tests",
-			},
-			{
-				"<Leader>cF",
-				function()
-					require("codecompanion").prompt("fix")
-				end,
-				mode = "v",
-				desc = "Fix the code",
-			},
-			{
-				"<Leader>ce",
-				function()
-					require("codecompanion").prompt("lsp")
-				end,
-				mode = "v",
-				desc = "Explain the LSP diagnostics",
-			},
 		},
 		config = function(_, opts)
 			require("plugins.ai.fidget-spinner"):init()
@@ -324,7 +282,7 @@ return {
 		"atusy/aibou.nvim",
 		keys = {
 			{
-				"<leader>aa",
+				"<M-i>",
 				function()
 					require("aibou.codecompanion").start()
 				end,
@@ -352,27 +310,32 @@ return {
 		"nekowasabi/aider.vim",
 		dependencies = "vim-denops/denops.vim",
 		keys = {
-			{ "<leader>aIo", "<cmd>AiderRun<CR>", desc = "Run" },
-			{ "<leader>aIa", "<cmd>AiderAddCurrentFile<CR>", desc = "Add current file" },
-			{ "<leader>aIr", "<cmd>AiderAddCurrentFileReadOnly<CR>", desc = "Add current file as read-only" },
+			{ "<leader><leader>", "<cmd>AiderRun<CR>", desc = "Run" },
+			{ "<leader>aa", "<cmd>AiderAddCurrentFile<CR>", desc = "Add current file" },
+			{ "<leader>ar", "<cmd>AiderAddCurrentFileReadOnly<CR>", desc = "Add current file as read-only" },
 			{
-				"<leader>aIw",
+				"<leader>aw",
 				function()
 					local register_content = vim.fn.getreg("+")
 					vim.cmd("AiderAddWeb " .. register_content)
 				end,
 				desc = "Add web reference from clipboard",
 			},
-			{ "<leader>aIx", "<cmd>AiderExit<CR>", desc = "Exit" },
-			{ "<leader>aIi", "<cmd>AiderAddIgnoreCurrentFile<CR>", desc = "Add current file to ignore" },
-			{ "<leader>aII", "<cmd>AiderOpenIgnore<CR>", desc = "Open ignore settings" },
-			{ "<leader>aIp", "<cmd>AiderPaste<CR>", desc = "Paste" },
-			{ "<leader>aIh", "<cmd>AiderHide<CR>", desc = "Hide" },
+			{ "<leader>ax", "<cmd>AiderExit<CR>", desc = "Exit" },
+			{ "<leader>ai", "<cmd>AiderAddIgnoreCurrentFile<CR>", desc = "Add current file to ignore" },
+			{ "<leader>aI", "<cmd>AiderOpenIgnore<CR>", desc = "Open ignore settings" },
+			{ "<leader>ap", "<cmd>AiderPaste<CR>", desc = "Paste from clipboard into Aider" },
 			{
-				"<leader>aIv",
+				"<leader>ap",
 				"<cmd>AiderVisualTextWithPrompt<CR>",
 				mode = "v",
-				desc = "Send prompt",
+				desc = "Send prompt to Aider",
+			},
+			{
+				"<leader>aa",
+				"<cmd>AiderAddPartialReadonlyContext<CR>",
+				mode = "v",
+				desc = "Add selected text to Aider",
 			},
 		},
 		config = function()
@@ -386,9 +349,8 @@ return {
 				callback = function(args)
 					local set = vim.keymap.set
 					set("t", "<Esc>", "<C-\\><C-n>", { buffer = args.buf })
-					set({ "n", "t" }, "<Esc><Esc>", "<cmd>quit<CR>", { buffer = args.buf, desc = "Quit" })
 					set("t", "jj", "<Esc>", { buffer = args.buf })
-					set("n", "q", "<C-w>q", { buffer = args.buf })
+					set("n", "q", "<cmd>AiderHide<CR>", { buffer = args.buf })
 
 					local optl = vim.opt_local
 					optl.number = false

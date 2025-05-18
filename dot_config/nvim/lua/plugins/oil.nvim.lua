@@ -20,13 +20,6 @@ return {
 				end,
 				{ desc = "Open parent directory" },
 			},
-			{
-				"<Leader><Leader>",
-				function()
-					require("oil").open_float()
-				end,
-				{ desc = "Open oil by float" },
-			},
 		},
 		---@module 'oil'
 		---@type oil.SetupOpts
