@@ -30,7 +30,6 @@ local servers = {
 	"yamlls",
 	"terraformls",
 	"taplo",
-	"markdown_oxide",
 	"astro",
 	"tailwindcss",
 }
@@ -135,16 +134,6 @@ return {
 						schemas = require("schemastore").yaml.schemas(),
 					},
 				},
-			})
-
-			vim.lsp.config("markdown_oxide", {
-				capabilities = vim.tbl_deep_extend("force", capabilities, {
-					workspace = {
-						didChangeWatchedFiles = {
-							dynamicRegistration = true,
-						},
-					},
-				}),
 			})
 
 			vim.lsp.enable(servers)
