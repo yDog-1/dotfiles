@@ -39,13 +39,6 @@ local openrouterModels = {
 	},
 }
 
-vim.api.nvim_create_autocmd("filetype", {
-	pattern = "Avante",
-	callback = function()
-		vim.cmd("Markview enable")
-	end,
-})
-
 local function get_current_os()
 	local os = {
 		"mac",
@@ -202,6 +195,26 @@ return {
 				}
 			end,
 		},
+		config = function(_, opts)
+			require("avante").setup(opts)
+
+			local avante_group = vim.api.nvim_create_augroup("Avante_user", { clear = true })
+			vim.api.nvim_create_autocmd("filetype", {
+				pattern = "Avante",
+				group = avante_group,
+				callback = function()
+					vim.cmd("Markview enable")
+				end,
+			})
+			vim.api.nvim_create_autocmd("filetype", {
+				pattern = "Avante*",
+				group = avante_group,
+				callback = function()
+					local set = vim.keymap.set
+					set("n", "g?", "<cmd>AvanteModels<CR>", { buffer = 0, desc = "Select model" })
+				end,
+			})
+		end,
 	},
 	{
 		"olimorris/codecompanion.nvim",
