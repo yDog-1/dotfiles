@@ -24,6 +24,8 @@ return {
 				branch = "main",
 			},
 		},
+		---@module "neotest"
+		---@type neotest.Config
 		opts = {
 			adapters = {
 				["neotest-vitest"] = {},
