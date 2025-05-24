@@ -8,12 +8,35 @@ for _, spec in ipairs({
 	})
 end
 
+local copilotModels = "claude-sonnet-4"
+local openrouter_endpoint = "https://openrouter.ai/api/v1"
 local openrouter_api_key = "OPENROUTER_API_KEY"
+
 local openrouterModels = {
-	Gemini_pro_OR = [[google/gemini-2.5-pro-preview]],
-	Gemini_flash_OR = [[google/gemini-2.5-flash-preview]],
-	Deepseek_OR = [[deepseek/deepseek-r1]],
-	Deepseek_free_OR = [[deepseek/deepseek-r1:free]],
+	[ [[gemini_flash_OR]] ] = {
+		model = "google/gemini-2.5-flash-preview-05-20",
+		displey_name = "openrouter/gemini-2.5-flash",
+	},
+	[ [[gemini_pro_OR]] ] = {
+		model = "google/gemini-2.5-pro-preview-05-20",
+		displey_name = "openrouter/gemini-2.5-pro",
+	},
+	[ [[deepseek_OR]] ] = {
+		model = "deepseek/deepseek-chat-v3-0324",
+		displey_name = "openrouter/deepseek-v3",
+	},
+	[ [[deepseek_free_OR]] ] = {
+		model = "deepseek/deepseek-chat-v3-0324:free",
+		displey_name = "openrouter/deepseek-v3-free",
+	},
+	[ [[claude-sonnet-4_OR]] ] = {
+		model = "anthropic/claude-sonnet-4",
+		display_name = "openrouter/claude-sonnet-4",
+	},
+	[ [[openai_gpt-4o-mini_OR]] ] = {
+		model = "openai/gpt-4o-mini",
+		display_name = "openrouter/gpt-4o-mini",
+	},
 }
 
 vim.api.nvim_create_autocmd("filetype", {
@@ -113,17 +136,16 @@ return {
 		opts = {
 			provider = "copilot",
 			copilot = {
-				model = "claude-3.7-sonnet",
+				model = copilotModels,
 			},
 			vendors = (function()
 				local vendors = {}
 				for key, model in pairs(openrouterModels) do
-					vendors[key] = {
-						__inherited_from = "openrouter",
-						endpoint = "https://openrouter.ai/api/v1",
+					vendors[key] = vim.tbl_deep_extend("force", {
+						__inherited_from = "openai",
+						endpoint = openrouter_endpoint,
 						api_key_name = openrouter_api_key,
-						model = model,
-					}
+					}, model)
 				end
 				return vendors
 			end)(),
@@ -188,7 +210,7 @@ return {
 			"j-hui/fidget.nvim",
 		},
 		keys = {
-			{ "<Leader>ac", "<cmd>CodeCompanionChat<CR>", desc = "Chat" },
+			{ "<Leader>ac", "<cmd>CodeCompanionChat<CR>", desc = "codecompanion Chat" },
 			{ "<Leader>gg", "<Cmd>CodeCompanion /commit<CR>", desc = "Generate a commit message" },
 		},
 		config = function(_, opts)
@@ -201,7 +223,7 @@ return {
 					return require("codecompanion.adapters").extend("copilot", {
 						schema = {
 							model = {
-								default = "claude-3.7-sonnet",
+								default = copilotModels,
 							},
 						},
 					})
