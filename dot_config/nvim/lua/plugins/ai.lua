@@ -196,6 +196,32 @@ return {
 			end,
 		},
 		config = function(_, opts)
+			local hide_models = {
+				"openai",
+				[[openai-gpt-4o-mini]],
+				"claude",
+				[[claude-opus]],
+				[[claude-haiku]],
+				"gemini",
+				"vertex",
+				"vertex_claude",
+				"cohere",
+				"bedrock",
+				[[bedrock-claude-3.7-sonnet]],
+				"aihubmix",
+				[[aihubmix-claude]],
+			}
+			local hide_opts = (function()
+				local o = {}
+				for _, model in ipairs(hide_models) do
+					o[model] = {
+						hide_in_model_selector = true,
+					}
+				end
+				return o
+			end)()
+			opts = vim.tbl_deep_extend("force", opts, hide_opts)
+
 			require("avante").setup(opts)
 
 			local avante_group = vim.api.nvim_create_augroup("Avante_user", { clear = true })
