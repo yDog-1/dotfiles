@@ -339,7 +339,8 @@ return {
 			},
 		},
 		config = function()
-			vim.g.aider_command = "aider --watch-files"
+			-- Gitルートディレクトリで、Aiderを実行する
+			vim.g.aider_command = "cd $(git rev-parse --show-toplevel) && aider --watch-files"
 			vim.g.aider_buffer_open_type = "floating"
 			vim.g.aider_floatwin_width = 200
 			vim.g.aider_floatwin_height = 40
@@ -351,6 +352,10 @@ return {
 					set("t", "<Esc>", "<C-\\><C-n>", { buffer = args.buf })
 					set("t", "jj", "<Esc>", { buffer = args.buf })
 					set("n", "q", "<cmd>AiderHide<CR>", { buffer = args.buf })
+
+					-- バッファ名をaiderに変更
+					-- プラグインは、`aider `と空白より左側に`aider`と付くかどうかで判定している。
+					vim.cmd("file aider ")
 
 					local optl = vim.opt_local
 					optl.number = false
