@@ -5,6 +5,7 @@ local function lazygit_toggle()
 		direction = "float",
 		hidden = true,
 		on_open = function()
+			vim.keymap.set("t", "<esc>", "<esc>", { buffer = 0 })
 			vim.cmd("startinsert")
 		end,
 	})
