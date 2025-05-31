@@ -10,7 +10,7 @@ return {
 		version = "^0.1.8",
 		keys = {
 			-- ファイル検索
-			{ "<Leader>ff", "<cmd>Telescope smart_open<CR>", desc = "Find files" },
+			{ "<Leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find files" },
 			-- グレップ検索
 			{ "<Leader>fg", "<cmd>Telescope live_grep<CR>", desc = "Live grep" },
 			-- バッファリスト
