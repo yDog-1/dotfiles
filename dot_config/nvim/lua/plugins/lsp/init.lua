@@ -22,6 +22,7 @@ local servers = {
 	"efm",
 	"lua_ls",
 	"ts_ls",
+	"denols",
 	"gopls",
 	"golangci_lint_ls",
 	"sqls",
@@ -134,6 +135,20 @@ return {
 						schemas = require("schemastore").yaml.schemas(),
 					},
 				},
+			})
+
+			vim.lsp.config("ts_ls", {
+				root_markers = { "package.json" },
+				workspace_required = true,
+			})
+
+			vim.lsp.config("denols", {
+				root_markers = {
+					"deno.json",
+					"deno.jsonc",
+					"deps.ts",
+				},
+				workspace_required = true,
 			})
 
 			vim.lsp.enable(servers)
