@@ -35,6 +35,16 @@
       "env": {
         "BRAVE_API_KEY": null
       }
+    },
+    "WXT": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "sitemcp",
+        "https://wxt.dev/",
+        "-m",
+        "/guide/**"
+      ]
     }
   }
 }
