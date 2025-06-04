@@ -128,10 +128,7 @@ return {
 		---@type avante.Config
 		opts = {
 			provider = "copilot",
-			copilot = {
-				model = copilotModels,
-			},
-			vendors = (function()
+			providers = (function()
 				local vendors = {}
 				for key, model in pairs(openrouterModels) do
 					vendors[key] = vim.tbl_deep_extend("force", {
@@ -140,6 +137,11 @@ return {
 						api_key_name = openrouter_api_key,
 					}, model)
 				end
+				vendors = vim.tbl_deep_extend("force", vendors, {
+					copilot = {
+						model = copilotModels,
+					},
+				})
 				return vendors
 			end)(),
 			behaviour = {
@@ -214,8 +216,10 @@ return {
 			local hide_opts = (function()
 				local o = {}
 				for _, model in ipairs(hide_models) do
-					o[model] = {
-						hide_in_model_selector = true,
+					o.providers = {
+						[model] = {
+							hide_in_model_selector = true,
+						},
 					}
 				end
 				return o
