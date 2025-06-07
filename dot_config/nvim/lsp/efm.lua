@@ -105,6 +105,30 @@ local efm_config = require("plugins.lsp.efm_config").setup({
 				},
 			},
 		},
+    html = {
+      {
+        kind = "formatters",
+        name = "prettier",
+        settings = {
+          default = true,
+          options = {
+            requireMarker = true,
+          },
+        },
+      }
+    },
+    css = {
+      {
+        kind = "formatters",
+        name = "prettier",
+        settings = {
+          default = true,
+          options = {
+            requireMarker = true,
+          },
+        },
+      }
+    },
 		sql = {
 			{
 				kind = "linters",

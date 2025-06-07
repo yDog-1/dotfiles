@@ -33,6 +33,7 @@ local servers = {
 	"taplo",
 	"astro",
 	"tailwindcss",
+	"cssls",
 }
 
 local ensure_installed = {
