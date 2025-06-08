@@ -90,6 +90,10 @@ return {
 			vim.api.nvim_create_autocmd("BufWritePost", {
 				group = lsp_fmt_group,
 				callback = function(o)
+          -- `:w!` で強制保存した場合はフォーマットしない
+          if vim.v.cmdbang == 1 then
+            return
+          end
 					format(o.buf)
 				end,
 			})
