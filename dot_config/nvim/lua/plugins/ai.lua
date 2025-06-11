@@ -18,7 +18,7 @@ local openrouterModels = {
 		displey_name = "openrouter/gemini-2.5-flash",
 	},
 	[ [[gemini_pro_OR]] ] = {
-		model = "google/gemini-2.5-pro-preview-05-20",
+		model = "google/gemini-2.5-pro-preview",
 		displey_name = "openrouter/gemini-2.5-pro",
 	},
 	[ [[deepseek_OR]] ] = {
