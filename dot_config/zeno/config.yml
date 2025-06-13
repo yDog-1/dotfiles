@@ -54,3 +54,13 @@ completions:
       --preview: "cd {} && ls -a | sed '/^[.]*$/d'"
     callback: "cut -z -c 3-"
     callbackZero: true # null termination is used in `callback` I/O
+  # zellij completion
+  - name: zellij session completion # 補完機能の名前を定義
+    patterns:
+      - "^zellij (a|attach) "
+      - "^zellij (k|kill-session) "
+      - "^zellij (d|delete-session) "
+    sourceCommand: "zellij ls" # fzfに渡す候補リストを生成するコマンド
+    options:
+      --prompt: "'Zellij Session> '" # fzfのプロンプトをカスタマイズ
+    callback: "awk '{print $1}'" # fzfで選択された行からセッション名のみを抽出
