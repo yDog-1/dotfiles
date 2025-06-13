@@ -1,6 +1,6 @@
 for _, spec in ipairs({
 	{ "AI", "<Leader>a", "󰧑 ", "red" },
-	{ "Aider", "<Leader>aa", "󰧑 ", "red" },
+	{ "Aider", "<Leader>a", "󰧑 ", "red" },
 }) do
 	require("plugins.which-key.spec").add({
 		mode = { "n", "v" },
@@ -35,16 +35,6 @@ return {
 		end,
 	},
 	{
-		"coder/claudecode.nvim",
-		config = true,
-		keys = {
-			{ "<leader><leader>", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
-			{ "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
-			{ "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
-			{ "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
-		},
-	},
-	{
 		"zbirenbaum/copilot.lua",
 		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
@@ -64,29 +54,29 @@ return {
 		"nekowasabi/aider.vim",
 		dependencies = "vim-denops/denops.vim",
 		keys = {
-			{ "<leader>aao", "<cmd>AiderRun<CR>", desc = "Run" },
-			{ "<leader>aaa", "<cmd>AiderAddCurrentFile<CR>", desc = "Add current file" },
-			{ "<leader>aar", "<cmd>AiderAddCurrentFileReadOnly<CR>", desc = "Add current file as read-only" },
+			{ "<leader>ao", "<cmd>AiderRun<CR>", desc = "Run" },
+			{ "<leader>aa", "<cmd>AiderAddCurrentFile<CR>", desc = "Add current file" },
+			{ "<leader>ar", "<cmd>AiderAddCurrentFileReadOnly<CR>", desc = "Add current file as read-only" },
 			{
-				"<leader>aaw",
+				"<leader>aw",
 				function()
 					local register_content = vim.fn.getreg("+")
 					vim.cmd("AiderAddWeb " .. register_content)
 				end,
 				desc = "Add web reference from clipboard",
 			},
-			{ "<leader>aax", "<cmd>AiderExit<CR>", desc = "Exit" },
-			{ "<leader>aai", "<cmd>AiderAddIgnoreCurrentFile<CR>", desc = "Add current file to ignore" },
-			{ "<leader>aaI", "<cmd>AiderOpenIgnore<CR>", desc = "Open ignore settings" },
-			{ "<leader>aap", "<cmd>AiderPaste<CR>", desc = "Paste from clipboard into Aider" },
+			{ "<leader>ax", "<cmd>AiderExit<CR>", desc = "Exit" },
+			{ "<leader>ai", "<cmd>AiderAddIgnoreCurrentFile<CR>", desc = "Add current file to ignore" },
+			{ "<leader>aI", "<cmd>AiderOpenIgnore<CR>", desc = "Open ignore settings" },
+			{ "<leader>ap", "<cmd>AiderPaste<CR>", desc = "Paste from clipboard into Aider" },
 			{
-				"<leader>aap",
+				"<leader>ap",
 				"<cmd>AiderVisualTextWithPrompt<CR>",
 				mode = "v",
 				desc = "Send prompt to Aider",
 			},
 			{
-				"<leader>aaa",
+				"<leader>aa",
 				"<cmd>AiderAddPartialReadonlyContext<CR>",
 				mode = "v",
 				desc = "Add selected text to Aider",
