@@ -1,16 +1,5 @@
 {
   "mcpServers": {
-    "fetch": {
-      "command": "uvx",
-      "args": [
-        "mcp-server-fetch"
-      ],
-      "env": {
-        "API_KEY": "",
-        "SERVER_URL": null,
-        "DEBUG": "true"
-      }
-    },
     "git": {
       "command": "uv",
       "args": [
@@ -25,16 +14,6 @@
         "-y",
         "@modelcontextprotocol/server-sequential-thinking"
       ]
-    },
-    "brave-search": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-brave-search"
-      ],
-      "env": {
-        "BRAVE_API_KEY": null
-      }
     },
     "WXT": {
       "command": "npx",
