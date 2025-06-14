@@ -20,7 +20,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "Clearing existing MCP servers..."
     claude mcp list | grep -E "^  " | awk '{print $1}' | while read -r server; do
         if [[ -n "$server" ]]; then
-            claude mcp remove "$server" 2>/dev/null || true
+            claude mcp remove -s user "$server" 2>/dev/null || true
         fi
     done
 fi
@@ -44,15 +44,15 @@ jq -r '.mcpServers | to_entries[] | @json' "$SERVERS_JSON" | while IFS= read -r 
     # コマンド構築と実行
     if [[ -n "$args" ]]; then
         if [[ -n "$env_vars" ]]; then
-            eval "claude mcp add \"$name\" \"$command\" -- $args $env_vars"
+            eval "claude mcp add -s user \"$name\" \"$command\" -- $args $env_vars"
         else
-            eval "claude mcp add \"$name\" \"$command\" -- $args"
+            eval "claude mcp add -s user \"$name\" \"$command\" -- $args"
         fi
     else
         if [[ -n "$env_vars" ]]; then
-            eval "claude mcp add \"$name\" \"$command\" $env_vars"
+            eval "claude mcp add -s user \"$name\" \"$command\" $env_vars"
         else
-            claude mcp add "$name" "$command"
+            claude mcp add -s user "$name" "$command"
         fi
     fi
     
