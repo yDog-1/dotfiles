@@ -33,8 +33,9 @@ config.color_schemes = {
 -- フォント設定
 config.font = wezterm.font_with_fallback({
 	{
-	family = "Moralerspace Argon HWNF",
+		family = "Moralerspace Argon HWNF",
 	},
+	"MonaspiceAr NF",
 })
 config.font_size = 13
 
