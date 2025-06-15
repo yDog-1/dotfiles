@@ -1,5 +1,16 @@
 {
   "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ]
+    },
     "git": {
       "command": "uv",
       "args": [
@@ -39,5 +50,13 @@
         "@eslint/mcp@latest"
       ]
     }
+  },
+  "context7": {
+    "type": "stdio",
+    "command": "npx",
+    "args": [
+      "-y",
+      "@upstash/context7-mcp"
+    ]
   }
 }
