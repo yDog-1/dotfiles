@@ -33,11 +33,7 @@ config.color_schemes = {
 -- フォント設定
 config.font = wezterm.font_with_fallback({
 	{
-		family = "Moralerspace Argon HW",
-	},
-	{
-		family = "icomoon",
-		assume_emoji_presentation = true,
+	family = "Moralerspace Argon HWNF",
 	},
 })
 config.font_size = 13
