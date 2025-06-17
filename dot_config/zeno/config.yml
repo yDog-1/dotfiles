@@ -22,6 +22,21 @@ snippets:
     context:
       lbuffer: '^git\s+checkout\s+'
     evaluate: true # eval snippet
+  - name: zellij
+    keyword: z
+    snippet: zellij
+  - name: zellij attach
+    keyword: za
+    snippet: zellij attach
+  - name: Claude Code
+    keyword: c
+    snippet: claude
+  - name: Claude Code resume
+    keyword: cr
+    snippet: claude --resume
+  - name: Claude Code continue
+    keyword: cc
+    snippet: claude --continue
 completions:
   # simple sourceCommand, no callback
   - name: kill signal
@@ -62,5 +77,5 @@ completions:
       - "^zellij (d|delete-session) "
     sourceCommand: "zellij ls" # fzfに渡す候補リストを生成するコマンド
     options:
-      --prompt: "'Zellij Session> '" # fzfのプロンプトをカスタマイズ
+      --prompt: "'zellij session> '" # fzfのプロンプトをカスタマイズ
     callback: "awk '{print $1}'" # fzfで選択された行からセッション名のみを抽出
