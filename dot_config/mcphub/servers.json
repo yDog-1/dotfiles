@@ -26,16 +26,6 @@
         "@modelcontextprotocol/server-sequential-thinking"
       ]
     },
-    "WXT": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "sitemcp",
-        "https://wxt.dev/",
-        "-m",
-        "/guide/**"
-      ]
-    },
     "playwright": {
       "command": "npx",
       "args": [
@@ -49,14 +39,18 @@
       "args": [
         "@eslint/mcp@latest"
       ]
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    },
+    "deepwiki": {
+      "type": "sse",
+      "url": "https://mcp.deepwiki.com/sse"
     }
-  },
-  "context7": {
-    "type": "stdio",
-    "command": "npx",
-    "args": [
-      "-y",
-      "@upstash/context7-mcp"
-    ]
   }
 }
