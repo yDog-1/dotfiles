@@ -30,13 +30,13 @@ snippets:
     snippet: zellij attach
   - name: Claude Code
     keyword: c
-    snippet: claude
+    snippet: claude --dangerously-skip-permissions
   - name: Claude Code resume
     keyword: cr
-    snippet: claude --resume
+    snippet: claude --resume --dangerously-skip-permissions
   - name: Claude Code continue
     keyword: cc
-    snippet: claude --continue
+    snippet: claude --continue --dangerously-skip-permissions
 completions:
   # simple sourceCommand, no callback
   - name: kill signal
