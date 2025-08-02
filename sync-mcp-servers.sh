@@ -14,12 +14,15 @@ fi
 echo "Syncing MCP servers from $SERVERS_JSON to Claude Code..."
 
 # 既存のMCPサーバーをクリア（オプション）
-read -p "Clear existing MCP servers? (y/N): " -n 1 -r
+read -p "Clear existing MCP servers from user scope? (y/N): " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo "Clearing existing MCP servers..."
-    claude mcp list | grep -E "^  " | awk '{print $1}' | while read -r server; do
+    echo "Clearing existing MCP servers from user scope..."
+    # MCPサーバー名を正しく抽出（サーバー名は行頭から始まり、コロンで終わる）
+    claude mcp list | grep -E "^[a-zA-Z0-9_-]+:" | awk -F: '{print $1}' | while read -r server; do
         if [[ -n "$server" ]]; then
+            echo "Removing: $server"
+            # userスコープからのみ削除
             claude mcp remove -s user "$server" 2>/dev/null || true
         fi
     done
