@@ -1,7 +1,7 @@
 return {
 	{
 		"OXY2DEV/markview.nvim",
-		lazy = false,
+		event = "VeryLazy",
 		branch = "main",
 		keys = {
 			{ "<Leader>lm", "<cmd>Markview toggle<CR>", { desc = "Toggle Markview" } },
