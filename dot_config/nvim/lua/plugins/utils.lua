@@ -109,6 +109,10 @@ return {
 				mode = "n",
 				{ "<Leader>s", group = "session" },
 			})
+
+			-- localoptionsを保存するようにし、ファイルタイプ等を復元できるようにする
+			vim.opt.sessionoptions:append("localoptions")
+
 			return {
 				auto_save = true,
 				suppressed_dirs = {
