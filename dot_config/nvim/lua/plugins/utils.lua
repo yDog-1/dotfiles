@@ -71,9 +71,13 @@ return {
 				callback = function(ev)
 					local bufnr = ev.buf
 					local edit_watch = function()
-						require("chezmoi.commands.__edit").watch(bufnr)
+						-- バッファが有効かチェック
+						if vim.api.nvim_buf_is_valid(bufnr) then
+							require("chezmoi.commands.__edit").watch(bufnr)
+						end
 					end
-					vim.schedule(edit_watch)
+					-- より安全なタイミングで実行
+					vim.defer_fn(edit_watch, 100) -- 100ms後に実行
 				end,
 			})
 
