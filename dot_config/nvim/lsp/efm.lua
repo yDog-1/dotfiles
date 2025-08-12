@@ -1,4 +1,4 @@
-local efm_config = require("plugins.lsp.efm_config").setup({
+local efm_config = require("plugins.lsp.utils.efm_config").setup({
 	filetypes = {
 		lua = {
 			{
