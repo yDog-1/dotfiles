@@ -17,10 +17,9 @@ HISTFILE=~/.zsh_history
 # Environment Variables
 #
 export EDITOR="nvim"
-export BROWSER="wslview"
+export BROWSER="${BROWSER:-wslview}"
 export LANG="ja_JP.UTF-8"
 export LANGUAGE="ja_JP:ja"
-export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 bindkey -v
 
 #
@@ -34,33 +33,43 @@ fi
 # Development Tools
 #
 # Neovim
-export PATH="$PATH:/opt/nvim-linux64/bin"
+[ -d "/opt/nvim-linux64/bin" ] && export PATH="$PATH:/opt/nvim-linux64/bin"
 
 # Homebrew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+  export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [ -f "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif command -v brew >/dev/null 2>&1; then
+  eval "$(brew shellenv)"
+fi
 
 # Node.js Management
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-eval "$(nodenv init - zsh)"
+command -v nodenv >/dev/null 2>&1 && eval "$(nodenv init - zsh)"
 
 # Python Management
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
+command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init - zsh)"
 
 # Other Tools
-export DPRINT_INSTALL="/home/kokkoh/.dprint"
-export PATH="$DPRINT_INSTALL/bin:$PATH"
-complete -C /usr/bin/terraform terraform
-. "/home/kokkoh/.deno/env"
-. "$HOME/.local/bin/env"
+export DPRINT_INSTALL="$HOME/.dprint"
+[ -d "$DPRINT_INSTALL/bin" ] && export PATH="$DPRINT_INSTALL/bin:$PATH"
+# Terraformがインストールされている場合のみ補完を設定
+[ -f "/usr/bin/terraform" ] && complete -C /usr/bin/terraform terraform
+# Denoの環境変数ファイルが存在する場合のみ読み込み
+[ -f "$HOME/.deno/env" ] && . "$HOME/.deno/env"
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 #
 # Plugins
 #
-eval "$(sheldon source)"
+# sheldonが利用可能な場合のみ実行
+command -v sheldon >/dev/null 2>&1 && eval "$(sheldon source)"
 
 #
 # Aliases
@@ -69,7 +78,7 @@ alias ll='ls -alh'
 alias cdk='deno run -A npm:aws-cdk@latest'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"
 
 #
 # Keybindings
