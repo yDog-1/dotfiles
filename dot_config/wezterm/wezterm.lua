@@ -1,7 +1,6 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local keybinds = require("keybinds")
-local autocmd = require("autocmd")
 
 -- OS検出関数
 local function get_os()
@@ -151,11 +150,7 @@ config.window_padding = {
 	top = 0,
 	bottom = 0,
 }
-config.status_update_interval = 500
 
--- 自動実行
-for _, cmd in pairs(autocmd) do
-	wezterm.on(cmd.event_name, cmd.callback)
-end
+config.status_update_interval = 500
 
 return config
