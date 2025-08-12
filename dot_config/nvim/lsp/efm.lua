@@ -195,6 +195,15 @@ local efm_config = require("plugins.lsp.utils.efm_config").setup({
 				},
 			},
 		},
+		nix = {
+			{
+				kind = "formatters",
+				name = "alejandra",
+				settings = {
+					default = true,
+				},
+			},
+		},
 	},
 })
 
