@@ -4,14 +4,14 @@ local keybinds = require("keybinds")
 
 -- OS検出関数
 local function get_os()
-    local target = wezterm.target_triple
-    if target:find("windows") then
-        return "windows"
-    elseif target:find("darwin") then
-        return "macos"
-    else
-        return "linux"
-    end
+	local target = wezterm.target_triple
+	if target:find("windows") then
+		return "windows"
+	elseif target:find("darwin") then
+		return "macos"
+	else
+		return "linux"
+	end
 end
 
 local os_type = get_os()
@@ -54,83 +54,81 @@ config.font_size = 13
 
 -- OS別の設定
 if os_type == "windows" then
-    -- Windows（WSL含む）の設定
-    config.launch_menu = {
-        {
-            label = "WSL:Ubuntu",
-            domain = { DomainName = "WSL:Ubuntu" },
-        },
-        {
-            label = "PowerShell",
-            args = { "pwsh", "-nol", "-wd", "~" },
-            domain = { DomainName = "local" },
-        },
-        {
-            label = "Command Prompt",
-            args = { "cmd" },
-            domain = { DomainName = "local" },
-        },
-    }
+	-- Windows（WSL含む）の設定
+	config.launch_menu = {
+		{
+			label = "WSL:Ubuntu",
+			domain = { DomainName = "WSL:Ubuntu" },
+		},
+		{
+			label = "PowerShell",
+			args = { "pwsh", "-nol", "-wd", "~" },
+			domain = { DomainName = "local" },
+		},
+		{
+			label = "Command Prompt",
+			args = { "cmd" },
+			domain = { DomainName = "local" },
+		},
+	}
 
-    config.wsl_domains = {
-        {
-            name = "WSL:Ubuntu",
-            distribution = "Ubuntu",
-            default_cwd = "~",
-            default_prog = { "zsh" },
-        },
-    }
+	config.wsl_domains = {
+		{
+			name = "WSL:Ubuntu",
+			distribution = "Ubuntu",
+			default_cwd = "~",
+			default_prog = { "zsh" },
+		},
+	}
 
-    -- WSLをデフォルトにする（WSLが利用可能な場合）
-    config.default_domain = "WSL:Ubuntu"
-    config.default_prog = { "pwsh", "-nol", "-wd", "~" }
-
+	-- WSLをデフォルトにする（WSLが利用可能な場合）
+	config.default_domain = "WSL:Ubuntu"
+	config.default_prog = { "pwsh", "-nol", "-wd", "~" }
 elseif os_type == "linux" then
-    -- Linux環境の設定
-    config.launch_menu = {
-        {
-            label = "Bash",
-            args = { "bash", "-l" },
-        },
-        {
-            label = "Zsh",
-            args = { "zsh", "-l" },
-        },
-        {
-            label = "Fish",
-            args = { "fish", "-l" },
-        },
-    }
+	-- Linux環境の設定
+	config.launch_menu = {
+		{
+			label = "Bash",
+			args = { "bash", "-l" },
+		},
+		{
+			label = "Zsh",
+			args = { "zsh", "-l" },
+		},
+		{
+			label = "Fish",
+			args = { "fish", "-l" },
+		},
+	}
 
-    -- Linuxではローカルドメインのみ使用
-    config.default_domain = "local"
-    
-    -- ユーザーのデフォルトシェルを使用
-    local user_shell = os.getenv("SHELL") or "/bin/bash"
-    config.default_prog = { user_shell, "-l" }
+	-- Linuxではローカルドメインのみ使用
+	config.default_domain = "local"
 
+	-- ユーザーのデフォルトシェルを使用
+	local user_shell = os.getenv("SHELL") or "/bin/bash"
+	config.default_prog = { user_shell, "-l" }
 elseif os_type == "macos" then
-    -- macOS環境の設定
-    config.launch_menu = {
-        {
-            label = "Zsh",
-            args = { "zsh", "-l" },
-        },
-        {
-            label = "Bash",
-            args = { "bash", "-l" },
-        },
-        {
-            label = "Fish",
-            args = { "fish", "-l" },
-        },
-    }
+	-- macOS環境の設定
+	config.launch_menu = {
+		{
+			label = "Zsh",
+			args = { "zsh", "-l" },
+		},
+		{
+			label = "Bash",
+			args = { "bash", "-l" },
+		},
+		{
+			label = "Fish",
+			args = { "fish", "-l" },
+		},
+	}
 
-    config.default_domain = "local"
-    
-    -- macOSのデフォルトシェル（通常はzsh）
-    local user_shell = os.getenv("SHELL") or "/bin/zsh"
-    config.default_prog = { user_shell, "-l" }
+	config.default_domain = "local"
+
+	-- macOSのデフォルトシェル（通常はzsh）
+	local user_shell = os.getenv("SHELL") or "/bin/zsh"
+	config.default_prog = { user_shell, "-l" }
 end
 
 -- 背景の透明度
