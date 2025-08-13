@@ -19,8 +19,8 @@ local os_type = get_os()
 -- 設定のホットリロード
 config.automatically_reload_config = true
 
--- 日本語入力を出来るようにする
-config.use_ime = true
+-- NeovimでSKKが有効なため、IMEを無効化
+config.use_ime = false
 
 -- キーバインドを設定
 config.keys = keybinds.keys
