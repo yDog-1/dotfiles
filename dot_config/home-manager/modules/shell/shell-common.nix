@@ -26,7 +26,13 @@
 
   # 共通エイリアス
   home.shellAliases = {
-    ll = "ls -alh";
     cdk = "deno run -A npm:aws-cdk@latest";
+    proot = "cd $(git rev-parse --show-toplevel || echo .)";
+    find = "fd";
+    cat = "bat";
+    grep = "rg";
+    ls = "eza";
+    ll = "ls -alh";
+    cd = "zoxide";
   };
 }

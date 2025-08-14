@@ -30,11 +30,14 @@
 
     # ファイル操作・検索
     fzf
-    ripgrep
-    fd
-    bat
-    eza
-    zoxide
+    ripgrep # alternative to `grep`
+    fd # alternative to `find`
+    bat # alternative to `cat`
+    eza # alternative to `ls`
+    zoxide # alternative to `cd`
+
+    # better man
+    tldr
 
     # データ処理・解析
     jq
