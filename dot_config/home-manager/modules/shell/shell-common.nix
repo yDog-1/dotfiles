@@ -24,15 +24,5 @@
     "$DPRINT_INSTALL/bin"
   ];
 
-  # 共通エイリアス
-  home.shellAliases = {
-    cdk = "deno run -A npm:aws-cdk@latest";
-    proot = "cd $(git rev-parse --show-toplevel || echo .)";
-    find = "fd";
-    cat = "bat";
-    grep = "rg";
-    ls = "eza";
-    ll = "ls -alh";
-    cd = "zoxide";
-  };
+
 }

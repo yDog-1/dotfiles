@@ -6,6 +6,9 @@
   imports = [
     ./modules/shell/shell-common.nix
     ./modules/shell/zsh-config.nix
+    ./modules/shell/sheldon.nix
+    ./modules/shell/aliases.nix
+    ./modules/tools.nix
     ./modules/skk/jisyo.nix
   ];
 
@@ -21,20 +24,11 @@
     # シェル・ターミナル
     zsh
     zellij
-    sheldon # Zshプラグインマネージャ
 
     # エディタ
     vim
     neovim
     tree-sitter
-
-    # ファイル操作・検索
-    fzf
-    ripgrep # alternative to `grep`
-    fd # alternative to `find`
-    bat # alternative to `cat`
-    eza # alternative to `ls`
-    zoxide # alternative to `cd`
 
     # better man
     tldr
@@ -49,8 +43,6 @@
 
     # 開発支援
     claude-code
-    direnv
-    ghq
 
     # Git
     git
