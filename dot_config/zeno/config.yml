@@ -23,7 +23,7 @@ snippets:
       lbuffer: '^git\s+checkout\s+'
     evaluate: true # eval snippet
   - name: zellij
-    keyword: z
+    keyword: ze
     snippet: zellij
   - name: zellij attach
     keyword: za
@@ -61,21 +61,27 @@ completions:
   - name: chdir
     patterns:
       - "^cd $"
-    sourceCommand: "find . -path '*/.git' -prune -o -maxdepth 5 -type d -print0"
+    sourceCommand: "fd --type d --max-depth 5 --exclude .git"
     options:
       # Added --read0 if null termination is used in `sourceCommand` output.
-      --read0: true
       --prompt: "'Chdir> '"
-      --preview: "cd {} && ls -a | sed '/^[.]*$/d'"
-    callback: "cut -z -c 3-"
+      --preview: "cd {} && eza --icons=never -a | sed '/^[.]*$/d'"
+    callback: "sed 's|/$||'"
     callbackZero: true # null termination is used in `callback` I/O
   # zellij completion
   - name: zellij session completion # 補完機能の名前を定義
     patterns:
-      - "^zellij (a|attach) "
-      - "^zellij (k|kill-session) "
-      - "^zellij (d|delete-session) "
+      - "^zellij (a|attach) $"
+      - "^zellij (k|kill-session) $"
+      - "^zellij (d|delete-session) $"
     sourceCommand: "zellij ls" # fzfに渡す候補リストを生成するコマンド
     options:
       --prompt: "'zellij session> '" # fzfのプロンプトをカスタマイズ
     callback: "awk '{print $1}'" # fzfで選択された行からセッション名のみを抽出
+  - name: ghq completion
+    patterns:
+      - "^ghq (rm) $"
+    sourceCommand: "ghq list" # ghqのリポジトリ一覧を取得
+    options:
+      --prompt: "'ghq> '" # fzfのプロンプトをカスタマイズ
+    callback: "awk '{print $1}'" # 選択された行からリポジトリのパスのみを抽出
