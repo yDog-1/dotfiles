@@ -10,6 +10,7 @@
     ./modules/shell/aliases.nix
     ./modules/tools.nix
     ./modules/skk/jisyo.nix
+    ./modules/shell/send-to-claude.nix
   ];
 
   home.username = "ydog-1";
