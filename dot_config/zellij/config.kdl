@@ -156,7 +156,7 @@ keybinds clear-defaults=true {
             }
         }
         bind "Alt i" {
-            Run "npx" "editprompt" {
+            Run "zsh" "/home/ydog-1/.config/zellij/send_to_claude.sh" {
                 floating true
                 close_on_exit true
                 x "25%"
