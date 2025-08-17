@@ -19,7 +19,7 @@
   # 共通パス設定
   home.sessionPath = [
     "$HOME/.local/bin"
-    "/opt/nvim-linux64/bin"
+    "$HOME/.bun/bin"
     "$PYENV_ROOT/bin"
     "$DPRINT_INSTALL/bin"
   ];
