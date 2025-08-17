@@ -85,3 +85,12 @@ completions:
     options:
       --prompt: "'ghq> '" # fzfのプロンプトをカスタマイズ
     callback: "awk '{print $1}'" # 選択された行からリポジトリのパスのみを抽出
+  - name: nvim completion
+    patterns:
+      - "^nvim $"
+      - "^nvim (e|edit) $"
+    # nvimで開くファイルを取得
+    sourceCommand: "fd --type f --hidden --exclude .git --max-depth 5"
+    options:
+      --prompt: "'nvim> '" # fzfのプロンプトをカスタマイズ
+    callback: "sed 's|/$||'" # 選択されたファイルパスから末尾のスラッシュを削除
