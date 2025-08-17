@@ -4,15 +4,10 @@
   ...
 }: {
   imports = [
-    ./modules/shell/shell-common.nix
-    ./modules/shell/zsh-config.nix
-    ./modules/shell/sheldon.nix
-    ./modules/shell/aliases.nix
-    ./modules/shell/functions/system-update.nix
+    ./modules/shell
     ./modules/tools.nix
     ./modules/development.nix
-    ./modules/skk/jisyo.nix
-    ./modules/shell/send-to-claude.nix
+    ./modules/skk
   ];
 
   home.username = "ydog-1";
