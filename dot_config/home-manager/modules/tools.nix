@@ -8,6 +8,7 @@
     fd
     bat
     tree
+    yazi
   ];
 
   # fzf - ファジーファインダー
@@ -71,6 +72,25 @@
     nix-direnv.enable = true;
   };
 
+  # yazi - TUIファイルマネージャ
+  programs.yazi = {
+    enable = true;
+    enableZshIntegration = true;
+    flavors = {
+      monokai-vibrant = pkgs.fetchFromGitHub {
+        owner = "sanjinso";
+        repo = "monokai-vibrant.yazi";
+        rev = "main";
+        sha256 = "sha256-f3IaeDJ4gZf5glk4RIVQ1/DqH0ON2Sv5UzGvdAnLEbw=";
+      };
+    };
+    theme = {
+      flavor = {
+        dark = "monokai-vibrant";
+      };
+    };
+  };
+
   # Zsh関数とキーバインドの追加
   programs.zsh = {
     enableCompletion = false;
@@ -87,6 +107,15 @@
       }
       zle -N ghq-fzf
       bindkey '^G' ghq-fzf
+
+      # CWDを自動で変更する、Yaziのラッパー関数
+      function y() {
+        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+        yazi "$@" --cwd-file="$tmp"
+        IFS= read -r -d \'\' cwd < "$tmp"
+        [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+        rm -f -- "$tmp"
+      }
     '';
   };
 }
