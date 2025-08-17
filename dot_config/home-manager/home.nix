@@ -8,6 +8,7 @@
     ./modules/shell/zsh-config.nix
     ./modules/shell/sheldon.nix
     ./modules/shell/aliases.nix
+    ./modules/shell/functions/system-update.nix
     ./modules/tools.nix
     ./modules/development.nix
     ./modules/skk/jisyo.nix
