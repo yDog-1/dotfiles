@@ -1,67 +1,127 @@
 return {
 	-- syntax highlightなどをいい感じにするプラグイン
 	{
-		-- 何もしなくても vim-polyglot といい感じに連携してくれる
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
 		dependencies = {
-			-- treesitter を利用した textobject を追加する
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		build = ":TSUpdate",
 		config = function()
-			local configs = require("nvim-treesitter.configs")
+			require("nvim-treesitter").setup()
 
-			configs.setup({
-				auto_install = true,
-				highlight = { enable = true },
-				indent = { enable = true },
-				textobjects = {
-					swap = {
-						enable = true,
-						swap_next = {
-							["g>"] = "@parameter.inner",
-						},
-						swap_previous = {
-							["g<"] = "@parameter.inner",
-						},
-					},
-					move = {
-						enable = true,
-						set_jumps = true,
-						goto_next_start = {
-							["]f"] = "@function.outer",
-							["]]"] = { query = "@class.outer", desc = "Next class start" },
-
-							-- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queries.
-							["]o"] = "@loop.*",
-							-- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-
-							-- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-							-- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-							["]s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
-							["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-						},
-						goto_next_end = {
-							["]F"] = "@function.outer",
-							["]["] = "@class.outer",
-						},
-						goto_previous_start = {
-							["[f"] = "@function.outer",
-							["[["] = "@class.outer",
-						},
-						goto_previous_end = {
-							["[F"] = "@function.outer",
-							["[]"] = "@class.outer",
-						},
-					},
-				},
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("vim-treesitter-start", {}),
+				callback = function()
+					pcall(vim.treesitter.start)
+				end,
 			})
 
+			vim.api.nvim_create_autocmd({ "Filetype" }, {
+				group = vim.api.nvim_create_augroup("TreesitterAutoInstall", { clear = true }),
+				callback = function(event)
+					local ok, nvim_treesitter = pcall(require, "nvim-treesitter")
+					if not ok then
+						return
+					end
+					local ft = vim.bo[event.buf].ft
+					local lang = vim.treesitter.language.get_lang(ft)
+					nvim_treesitter.install({ lang }):await(function(err)
+						if err then
+							vim.notify("Treesitter install error for ft: " .. ft .. " err: " .. err)
+							return
+						end
+						pcall(vim.treesitter.start, event.buf)
+						vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+						vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+					end)
+				end,
+			})
 			-- 折り畳みの設定
 			local opt = vim.opt
 			opt.foldmethod = "expr"
 			opt.foldexpr = "nvim_treesitter#foldexpr()"
+		end,
+	},
+	-- treesitter を利用した textobject を追加する
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			require("nvim-treesitter-textobjects").setup({
+				lookahead = true,
+				selection_modes = {
+					["@parameter.outer"] = "v", -- charwise
+					["@function.outer"] = "V", -- linewise
+					["@class.outer"] = "<c-v>", -- blockwise
+				},
+				move = {
+					set_jumps = true,
+				},
+			})
+
+			-- 引数などの入れ替え
+			vim.keymap.set("n", "<leader>cw", function()
+				require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner")
+			end, { desc = "Swap next parameter" })
+			vim.keymap.set("n", "<leader>cW", function()
+				require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner")
+			end, { desc = "Swap previous parameter" })
+
+			-- テキストオブジェクトごとの移動
+			local move = require("nvim-treesitter-textobjects.move")
+			vim.keymap.set({ "n", "x", "o" }, "]m", function()
+				move.goto_next_start("@function.outer", "textobjects")
+			end, { desc = "Next function start" })
+			vim.keymap.set({ "n", "x", "o" }, "]]", function()
+				move.goto_next_start("@class.outer", "textobjects")
+			end, { desc = "Next class start" })
+			-- You can also pass a list to group multiple queries.
+			vim.keymap.set({ "n", "x", "o" }, "]o", function()
+				move.goto_next_start({ "@loop.inner", "@loop.outer" }, "textobjects")
+			end, { desc = "Next loop start" })
+			-- You can also use captures from other query groups like `locals.scm` or `folds.scm`
+			vim.keymap.set({ "n", "x", "o" }, "]s", function()
+				move.goto_next_start("@local.scope", "locals")
+			end, { desc = "Next scope start" })
+			vim.keymap.set({ "n", "x", "o" }, "]z", function()
+				move.goto_next_start("@fold", "folds")
+			end, { desc = "Next fold start" })
+
+			vim.keymap.set({ "n", "x", "o" }, "]M", function()
+				move.goto_next_end("@function.outer", "textobjects")
+			end, { desc = "Next function end" })
+			vim.keymap.set({ "n", "x", "o" }, "][", function()
+				move.goto_next_end("@class.outer", "textobjects")
+			end, { desc = "Next class end" })
+
+			vim.keymap.set({ "n", "x", "o" }, "[m", function()
+				move.goto_previous_start("@function.outer", "textobjects")
+			end, { desc = "Previous function start" })
+			vim.keymap.set({ "n", "x", "o" }, "[[", function()
+				move.goto_previous_start("@class.outer", "textobjects")
+			end, { desc = "Previous class start" })
+
+			vim.keymap.set({ "n", "x", "o" }, "[M", function()
+				move.goto_previous_end("@function.outer", "textobjects")
+			end, { desc = "Previous function end" })
+			vim.keymap.set({ "n", "x", "o" }, "[]", function()
+				move.goto_previous_end("@class.outer", "textobjects")
+			end, { desc = "Previous class end" })
+			vim.keymap.set({ "n", "x", "o" }, "]i", function()
+				move.goto_next("@conditional.outer", "textobjects")
+			end, { desc = "Next conditional" })
+			vim.keymap.set({ "n", "x", "o" }, "[i", function()
+				move.goto_previous("@conditional.outer", "textobjects")
+			end, { desc = "Previous conditional" })
+			vim.keymap.set(
+				{ "n", "x", "o" },
+				",",
+				require("nvim-treesitter-textobjects.repeatable_move").repeat_last_move_next,
+				{ desc = "Repeat last textobject move" }
+			)
 		end,
 	},
 }

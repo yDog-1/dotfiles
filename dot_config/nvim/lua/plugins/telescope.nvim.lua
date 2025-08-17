@@ -6,8 +6,8 @@ require("plugins.which-key.spec").add({
 return {
 	{
 		"nvim-telescope/telescope.nvim",
+		branch = "master",
 		lazy = true,
-		version = "^0.1.8",
 		keys = {
 			-- ファイル検索
 			{ "<Leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find files" },
