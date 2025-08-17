@@ -21,6 +21,8 @@
       # 便利コマンド
       "reload" = "source ~/.zshrc";
       "path" = "echo $PATH | tr ':' '\n'";
+
+      "claude" = "bunx @anthropic-ai/claude-code@latest";
     };
   };
 }

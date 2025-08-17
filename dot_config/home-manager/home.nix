@@ -20,7 +20,6 @@
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
   programs.home-manager.enable = true;
-  nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
     # シェル・ターミナル
@@ -42,9 +41,6 @@
     # ネットワーク・通信
     curl
     wget
-
-    # 開発支援
-    claude-code
 
     # Git
     git
