@@ -5,6 +5,7 @@ return {
 		branch = "main",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
+			"nvim-treesitter/nvim-treesitter-context",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		build = ":TSUpdate",
@@ -122,6 +123,28 @@ return {
 				require("nvim-treesitter-textobjects.repeatable_move").repeat_last_move_next,
 				{ desc = "Repeat last textobject move" }
 			)
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			require("treesitter-context").setup({
+				enable = true,
+				multiwindow = false,
+				max_lines = 0,
+				min_window_height = 0,
+				line_numbers = true,
+				multiline_threshold = 20,
+				trim_scope = "outer",
+				mode = "cursor",
+				separator = nil,
+				zindex = 20,
+				on_attach = nil,
+			})
+      vim.keymap.set("n", "[@", function ()
+        require("treesitter-context").go_to_context(vim.v.count1)
+      end, { desc = "Go up to context", noremap = true, silent = true })
 		end,
 	},
 }
