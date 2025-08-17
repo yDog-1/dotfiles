@@ -18,6 +18,7 @@ local format = function(bufnr)
 	vim.lsp.buf.format()
 end
 
+-- LSP servers managed by Nix
 local servers = {
 	"efm",
 	"lua_ls",
@@ -37,54 +38,17 @@ local servers = {
 	"nil_ls",
 }
 
-local ensure_installed = {
-	-- Linter
-	"gitlint",
-	"hadolint",
-	"tflint",
-	"eslint",
-	"sqlfluff",
-	"yamllint",
-	"markdownlint",
-	"golangci-lint",
-
-	-- Formatter
-	"stylua",
-	"biome",
-	"dprint",
-	"prettier",
-	"yq",
-	"jq",
-	"goimports",
-	"alejandra",
-
-	-- Tool
-	"gomodifytags",
-}
-
 return {
-	{
-		"williamboman/mason.nvim",
-		dependencies = {
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			"creativenull/efmls-configs-nvim",
-		},
-		lazy = true,
-		opts = true,
-	},
 	-- Neovim での LSP 設定を提供
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
+			"creativenull/efmls-configs-nvim",
 			"Shougo/ddc-source-lsp",
 			"b0o/schemastore.nvim",
 		},
 		event = { "BufReadPre" },
-		cmd = "Mason",
 		config = function()
-			vim.cmd("MasonToolsInstall")
-
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 			-- 保存時にフォーマット
@@ -161,18 +125,7 @@ return {
 			vim.lsp.enable(servers)
 		end,
 	},
-	-- mason.nvim と nvim-lspconfig の連携
-	{
-		"williamboman/mason-lspconfig.nvim",
-		dependencies = {
-			"williamboman/mason.nvim",
-		},
-		lazy = true,
-		opts = {
-			ensure_installed = servers,
-			automatic_enable = true,
-		},
-	},
+
 	-- efm Language Server と nvim-lspconfig の連携
 	{
 		"creativenull/efmls-configs-nvim",
@@ -183,14 +136,7 @@ return {
 		},
 		dependencies = { "neovim/nvim-lspconfig" },
 	},
-	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		lazy = true,
-		opts = {
-			auto_update = true,
-			ensure_installed = vim.list_extend(ensure_installed, servers),
-		},
-	},
+
 	-- UI/UXを改善
 	{
 		"dnlhc/glance.nvim",

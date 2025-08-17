@@ -9,6 +9,7 @@
     ./modules/shell/sheldon.nix
     ./modules/shell/aliases.nix
     ./modules/tools.nix
+    ./modules/development.nix
     ./modules/skk/jisyo.nix
     ./modules/shell/send-to-claude.nix
   ];
