@@ -29,6 +29,10 @@
 
     # その他のZshオプション
     initContent = ''
+      # 補完システムを最初に初期化
+      autoload -Uz compinit
+      compinit
+
       # 補完の詳細設定
       zstyle ':completion:*' menu select
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'

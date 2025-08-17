@@ -29,11 +29,11 @@
       zsh-completions = {
         github = "zsh-users/zsh-completions";
         hooks.post = ''
-          if type brew &>/dev/null; then
-            FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-            autoload -Uz compinit
-            compinit
-          fi
+          # FPATHにzsh-completionsを追加
+          FPATH=$HOME/.local/share/sheldon/repos/github.com/zsh-users/zsh-completions/src:$FPATH
+          # 補完システムを初期化
+          autoload -Uz compinit
+          compinit
         '';
       };
 
