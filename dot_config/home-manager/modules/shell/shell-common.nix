@@ -23,6 +23,4 @@
     "$PYENV_ROOT/bin"
     "$DPRINT_INSTALL/bin"
   ];
-
-
 }
