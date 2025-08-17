@@ -175,7 +175,11 @@ local efm_config = require("plugins.lsp.utils.efm_config").setup({
 				kind = "formatters",
 				name = "yq",
 				settings = {
-					default = true,
+					default = false,
+					options = {
+						formatCommand = "yq -P . -",
+						formatStdin = true,
+					},
 				},
 			},
 		},
