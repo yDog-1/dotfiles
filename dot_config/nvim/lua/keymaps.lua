@@ -33,10 +33,6 @@ set({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 -- Space + Enter で、カーソルの位置で改行
 set("n", "<Leader><CR>", "i<CR><Esc>", { desc = "Insert newline from cursor" })
 
--- Space + o, O で、行の上下に空白行を作成
-set("n", "<Leader>o", 'o<Esc>0"_d$', { desc = "Insert newline below" })
-set("n", "<Leader>O", 'O<Esc>0"_d$', { desc = "Insert newline above" })
-
 -- Xをブラックホール register に割り当て
 set({ "n", "v" }, "x", '"_x')
 set({ "n", "v" }, "X", '"_d')

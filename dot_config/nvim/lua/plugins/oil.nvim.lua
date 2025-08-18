@@ -18,7 +18,7 @@ return {
 						vim.cmd("vertical resize" .. oil_width)
 					end)
 				end,
-				{ desc = "Open parent directory" },
+				desc = "Open parent directory",
 			},
 		},
 		---@module 'oil'
