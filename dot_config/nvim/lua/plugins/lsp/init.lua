@@ -122,6 +122,21 @@ return {
 				workspace_required = true,
 			})
 
+			vim.lsp.config("nil_ls", {
+				settings = {
+					["nil"] = {
+						nix = {
+							flake = {
+								-- flakeの入力を自動評価
+								autoEvalInputs = true,
+							},
+							-- evakuationのメモリを4GiBに設定
+							maxMemoryMB = 4096,
+						},
+					},
+				},
+			})
+
 			vim.lsp.enable(servers)
 		end,
 	},
