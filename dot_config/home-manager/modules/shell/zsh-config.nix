@@ -23,7 +23,6 @@
       extended = true;
     };
 
-
     # Zshオプション
     autocd = true; # ディレクトリ名だけでcd
 
