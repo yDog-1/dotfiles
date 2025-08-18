@@ -23,7 +23,7 @@ local keymap = {
 	["<Tab>"] = { "snippet_forward", "fallback" },
 	["<S-Tab>"] = { "snippet_backward", "fallback" },
 	["<C-Y>"] = { "accept" },
-	["<CR>"] = { "select_and_accept", "fallback" },
+	["<CR>"] = { "accept", "fallback" },
 	["<C-G>"] = { "cancel", "fallback" },
 	["<C-space>"] = { "show" },
 	["<C-E>"] = { "hide" },
@@ -52,6 +52,12 @@ return {
 			completion = {
 				documentation = {
 					auto_show = true,
+				},
+				list = {
+					selection = {
+						preselect = false,
+						auto_insert = false,
+					},
 				},
 			},
 			sources = {
@@ -132,14 +138,16 @@ return {
 					menu = {
 						auto_show = true,
 					},
+					list = {
+						selection = {
+							preselect = false,
+							auto_insert = false,
+						},
+					},
 				},
 			},
-			-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
-			-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
-			-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
-			--
-			-- See the fuzzy documentation for more information
-			-- TODO: どういうものか調べる
+			-- Rust製 fuzzy finder "github.com/saghen/frizbee" を優先して使用する
+			-- Rustが使える場合、自動でダウンロードし、ビルドする
 			fuzzy = { implementation = "prefer_rust_with_warning" },
 		},
 		opts_extend = { "sources.default" },
