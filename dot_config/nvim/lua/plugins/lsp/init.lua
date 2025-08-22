@@ -3,6 +3,8 @@ require("plugins.which-key.spec").add({
 	{ "<Leader>c", group = "code" },
 })
 
+local nix_utils = require("utils.nix")
+
 local format = function(bufnr)
 	local efm = vim.lsp.get_clients({ name = "efm", bufnr = bufnr })
 	if not vim.tbl_isempty(efm) then
@@ -35,7 +37,7 @@ local servers = {
 	"astro",
 	"tailwindcss",
 	"cssls",
-	"nil_ls",
+	"nixd",
 }
 
 return {
@@ -122,16 +124,27 @@ return {
 				workspace_required = true,
 			})
 
-			vim.lsp.config("nil_ls", {
+			local username = os.getenv("USER") or os.getenv("USERNAME") or vim.fn.system("whoami"):gsub("\n", "")
+			vim.lsp.config("nixd", {
+				command = { "nixd" },
+				filetypes = { "nix" },
 				settings = {
-					["nil"] = {
-						nix = {
-							flake = {
-								-- flakeの入力を自動評価
-								autoEvalInputs = true,
+					nixd = {
+						nixpkgs = {
+							expr = string.format(
+								'(builtins.getFlake "%s/.config/home-manager").inputs.nixpkgs.legacyPackages.%s',
+								os.getenv("HOME"),
+								nix_utils.get_system()
+							),
+						},
+						options = {
+							home_manager = {
+								expr = string.format(
+									'(builtins.getFlake "%s/.config/home-manager").homeConfigurations."%s".options',
+									os.getenv("HOME"),
+									username
+								),
 							},
-							-- evakuationのメモリを4GiBに設定
-							maxMemoryMB = 4096,
 						},
 					},
 				},

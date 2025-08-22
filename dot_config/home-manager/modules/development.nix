@@ -18,7 +18,7 @@
     taplo
     astro-language-server
     tailwindcss-language-server
-    nil
+    nixd
 
     # Linters
     gitlint
