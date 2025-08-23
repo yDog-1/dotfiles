@@ -11,3 +11,4 @@ CLAUDE.local.md
 .direnv
 .envrc
 .nvim.lua
+/result
