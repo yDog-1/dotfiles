@@ -11,6 +11,8 @@
       "la" = "eza -A";
       "l" = "eza -F";
       "tree" = "eza --tree";
+      "rm" = "gtrash put --rm-mode";
+      "cleantrash" = "gtrash find --rm";
 
       # 便利コマンド
       "reload" = "source ~/.zshrc";
