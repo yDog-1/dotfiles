@@ -7,7 +7,6 @@
     ghq
     fd
     bat
-    tree
     yazi
   ];
 
