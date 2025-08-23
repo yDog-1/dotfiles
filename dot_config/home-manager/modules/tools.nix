@@ -104,18 +104,6 @@ in {
     enableCompletion = false;
 
     initContent = ''
-      # ghq + fzf でリポジトリ選択
-      function ghq-fzf() {
-        local selected_dir=$(ghq list | fzf --query="$LBUFFER" --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.md 2>/dev/null || echo 'No README found'")
-        if [ -n "$selected_dir" ]; then
-          BUFFER="cd $(ghq root)/$selected_dir"
-          zle accept-line
-        fi
-        zle clear-screen
-      }
-      zle -N ghq-fzf
-      bindkey '^G' ghq-fzf
-
       # CWDを自動で変更する、Yaziのラッパー関数
       function y() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd

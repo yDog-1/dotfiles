@@ -1,12 +1,15 @@
 snippets:
+
   # snippet and keyword abbrev
   - name: git status
     keyword: gs
     snippet: git status --short --branch
+
   # snippet with placeholder
   - name: git commit message
     keyword: gcim
     snippet: git commit -m '{{commit_message}}'
+
   - name: "null"
     keyword: "null"
     snippet: ">/dev/null 2>&1"
@@ -16,28 +19,35 @@ snippets:
       # buffer: ''
       lbuffer: '.+\s'
       # rbuffer: ''
+
   - name: branch
     keyword: B
     snippet: git symbolic-ref --short HEAD
     context:
       lbuffer: '^git\s+checkout\s+'
     evaluate: true # eval snippet
+
   - name: zellij
     keyword: ze
     snippet: zellij
+
   - name: zellij attach
     keyword: za
     snippet: zellij attach
+
   - name: Claude Code
     keyword: c
     snippet: claude --dangerously-skip-permissions
+
   - name: Claude Code resume
     keyword: cr
     snippet: claude --resume --dangerously-skip-permissions
+
   - name: Claude Code continue
     keyword: cc
     snippet: claude --continue --dangerously-skip-permissions
 completions:
+
   # simple sourceCommand, no callback
   - name: kill signal
     patterns:
@@ -45,6 +55,7 @@ completions:
     sourceCommand: "kill -l | tr ' ' '\\n'"
     options:
       --prompt: "'Kill Signal> '"
+
   # use excludePatterns and callback
   - name: kill pid
     patterns:
@@ -57,6 +68,7 @@ completions:
       --multi: true
       --prompt: "'Kill Process> '"
     callback: "awk '{print $2}'"
+
   # Use null (\0) termination Input / Output
   - name: chdir
     patterns:
@@ -68,6 +80,7 @@ completions:
       --preview: "cd {} && eza --icons=never -a | sed '/^[.]*$/d'"
     callback: "sed 's|/$||'"
     callbackZero: true # null termination is used in `callback` I/O
+
   # zellij completion
   - name: zellij session completion # 補完機能の名前を定義
     patterns:
@@ -78,6 +91,7 @@ completions:
     options:
       --prompt: "'zellij session> '" # fzfのプロンプトをカスタマイズ
     callback: "awk '{print $1}'" # fzfで選択された行からセッション名のみを抽出
+
   - name: ghq completion
     patterns:
       - "^ghq (rm) $"
@@ -85,7 +99,7 @@ completions:
     options:
       --prompt: "'ghq> '" # fzfのプロンプトをカスタマイズ
     callback: "awk '{print $1}'" # 選択された行からリポジトリのパスのみを抽出
-  - name: nvim completion
+
     patterns:
       - "^nvim $"
       - "^nvim (e|edit) $"

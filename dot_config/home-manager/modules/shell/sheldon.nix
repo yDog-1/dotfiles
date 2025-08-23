@@ -23,6 +23,7 @@
           bindkey '^i' zeno-completion
           bindkey '^r' zeno-history-selection
           bindkey '^x' zeno-insert-snippet
+          bindkey '^g' zeno-ghq-cd
         '';
       };
 
