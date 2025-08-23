@@ -15,6 +15,7 @@ in {
     fd
     bat
     yazi
+    sad
     gtrash
   ];
 
