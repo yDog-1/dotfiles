@@ -100,8 +100,9 @@ completions:
       --prompt: "'ghq> '" # fzfのプロンプトをカスタマイズ
     callback: "awk '{print $1}'" # 選択された行からリポジトリのパスのみを抽出
 
+  - name: file completion
     patterns:
-      - "^nvim $"
+      - "^(nvim|bat|rm) $"
       - "^nvim (e|edit) $"
     # nvimで開くファイルを取得
     sourceCommand: "fd --type f --hidden --exclude .git --max-depth 5"
