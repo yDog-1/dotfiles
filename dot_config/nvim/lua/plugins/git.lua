@@ -50,7 +50,7 @@ return {
 			vim.g["gin_proxy_apply_without_confirm"] = 1
 			-- エディタの開き方
 			vim.g["gin_proxy_editor_opener"] = "split"
-			vim.g["gin_diff_persistent_args"] = { "++processor=delta -n" }
+			vim.g["gin_diff_persistent_args"] = { "++processor=delta -n --color-only" }
 			vim.g["gin_log_default_args"] = { "++emojify", "--oneline", "--graph" }
 		end,
 		config = function()
