@@ -1,49 +1,51 @@
 require("plugins.which-key.spec").add({
 	mode = "n",
-	{ "<Leader>b", group = "barbar", icon = { icon = "󰓩 ", color = "purple" } },
+	{ "<Leader>b", group = "buffer" },
 })
 
 return {
-	"romgrk/barbar.nvim",
-	dependencies = {
-		"lewis6991/gitsigns.nvim",
+	{
+		"akinsho/bufferline.nvim",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		lazy = false,
+		keys = {
+			{ "L", "<cmd>BufferLineCycleNext<cr>", desc = "next buffer" },
+			{ "H", "<cmd>BufferLineCyclePrev<cr>", desc = "previous buffer" },
+			{ "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", desc = "close other buffers" },
+		},
+		config = function()
+			local bufferline = require("bufferline")
+			bufferline.setup({
+				options = {
+					mode = "buffers",
+					style_preset = bufferline.style_preset.no_italic,
+					numbers = "buffer_id",
+					diagnostics = "nvim_lsp",
+					diagnostics_indicator = function(count, level)
+						local icon = level:match("error") and " " or " "
+						return " " .. icon .. count
+					end,
+					offsets = {
+						filetype = "oil",
+					},
+					hover = {
+						enabled = false,
+					},
+					show_buffer_close_icons = false,
+					separator_style = "thin",
+					auto_toggle_bufferline = true,
 	},
-	version = "^1.0.0",
-	init = function()
-		vim.g.barbar_auto_setup = false
-	end,
-	event = "BufEnter",
-	keys = {
-		{ "H", ":BufferPrevious<CR>", desc = "switch prev tab", silent = true },
-		{ "L", ":BufferNext<CR>", desc = "switch next tab", silent = true },
-		{ "<Leader>b<", ":BufferMovePrevious<CR>", desc = "move tab left", silent = true },
-		{ "<Leader>b>", ":BufferMoveNext<CR>", desc = "move tab right", silent = true },
-		{ "<Leader>bp", ":BufferPin<CR>", desc = "pin tab", silent = true },
-		{ "<Leader>bc", ":BufferClose<CR>", desc = "close tab", silent = true },
-		{ "<Leader>bo", ":BufferCloseAllButCurrentOrPinned<CR>", desc = "close other tabs", silent = true },
-	},
-	opts = {
-		animation = false,
-		auto_hide = 1,
-		clickable = false,
-		icons = {
-			button = false,
+	{
+		"moll/vim-bbye",
+		lazy = false,
+		keys = {
+			{ "<leader>bd", "<cmd>Bdelete<cr>", desc = "delete buffer" },
 		},
 	},
 	{
+		-- tabごとにbufferを表示してくれる
 		"tiagovla/scope.nvim",
-    lazy =false,
-		opts = {
-			hooks = {
-				pre_tab_leave = function()
-					-- for barbar.nvim integration
-					vim.api.nvim_exec_autocmds("User", { pattern = "ScopeTabLeavePre" })
-				end,
-				post_tab_enter = function()
-					-- for barbar.nvim integration
-					vim.api.nvim_exec_autocmds("User", { pattern = "ScopeTabEnterPost" })
-				end,
-			},
-		},
+		lazy = false,
+		opts = {},
 	},
 }
