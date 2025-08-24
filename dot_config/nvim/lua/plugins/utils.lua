@@ -113,6 +113,7 @@ return {
 				bypass_save_filetypes = {
 					"codecompanion",
 					"aider",
+					"help", -- lazy loadingでプラグインが読み込まれる前にhelpは開けないので
 				},
 				use_git_branch = true,
 			}
