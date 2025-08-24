@@ -39,7 +39,26 @@ return {
 			{ "<leader>gbr", "<Cmd>GinBranch<Cr>", desc = "Branch" },
 			{ "<leader>gd", "<Cmd>GinDiff<Cr>", desc = "Diff" },
 			{ "<leader>gl", "<Cmd>GinLog<Cr>", desc = "Log" },
-			{ "<leader>gc", "<Cmd>Gin commit<Cr>", desc = "Commit" },
+			{
+				"<leader>gc",
+				function()
+					-- tab を開いて、上に diff、下に commit メッセージ入力欄を表示
+					vim.cmd([[tabnew]])
+					vim.cmd([[GinDiff --staged]])
+					vim.cmd.Gin("commit")
+					-- autocmdで、Commitウィンドウを閉じたときにtabも閉じるようにする
+					local commit_group = vim.api.nvim_create_augroup("CommitCloseTab", { clear = true })
+					vim.api.nvim_create_autocmd("BufUnload", {
+						pattern = "*COMMIT_EDITMSG",
+						group = commit_group,
+						callback = function()
+							vim.cmd([[tabclose]])
+							vim.api.nvim_del_augroup_by_id(commit_group)
+						end,
+					})
+				end,
+				desc = "Commit",
+			},
 			{ "<leader>gf", ":Gin fetch ", desc = "Fetch" },
 			{ "<leader>gm", ":Gin merge ", desc = "Merge" },
 			{ "<leader>g<C-r>", ":Gin rebase --autostash ", desc = "Rebase" },
