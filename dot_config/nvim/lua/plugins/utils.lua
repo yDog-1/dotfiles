@@ -22,19 +22,6 @@ return {
 			},
 		},
 	},
-	-- ステータスラインをカスタマイズ
-	{
-		"nvim-lualine/lualine.nvim",
-		opts = {
-			options = {
-				icons_enabled = true,
-				theme = "auto",
-				disabled_filetypes = {
-					"neo-tree",
-				},
-			},
-		},
-	},
 	-- 通知を表示
 	{
 		"rcarriga/nvim-notify",
