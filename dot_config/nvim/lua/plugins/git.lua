@@ -120,17 +120,18 @@ return {
 						local args = vim.g["gin_diff_persistent_args"]
 
 						-- staged バッファかどうかを判定
-						local diffIsStaged = string.find(vim.api.nvim_buf_get_name(0), ";staged=", 1, true) ~= nil
-						local staged = diffIsStaged and "--staged" or ""
-
+						local diffIsStaged = string.find(vim.api.nvim_buf_get_name(0), ";staged", 1, true) ~= nil
+						local diffIsCached = string.find(vim.api.nvim_buf_get_name(0), ";cached", 1, true) ~= nil
+						local staged = (function()
+							if diffIsStaged or diffIsCached then
+								return " --staged"
+							else
+								return ""
+							end
+						end)()
 						-- persistent argsで ++processor が指定されている場合、再度指定するとエラーになるので、一旦クリアしてから設定し直す
 						vim.g["gin_diff_persistent_args"] = {}
-						vim.cmd(
-							[[GinDiff++processor=delta\ -n\ --features\ side-by-side\ -w=]]
-								.. fit_width
-								.. " "
-								.. staged
-						)
+						vim.cmd([[GinDiff++processor=delta\ -n\ --features\ side-by-side\ -w=]] .. fit_width .. staged)
 						vim.g["gin_diff_persistent_args"] = args
 					end, opts({ desc = "Split diff" }))
 				end,
