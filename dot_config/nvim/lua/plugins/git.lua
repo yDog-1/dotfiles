@@ -74,7 +74,7 @@ return {
 					set({ "n" }, "c", "<Cmd>Gin commit<Cr>", opts({ desc = "Commit" }))
 					set({ "n" }, "s", "<Cmd>GinStatus<Cr>", opts({ desc = "Status" }))
 					set({ "n" }, "d", "<Cmd>GinDiff --staged<Cr>", opts({ desc = "Diff" }))
-					set({ "n" }, "q", "<Cmd>bd<Cr>", opts({ desc = "Close" }))
+					set({ "n" }, "q", "<Cmd>Bdelete<Cr>", opts({ desc = "Close" }))
 					set({ "n" }, "p", "<Cmd>Gin push<Cr>", opts({ desc = "Push" }))
 					set({ "n" }, "P", "<Cmd>Gin pull<Cr>", opts({ desc = "Pull" }))
 					set({ "n" }, "if", "<Plug>(gin-action-fixup:instant-fixup)", opts({ desc = "Fixup" }))
