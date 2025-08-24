@@ -30,4 +30,20 @@ return {
 			button = false,
 		},
 	},
+	{
+		"tiagovla/scope.nvim",
+    lazy =false,
+		opts = {
+			hooks = {
+				pre_tab_leave = function()
+					-- for barbar.nvim integration
+					vim.api.nvim_exec_autocmds("User", { pattern = "ScopeTabLeavePre" })
+				end,
+				post_tab_enter = function()
+					-- for barbar.nvim integration
+					vim.api.nvim_exec_autocmds("User", { pattern = "ScopeTabEnterPost" })
+				end,
+			},
+		},
+	},
 }
