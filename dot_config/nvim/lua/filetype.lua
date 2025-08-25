@@ -15,7 +15,7 @@ vim.filetype.add({
 			-- テーブルの第二要素でpriorityを最低にしておくと、フォールバック相当になる
 			{ priority = -math.huge },
 		},
-    -- ${HOME}/.local/share/chezmoi/dot_config/yamllint/config を yamlとして扱う
-    ["${HOME}/.local/share/chezmoi/dot_config/yamllint/config"] = "yaml",
+		-- ${HOME}/.local/share/chezmoi/dot_config/yamllint/config を yamlとして扱う
+		["${HOME}/.local/share/chezmoi/dot_config/yamllint/config"] = "yaml",
 	},
 })

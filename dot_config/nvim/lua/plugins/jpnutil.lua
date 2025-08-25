@@ -65,9 +65,9 @@ return {
 				sources = { "deno_kv", "skk_dictionary" },
 				-- キャンセルの挙動
 				immediatelyCancel = false,
-        -- 変換中の文字に空白を追加し、'ambiwidth' singleでも文字に重ならないようにする
-        markerHenkan = "▽ ",
-        markerHenkanSelect = "▼ "
+				-- 変換中の文字に空白を追加し、'ambiwidth' singleでも文字に重ならないようにする
+				markerHenkan = "▽ ",
+				markerHenkanSelect = "▼ ",
 			})
 
 			vim.fn["skkeleton#register_keymap"]("henkan", "<CR>", "kakutei")

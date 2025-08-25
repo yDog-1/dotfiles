@@ -142,9 +142,9 @@ return {
 				zindex = 20,
 				on_attach = nil,
 			})
-      vim.keymap.set("n", "[@", function ()
-        require("treesitter-context").go_to_context(vim.v.count1)
-      end, { desc = "Go up to context", noremap = true, silent = true })
+			vim.keymap.set("n", "[@", function()
+				require("treesitter-context").go_to_context(vim.v.count1)
+			end, { desc = "Go up to context", noremap = true, silent = true })
 		end,
 	},
 }

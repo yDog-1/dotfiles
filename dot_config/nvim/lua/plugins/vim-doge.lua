@@ -6,6 +6,6 @@ return {
 	end,
 	config = function()
 		vim.cmd("silent call doge#install()")
-    vim.keymap.set("n", "<leader>cm", "<cmd>DogeGenerate<CR>", { desc = "Generate Documentation" })
+		vim.keymap.set("n", "<leader>cm", "<cmd>DogeGenerate<CR>", { desc = "Generate Documentation" })
 	end,
 }
