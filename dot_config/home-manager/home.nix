@@ -45,7 +45,7 @@
     delta
 
     # コンテナ
-    docker
+    podman
 
     # 画像・ドキュメント処理
     imagemagick
@@ -71,8 +71,15 @@
     cargo
     rustc
 
+    # AI
+    opencode
+
     # クリップボード
     xclip # X11用
     wl-clipboard # Wayland用
   ];
+
+  programs.zsh.shellAliases = {
+    "docker" = "podman";
+  };
 }
