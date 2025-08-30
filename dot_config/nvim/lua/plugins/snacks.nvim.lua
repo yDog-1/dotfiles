@@ -77,5 +77,8 @@ return {
 				{ section = "startup" },
 			},
 		},
+		input = {
+			enabled = true,
+		},
 	},
 }

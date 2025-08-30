@@ -1,0 +1,179 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "CLAUDE.md",
+    "AGNENTS.md"
+  ],
+  "keybinds": {
+    "app_exit": "<leader>q",
+    "session_interrupt": "<esc>,ctrl+c"
+  },
+  "permission": {
+    "edit": "ask",
+    "bash": "ask",
+    "webfetch": "allow"
+  },
+  "agent": {
+    "build": {
+      "mode": "primary",
+      "tools": {
+        "*": true
+      }
+    },
+    "plan": {
+      "mode": "primary",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "git_git_commit": false,
+        "git_git_add": false,
+        "git_git_reset": false,
+        "git_git_create*": false,
+        "serena_create*": false,
+        "serena_replace*": false,
+        "serena_insert*": false,
+        "serena_execute_shell_command": false
+      }
+    },
+    "code-reviewer": {
+      "description": "Reviews code for best practices and potential issues",
+      "mode": "subagent",
+      "prompt": "You are a code reviewer. Focus on security, performance, and maintainability.",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "serena_create*": false,
+        "serena_replace*": false,
+        "serena_insert*": false,
+        "serena_execute_shell_command": false
+      }
+    }
+  },
+  "provider": {
+    "openrouter": {
+      "npm": "@openrouter/ai-sdk-provider",
+      "name": "OpenRouter",
+      "models": {
+        "openai/gpt-oss-120b": {
+          "name": "GPT-OSS-120B",
+          "limit": {
+            "context": 131000,
+            "output": 32800
+          },
+          "options": {
+            "provider": {
+              "allow_fallbacks": false,
+              "only": [
+                "fireworks",
+                "cerebras",
+                "phala",
+                "crusoe",
+                "atlas-cloud/fp8",
+                "groq"
+              ],
+              "sort": "price"
+            }
+          }
+        },
+        "qwen/qwen3-coder": {
+          "name": "Qwen3-Coder",
+          "limit": {
+            "context": 262100,
+            "output": 262100
+          },
+          "options": {
+            "provider": {
+              "allow_fallbacks": false,
+              "only": [
+                "fireworks",
+                "google-vertex",
+                "alibaba/opensource",
+                "atlas-cloud/fp8"
+              ],
+              "sort": "price"
+            }
+          }
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "name": "DeepSeek-V3.1",
+          "limit": {
+            "context": 163800,
+            "output": 163800
+          },
+          "options": {
+            "provider": {
+              "allow_fallbacks": false,
+              "only": [
+                "fireworks",
+                "parasail/fp8",
+                "chutes",
+                "atlas-cloud/fp8",
+                "gmicloud/fp8"
+              ],
+              "sort": "price"
+            }
+          }
+        },
+        "x-ai/grok-code-fast-1": {
+          "name": "Grok-Code-Fast-1",
+          "limit": {
+            "context": 256000,
+            "output": 10000
+          }
+        }
+      }
+    }
+  },
+  "small_model": "openrouter/qwen/qwen3-coder",
+  "mcp": {
+    "github": {
+      "type": "local",
+      "command": [
+        "podman",
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ]
+    },
+    "git": {
+      "type": "local",
+      "command": [
+        "uv",
+        "tool",
+        "run",
+        "mcp-server-git"
+      ]
+    },
+    "sequential-thinking": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    },
+    "serena": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--enable-web-dashboard=False"
+      ]
+    }
+  }
+}

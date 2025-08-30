@@ -7,8 +7,74 @@ for _, spec in ipairs({
 	})
 end
 
+-- Utils for toggleterm handling
+local function with_toggleterm(fn)
+	local ok, terms = pcall(require, "toggleterm.terminal")
+	if not ok then
+		vim.notify("toggleterm not available", vim.log.levels.ERROR, { title = "opencode" })
+		return
+	end
+	fn(terms)
+end
+
+local function find_opencode_term(terms)
+	local all_terms = terms.get_all and terms.get_all(true) or {}
+	for _, term in pairs(all_terms) do
+		if term.cmd and string.find(term.cmd, "opencode") then
+			return term
+		end
+	end
+end
+
+local function create_opencode_term(terms)
+	local Terminal = terms.Terminal
+	return Terminal:new({
+		cmd = "opencode",
+		direction = "float",
+		hidden = true,
+		on_open = function()
+			vim.keymap.set("t", "<c-u>", "<c-m-u>", { buffer = true, desc = "Scroll up" })
+			vim.keymap.set("t", "<c-d>", "<c-m-d>", { buffer = true, desc = "Scroll down" })
+			vim.cmd("startinsert")
+		end,
+	})
+end
+
+local function is_valid_buffer(term)
+	return term.bufnr and vim.api.nvim_buf_is_valid(term.bufnr) and vim.api.nvim_buf_is_loaded(term.bufnr)
+end
+
+-- Custom function to toggle opencode toggleterm terminal
+local function toggle_opencode_terminal()
+	with_toggleterm(function(terms)
+		local term = find_opencode_term(terms)
+
+		if term then
+			if is_valid_buffer(term) then
+				pcall(function()
+					term:toggle()
+				end)
+			else
+				pcall(function()
+					term:shutdown()
+				end)
+				term = create_opencode_term(terms)
+				pcall(function()
+					term:open()
+				end)
+			end
+		else
+			term = create_opencode_term(terms)
+			pcall(function()
+				term:open()
+			end)
+		end
+	end)
+end
+
 return {
 	{
+		enabled = false,
 		"ravitemer/mcphub.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- Required for Job and HTTP requests
@@ -34,7 +100,114 @@ return {
 		end,
 	},
 	{
+		"NickvanDyke/opencode.nvim",
+		dependencies = {
+			"akinsho/toggleterm.nvim",
+		},
+			config = function()
+				require("opencode").setup({
+					on_opencode_not_found = function()
+						local term
+						local success, err = pcall(function()
+							with_toggleterm(function(terms)
+								term = create_opencode_term(terms)
+								term:toggle()
+							end)
+						end)
+
+						if not success then
+							vim.notify("Failed to open opencode terminal: " .. (err or "unknown error"),
+									  vim.log.levels.ERROR, { title = "opencode" })
+							return false
+						end
+
+						return term and true or false
+					end,
+				on_send = function()
+					with_toggleterm(function(terms)
+						local term = find_opencode_term(terms)
+
+						if term then
+							if is_valid_buffer(term) then
+								pcall(function()
+									term:open()
+								end)
+							else
+								toggle_opencode_terminal()
+							end
+						else
+							toggle_opencode_terminal()
+						end
+					end)
+				end,
+			})
+		end,
+		keys = {
+			-- Recommended keymaps
+			{
+				"<leader>aA",
+				function()
+					require("opencode").ask()
+				end,
+				desc = "Ask opencode",
+			},
+			{
+				"<leader>aa",
+				function()
+					require("opencode").ask("@cursor: ")
+				end,
+				desc = "Ask opencode about this",
+				mode = "n",
+			},
+			{
+				"<leader>aa",
+				function()
+					require("opencode").ask("@selection: ")
+				end,
+				desc = "Ask opencode about selection",
+				mode = "v",
+			},
+			{
+				"<c-y>",
+				toggle_opencode_terminal,
+				desc = "Toggle embedded opencode",
+				mode = { "n", "t" },
+			},
+			{
+				"<leader>an",
+				function()
+					require("opencode").command("session_new")
+				end,
+				desc = "New session",
+			},
+			{
+				"<leader>ay",
+				function()
+					require("opencode").command("messages_copy")
+				end,
+				desc = "Copy last message",
+			},
+			{
+				"<leader>ap",
+				function()
+					require("opencode").select_prompt()
+				end,
+				desc = "Select prompt",
+				mode = { "n", "v" },
+			},
+			-- Example: keymap for custom prompt
+			{
+				"<leader>ae",
+				function()
+					require("opencode").prompt("Explain @cursor and its context")
+				end,
+				desc = "Explain code near cursor",
+			},
+		},
+	},
+	{
 		"olimorris/codecompanion.nvim",
+		enabled = false,
 		lazy = true,
 		dependencies = {
 			"j-hui/fidget.nvim",
