@@ -18,6 +18,11 @@
       "mode": "primary",
       "tools": {
         "*": true
+      },
+      "permission": {
+        "edit": "allow",
+        "bash": "allow",
+        "webfetch": "allow"
       }
     },
     "plan": {
@@ -125,7 +130,7 @@
       }
     }
   },
-  "small_model": "openrouter/qwen/qwen3-coder",
+  "small_model": "openrouter/deepseek/deepseek-chat-v3.1",
   "mcp": {
     "github": {
       "type": "local",
