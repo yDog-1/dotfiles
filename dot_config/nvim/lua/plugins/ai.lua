@@ -17,22 +17,29 @@ local function with_toggleterm(fn)
 	fn(terms)
 end
 
-local function find_opencode_term(terms)
+local function find_opencode_term(terms, direction)
 	local all_terms = terms.get_all and terms.get_all(true) or {}
 	for _, term in pairs(all_terms) do
 		if term.cmd and string.find(term.cmd, "opencode") then
-			return term
+			-- Check if direction matches or if no direction specified
+			if not direction or (term.direction and term.direction == direction) then
+				return term
+			end
 		end
 	end
 end
 
-local function create_opencode_term(terms)
+local function create_opencode_term(terms, direction)
 	local Terminal = terms.Terminal
 	return Terminal:new({
 		cmd = "opencode",
-		direction = "float",
+		direction = direction or "float",
 		hidden = true,
 		on_open = function()
+			if direction == "vertical" then
+				local width = math.floor(vim.o.columns * 0.4)
+				vim.cmd("vertical resize " .. width)
+			end
 			vim.keymap.set("t", "<c-u>", "<c-m-u>", { buffer = true, desc = "Scroll up" })
 			vim.keymap.set("t", "<c-d>", "<c-m-d>", { buffer = true, desc = "Scroll down" })
 			vim.cmd("startinsert")
@@ -45,9 +52,9 @@ local function is_valid_buffer(term)
 end
 
 -- Custom function to toggle opencode toggleterm terminal
-local function toggle_opencode_terminal()
+local function toggle_opencode_terminal(direction)
 	with_toggleterm(function(terms)
-		local term = find_opencode_term(terms)
+		local term = find_opencode_term(terms, direction)
 
 		if term then
 			if is_valid_buffer(term) then
@@ -58,13 +65,13 @@ local function toggle_opencode_terminal()
 				pcall(function()
 					term:shutdown()
 				end)
-				term = create_opencode_term(terms)
+				term = create_opencode_term(terms, direction)
 				pcall(function()
 					term:open()
 				end)
 			end
 		else
-			term = create_opencode_term(terms)
+			term = create_opencode_term(terms, direction)
 			pcall(function()
 				term:open()
 			end)
@@ -84,7 +91,7 @@ return {
 					local term
 					local success, err = pcall(function()
 						with_toggleterm(function(terms)
-							term = create_opencode_term(terms)
+							term = create_opencode_term(terms, "float")
 							term:toggle()
 						end)
 					end)
@@ -145,9 +152,19 @@ return {
 				mode = "v",
 			},
 			{
-				"<c-y>",
-				toggle_opencode_terminal,
-				desc = "Toggle embedded opencode",
+				"<m-,>",
+				function()
+					toggle_opencode_terminal("float")
+				end,
+				desc = "Toggle embedded float opencode",
+				mode = { "n", "t" },
+			},
+			{
+				"<m-.>",
+				function()
+					toggle_opencode_terminal("vertical")
+				end,
+				desc = "Toggle embedded vsplit opencode",
 				mode = { "n", "t" },
 			},
 			{
