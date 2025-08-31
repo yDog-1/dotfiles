@@ -2,6 +2,7 @@
 description: Gitコミットメッセージの生成と実行を専門とするエージェント
 mode: subagent
 tools:
+  bash_git*: true
   write: false
   edit: false
   serena*: false
