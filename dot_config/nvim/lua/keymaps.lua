@@ -64,4 +64,4 @@ vim.keymap.set("i", "<C-l>", function()
 end, { expr = true })
 
 -- ターミナルモード
-set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+set("t", "<c-]><c-]>", "<C-\\><C-n>", { noremap = true })
