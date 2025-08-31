@@ -189,13 +189,31 @@ return {
 				desc = "Select prompt",
 				mode = { "n", "v" },
 			},
-			-- Example: keymap for custom prompt
 			{
 				"<leader>ae",
 				function()
-					require("opencode").prompt("Explain @cursor and its context")
+					require("opencode").prompt("/new Explain @cursor and its context")
 				end,
 				desc = "Explain code near cursor",
+			},
+			{
+				"<leader>ag",
+				function()
+					require("opencode").command("session_new")
+					require("opencode").prompt("/new @git-committer")
+				end,
+				desc = "Execute git add, commit",
+			},
+			{
+				"<leader>ag",
+				function()
+					require("opencode").command("session_new")
+					require("opencode").prompt(
+						"/new @git-committer @selection この選択範囲を元に、git add, commitを実行してください。"
+					)
+				end,
+				desc = "Execute git add, commit",
+				mode = "v",
 			},
 		},
 	},
