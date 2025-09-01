@@ -1,12 +1,9 @@
 ---
-description: Gitコミットメッセージの生成と実行を専門とするエージェント
-mode: subagent
-tools:
-  bash_git*: true
-  write: false
-  edit: false
-  serena*: false
+description: Gitコミットを実行する
+agent: build
+model: openrouter/openai/gpt-oss-120b
 ---
+
 # Gitコミットメッセージ生成ルール
 
 ステージングされた変更があった場合は、必ずその変更に対して**のみ**コミットを行ってください。
