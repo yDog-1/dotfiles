@@ -124,7 +124,7 @@
           "name": "Grok-Code-Fast-1",
           "limit": {
             "context": 256000,
-            "output": 10000
+            "output": 102400
           }
         }
       }
@@ -142,7 +142,10 @@
         "-e",
         "GITHUB_PERSONAL_ACCESS_TOKEN",
         "ghcr.io/github/github-mcp-server"
-      ]
+      ],
+        "environment": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
     },
     "git": {
       "type": "local",
@@ -151,14 +154,6 @@
         "tool",
         "run",
         "mcp-server-git"
-      ]
-    },
-    "sequential-thinking": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
       ]
     },
     "context7": {
@@ -179,6 +174,17 @@
         "start-mcp-server",
         "--enable-web-dashboard=False"
       ]
+    },
+    "brave-search": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "environment": {
+        "BRAVE_API_KEY": "{env:BRAVE_API_KEY}"
+      }
     }
   }
 }
