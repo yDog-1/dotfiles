@@ -3,8 +3,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "\${BROWSER:-\"firefox\"}";
-    LANG = "ja_JP.UTF-8";
-    LANGUAGE = "ja_JP:ja";
+    LC_ALL = "en_US.UTF-8";
 
     # Node.js Management
     NVM_DIR = "$HOME/.nvm";
