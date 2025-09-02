@@ -32,7 +32,7 @@ end
 local function create_opencode_term(terms, direction)
 	local Terminal = terms.Terminal
 	return Terminal:new({
-		cmd = "opencode",
+		cmd = "bunx opencode-ai@latest",
 		direction = direction or "float",
 		hidden = true,
 		on_open = function()

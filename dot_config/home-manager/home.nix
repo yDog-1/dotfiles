@@ -71,9 +71,6 @@
     cargo
     rustc
 
-    # AI
-    opencode
-
     # クリップボード
     xclip # X11用
     wl-clipboard # Wayland用
