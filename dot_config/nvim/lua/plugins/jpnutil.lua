@@ -66,8 +66,8 @@ return {
 				-- キャンセルの挙動
 				immediatelyCancel = false,
 				-- 変換中の文字に空白を追加し、'ambiwidth' singleでも文字に重ならないようにする
-				markerHenkan = "▽ ",
-				markerHenkanSelect = "▼ ",
+				markerHenkan = "▽",
+				markerHenkanSelect = "▼",
 			})
 
 			vim.fn["skkeleton#register_keymap"]("henkan", "<CR>", "kakutei")
