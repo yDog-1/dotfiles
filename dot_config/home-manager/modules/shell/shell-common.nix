@@ -2,7 +2,7 @@
   # 共通環境変数
   home.sessionVariables = {
     EDITOR = "nvim";
-    BROWSER = "\${BROWSER:-\"firefox\"}";
+    BROWSER = "\${BROWSER:-\"vivaldi\"}";
     LC_ALL = "en_US.UTF-8";
 
     # Node.js Management
