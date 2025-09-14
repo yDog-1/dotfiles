@@ -100,6 +100,11 @@ in {
     };
   };
 
+  # opencode
+  home.sessionVariables = {
+    OPENCODE_DISABLE_LSP_DOWNLOAD = "true";
+  };
+
   # Zsh関数とキーバインドの追加
   programs.zsh = {
     enableCompletion = false;
