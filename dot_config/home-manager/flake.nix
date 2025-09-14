@@ -14,15 +14,12 @@
     nixpkgs,
     home-manager,
     ...
-  }:
-  # let
-  #   system = "x86_64-linux";
-  #   pkgs = nixpkgs.legacyPackages.${system};
-  # in
-  {
+  }: let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
     homeConfigurations."ydog-1" = home-manager.lib.homeManagerConfiguration {
-      # inherit pkgs;
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      inherit pkgs;
       extraSpecialArgs = {inherit inputs;}; # Pass inputs to homeManagerConfiguration
 
       # Specify your home configuration modules here, for example,
