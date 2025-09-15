@@ -289,11 +289,18 @@ return {
 		},
 		config = function()
 			local augend = require("dial.augend")
+			local config = require("dial.config")
 			local default = require("dial.config").augends:get("default")
-			require("dial.config").augends:register_group({
+			config.augends:register_group({
 				default = vim.list_extend(default, {
 					augend.constant.alias.bool,
+					augend.paren.alias.quote,
 				}),
+			})
+			config.augends:on_filetype({
+				markdown = {
+					augend.misc.alias.markdown_header,
+				},
 			})
 		end,
 	},
