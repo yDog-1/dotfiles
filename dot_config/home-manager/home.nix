@@ -8,6 +8,7 @@
     ./modules/tools.nix
     ./modules/development.nix
     ./modules/skk
+    ./modules/mcp
   ];
 
   home.username = "ydog-1";
