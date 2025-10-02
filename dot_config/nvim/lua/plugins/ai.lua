@@ -81,6 +81,7 @@ end
 
 return {
 	{
+    enabled = false,
 		"NickvanDyke/opencode.nvim",
 		dependencies = {
 			"akinsho/toggleterm.nvim",
