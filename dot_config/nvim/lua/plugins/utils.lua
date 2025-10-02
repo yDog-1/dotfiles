@@ -89,9 +89,9 @@ return {
 		"rmagatti/auto-session",
 		lazy = false,
 		keys = {
-			{ "<Leader>ss", ":SessionSave ", desc = "Save session" },
-			{ "<Leader>sf", "<cmd>SessionSearch<CR>", desc = "Search session" },
-			{ "<Leader>sd", "<cmd>Autosession delete<CR>", desc = "Delete session" },
+			{ "<Leader>ss", ":AutoSession save ", desc = "Save session" },
+			{ "<Leader>sf", "<cmd>AutoSession search<CR>", desc = "Search session" },
+			{ "<Leader>sd", "<cmd>AutoSession deletePicker<CR>", desc = "Delete session" },
 			{ "<Leader>sr", "<cmd>SessionRestore<CR>", desc = "Restore session" },
 		},
 		opts = function()
@@ -106,16 +106,13 @@ return {
 
 			return {
 				auto_save = true,
-				suppressed_dirs = {
-					"~/",
-				},
+				bypass_save_filetypes = { "codecompanion", "aider", "help" },
 				close_unsupported_windows = true,
-				bypass_save_filetypes = {
-					"codecompanion",
-					"aider",
-					"help", -- lazy loadingでプラグインが読み込まれる前にhelpは開けないので
+				git_use_branch_name = true,
+				session_lens = {
+					picker = "telescope",
 				},
-				use_git_branch = true,
+				suppressed_dirs = { "~/" },
 			}
 		end,
 	},
