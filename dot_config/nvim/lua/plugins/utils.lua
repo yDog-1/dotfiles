@@ -89,7 +89,7 @@ return {
 		"rmagatti/auto-session",
 		lazy = false,
 		keys = {
-			{ "<Leader>ss", ":AutoSession save ", desc = "Save session" },
+			{ "<Leader>ss", "<cmd>AutoSession save<CR>", desc = "Save session" },
 			{ "<Leader>sf", "<cmd>AutoSession search<CR>", desc = "Search session" },
 			{ "<Leader>sd", "<cmd>AutoSession deletePicker<CR>", desc = "Delete session" },
 			{ "<Leader>sr", "<cmd>SessionRestore<CR>", desc = "Restore session" },
@@ -106,7 +106,18 @@ return {
 
 			return {
 				auto_save = true,
-				bypass_save_filetypes = { "codecompanion", "aider", "help" },
+				bypass_save_filetypes = {
+					"codecompanion",
+					"aider",
+					"help",
+				},
+				close_filetypes_on_save = {
+					"checkhealth",
+					"codecompanion",
+					"aider",
+					"help",
+					"aibo-console.aibo-tool.codex",
+				},
 				close_unsupported_windows = true,
 				git_use_branch_name = true,
 				session_lens = {
