@@ -156,13 +156,13 @@ keybinds clear-defaults=true {
             }
         }
         bind "Alt i" {
-            Run "send-to-claude" {
+            Run "nvim" "-c" "augroup AiboTerminalExit | autocmd! | autocmd TermClose * qa! | augroup END" "-c" ":Aibo codex resume" "-" {
                 floating true
                 close_on_exit true
-                x "25%"
-                y "25%"
-                width "50%"
-                height "50%"
+                x "10%"
+                y "10%"
+                width "80%"
+                height "80%"
             }
         }
     }
