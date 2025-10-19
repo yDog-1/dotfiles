@@ -19,7 +19,7 @@
 in {
   home.packages = [
     (pkgs.writeShellScriptBin "codex" ''
-      exec ${pkgs.bun}/bin/bunx @openai/codex@latest -c "$(cat ${config})" "$@"
+      exec ${pkgs.bun}/bin/bunx @openai/codex@latest --search -c "$(cat ${config})" "$@"
     '')
   ];
 }
