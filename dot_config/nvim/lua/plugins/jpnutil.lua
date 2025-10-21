@@ -14,7 +14,7 @@ return {
 			{ "<C-j>", "<Plug>(skkeleton-enable)", mode = { "i", "c", "t" } },
 			{ "<C-k>", "<Plug>(skkeleton-disable)", mode = { "i", "c", "t" } },
 		},
-		lazy = true,
+		lazy = false,
 		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
 			local skk_dict_path = os.getenv("SKK_DICT_PATH")
@@ -56,6 +56,7 @@ return {
 			end
 
 			vim.fn["skkeleton#config"]({
+        completionRankFile = skk_dict_path .. "/rank.json",
 				globalDictionaries = skk_dicts,
 				userDictionary = skk_dict_path .. "/SKK-JISYO.user",
 				-- 候補選択メニューが出るまでの数
