@@ -51,7 +51,7 @@ return {
 		},
 		event = { "BufReadPre" },
 		config = function()
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
+			local capabilities = require("ddc_source_lsp").make_client_capabilities()
 
 			-- 保存時にフォーマット
 			local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})
@@ -73,15 +73,15 @@ return {
 			vim.lsp.config("lua_ls", {
 				settings = {
 					Lua = {
-						diagnostics = {
-							globals = {
-								"vim",
-								"client",
-							},
-							disable = {
-								"missing-fields",
-							},
+						runtime = { version = "LuaJIT" },
+						diagnostics = { globals = { "vim" } },
+						workspace = {
+							library = { vim.env.VIMRUNTIME },
+							checkThirdParty = false,
 						},
+						telemetry = { enable = false },
+						format = { enable = false },
+						semantic = { enable = false },
 					},
 				},
 			})
@@ -247,16 +247,6 @@ return {
 					-- 背景を透過
 					winblend = 0,
 				},
-			},
-		},
-	},
-	-- LuaLS setup
-	{
-		"folke/lazydev.nvim",
-		ft = "lua", -- only load on lua files
-		opts = {
-			library = {
-				"lazy.nvim",
 			},
 		},
 	},
