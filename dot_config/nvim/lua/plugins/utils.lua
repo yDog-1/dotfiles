@@ -303,7 +303,6 @@ return {
 			config.augends:register_group({
 				default = vim.list_extend(default, {
 					augend.constant.alias.bool,
-					augend.paren.alias.quote,
 				}),
 			})
 			config.augends:on_filetype({
