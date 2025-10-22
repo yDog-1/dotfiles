@@ -23,8 +23,8 @@ export class Config extends BaseConfig {
       sourceOptions: {
         _: {
           ignoreCase: true,
-          matchers: ["matcher_fuzzy"],
-          sorters: ["sorter_fuzzy"],
+          matchers: ["matcher_fuzzy", "matcher_length"],
+          sorters: ["sorter_rank", "sorter_fuzzy"],
           converters: ["converter_fuzzy"],
         },
         lsp: {
@@ -58,6 +58,10 @@ export class Config extends BaseConfig {
         lsp: {
           enableResolveItem: true,
           enableAdditionalTextEdit: true,
+        },
+      filterParams: {
+        matcher_fuzzy: {
+          splitMode: "word",
         },
         converter_kind_labels: {
           kindLabels: {
