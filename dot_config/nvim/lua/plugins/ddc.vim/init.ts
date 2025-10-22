@@ -15,9 +15,11 @@ export class Config extends BaseConfig {
         "TextChangedT",
       ],
       sources: [
+        "file",
         "lsp",
         "skkeleton",
         "skkeleton_okuri",
+        "buffer",
         "around",
       ],
       sourceOptions: {
@@ -35,8 +37,10 @@ export class Config extends BaseConfig {
           converters: ["converter_fuzzy", "converter_kind_labels"],
           maxItems: 20
         },
-        around: {
-          mark: "A",
+        file: {
+          isVolatile: true,
+          minAutoCompleteLength: 1000,
+          forceCompletionPattern: String.raw`\S/\S*`,
         },
         skkeleton: {
           mark: "SKK",
@@ -55,10 +59,21 @@ export class Config extends BaseConfig {
         },
       },
       sourceParams: {
+        buffer: {
+          requireSameFiletype: false,
+        },
         lsp: {
           enableResolveItem: true,
           enableAdditionalTextEdit: true,
         },
+        file: {
+          displayFile: " ",
+          displayDir: " ",
+          displaySym: "sym",
+          displaySymFile: "sym ",
+          displaySymDir: "sym ",
+        },
+      },
       filterParams: {
         matcher_fuzzy: {
           splitMode: "word",
