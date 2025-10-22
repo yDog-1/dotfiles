@@ -54,9 +54,9 @@ return {
 			local capabilities = require("ddc_source_lsp").make_client_capabilities()
 
 			-- 保存時にフォーマット
-			local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})
+			local lsp_group = vim.api.nvim_create_augroup("ydog.lsp", {})
 			vim.api.nvim_create_autocmd("BufWritePost", {
-				group = lsp_fmt_group,
+				group = lsp_group,
 				callback = function(o)
 					-- `:w!` で強制保存した場合はフォーマットしない
 					if vim.v.cmdbang == 1 then
