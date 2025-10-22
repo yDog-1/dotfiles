@@ -46,4 +46,6 @@ return {
 	"https://github.com/Shougo/ddc-source-lsp",
 	"https://github.com/Shougo/ddc-source-around",
 	"https://github.com/tani/ddc-fuzzy",
+	"https://github.com/Shougo/ddc-filter-sorter_lsp_kind",
+	"https://github.com/Shougo/ddc-filter-converter_kind_labels",
 }
