@@ -24,8 +24,6 @@ end
 local servers = {
 	"efm",
 	"lua_ls",
-	"ts_ls",
-	"denols",
 	"gopls",
 	"golangci_lint_ls",
 	"sqls",
@@ -35,7 +33,7 @@ local servers = {
 	"terraformls",
 	"taplo",
 	"astro",
-	"tailwindcss",
+	-- "tailwindcss",  -- 未設定
 	"cssls",
 	"nixd",
 }
@@ -63,6 +61,18 @@ return {
 						return
 					end
 					format(o.buf)
+				end,
+			})
+
+			-- ts_ls denols
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+				callback = function(ctx)
+					if vim.fn.findfile("package.json", ".;") ~= "" then
+						vim.lsp.start(vim.lsp.config.ts_ls, { bufnr = ctx.buf })
+					else
+						vim.lsp.start(vim.lsp.config.denols, { bufnr = ctx.buf })
+					end
 				end,
 			})
 
@@ -110,18 +120,10 @@ return {
 				},
 			})
 
-			vim.lsp.config("ts_ls", {
-				root_markers = { "package.json" },
-				workspace_required = true,
-			})
-
 			vim.lsp.config("denols", {
-				root_markers = {
-					"deno.json",
-					"deno.jsonc",
-					"deps.ts",
+				settings = {
+					single_file_support = true,
 				},
-				workspace_required = true,
 			})
 
 			local username = os.getenv("USER") or os.getenv("USERNAME") or vim.fn.system("whoami"):gsub("\n", "")
