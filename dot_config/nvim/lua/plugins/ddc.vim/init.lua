@@ -26,14 +26,14 @@ return {
 			vim.keymap.set({ "i", "c" }, "<C-p>", "<Cmd>call pum#map#insert_relative(-1, 'loop')<CR>")
 			vim.keymap.set({ "i", "c" }, "<C-y>", "<Cmd>call pum#map#confirm()<CR>")
 			vim.keymap.set("i", "<CR>", function()
-				if vim.fn["pum#visible"]() then
+				if vim.fn["pum#visible"]() and vim.fn["pum#entered"]() then
 					return vim.fn["pum#map#confirm"]()
 				else
 					return "<C-r>=lexima#expand('<LT>CR>', 'i')<CR>"
 				end
 			end, { expr = true })
 			vim.keymap.set("c", "<CR>", function()
-				if vim.fn["pum#visible"]() then
+				if vim.fn["pum#visible"]() and vim.fn["pum#entered"]() then
 					return vim.fn["pum#map#confirm"]()
 				else
 					return "<CR>"
