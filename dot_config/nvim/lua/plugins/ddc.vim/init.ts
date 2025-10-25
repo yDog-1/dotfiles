@@ -35,7 +35,7 @@ export class Config extends BaseConfig {
           isVolatile: true,
           sorters: ["sorter_rank", "sorter_fuzzy", "sorter_lsp_kind"],
           converters: ["converter_fuzzy", "converter_kind_labels"],
-          maxItems: 20
+          maxItems: 20,
         },
         file: {
           isVolatile: true,
