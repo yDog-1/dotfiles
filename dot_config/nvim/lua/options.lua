@@ -53,3 +53,6 @@ o.showbreak = ""
 -- 折り畳み設定
 o.foldmethod = "syntax"
 o.foldlevel = 99
+
+-- submodeにキーのタイムアウトを無効化
+o.timeout = false
