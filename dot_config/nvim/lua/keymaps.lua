@@ -78,32 +78,110 @@ end
 
 -- ウィンドウ移動
 for _, key in ipairs({
-	"<c-h>",
-	"<c-j>",
-	"<c-k>",
-	"<c-l>",
-	"H",
-	"J",
-	"K",
-	"L",
-	"w",
-	"<c-w>",
-	"q",
-	"<c-q>",
-	"s",
-	"v",
-	"r",
-	"<c-r>",
-	"R",
-	"x",
-	"<c-x>",
-	"=",
-	"-",
-	"+",
-	"_",
-	"<",
-	">",
-	"|",
+	{
+		"<c-h>",
+		{ desc = "Focus left window" },
+	},
+	{
+		"<c-j>",
+		{ desc = "Focus lower window" },
+	},
+	{
+		"<c-k>",
+		{ desc = "Focus upper window" },
+	},
+	{
+		"<c-l>",
+		{ desc = "Focus right window" },
+	},
+	{
+		"H",
+		{ desc = "Move window to leftmost column" },
+	},
+	{
+		"J",
+		{ desc = "Move window to bottom row" },
+	},
+	{
+		"K",
+		{ desc = "Move window to top row" },
+	},
+	{
+		"L",
+		{ desc = "Move window to rightmost column" },
+	},
+	{
+		"w",
+		{ desc = "Cycle to next window" },
+	},
+	{
+		"<c-w>",
+		{ desc = "Cycle to next window" },
+	},
+	{
+		"q",
+		{ desc = "Close current window" },
+	},
+	{
+		"<c-q>",
+		{ desc = "Close current window" },
+	},
+	{
+		"s",
+		{ desc = "Split window horizontally" },
+	},
+	{
+		"v",
+		{ desc = "Split window vertically" },
+	},
+	{
+		"r",
+		{ desc = "Rotate windows forward" },
+	},
+	{
+		"<c-r>",
+		{ desc = "Rotate windows forward" },
+	},
+	{
+		"R",
+		{ desc = "Rotate windows backward" },
+	},
+	{
+		"x",
+		{ desc = "Exchange current window" },
+	},
+	{
+		"<c-x>",
+		{ desc = "Exchange current window" },
+	},
+	{
+		"=",
+		{ desc = "Equalize window sizes" },
+	},
+	{
+		"-",
+		{ desc = "Decrease window height" },
+	},
+	{
+		"+",
+		{ desc = "Increase window height" },
+	},
+	{
+		"_",
+		{ desc = "Maximize window height" },
+	},
+	{
+		"<",
+		{ desc = "Decrease window width" },
+	},
+	{
+		">",
+		{ desc = "Increase window width" },
+	},
+	{
+		"|",
+		{ desc = "Maximize window width" },
+	},
 }) do
-	submode({ "n", "x" }, "<c-w>", "window", key)
+	submode({ "n", "x" }, "<c-w>", "window", key[1], key[2])
 end
