@@ -103,6 +103,7 @@ export class Config extends BaseConfig {
           requireSameFiletype: false,
         },
         lsp: {
+          confirmBehavior: "replace",
           enableResolveItem: true,
           enableAdditionalTextEdit: true,
           snippetEngine: "",
@@ -121,6 +122,35 @@ export class Config extends BaseConfig {
       filterParams: {
         matcher_fuzzy: {
           splitMode: "word",
+        },
+        sorter_lsp_kind: {
+          priority: [
+            "Method",
+            "Function",
+            "Constructor",
+            "Field",
+            "Variable",
+            "Class",
+            "Interface",
+            "Module",
+            "Property",
+            "Unit",
+            "Value",
+            "Enum",
+            "Keyword",
+            "Color",
+            "File",
+            "Reference",
+            "Folder",
+            "EnumMember",
+            "Constant",
+            "Struct",
+            "Event",
+            "Operator",
+            "TypeParameter",
+            "Text",
+            "Snippet",
+          ],
         },
         converter_kind_labels: {
           kindLabels: {
