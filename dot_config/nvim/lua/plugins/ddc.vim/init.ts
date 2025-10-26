@@ -9,6 +9,8 @@ export class Config extends BaseConfig {
     args.contextBuilder.setGlobal({
       ui: "pum",
       autoCompleteEvents: [
+        "CmdLineEnter",
+        "CmdlineChanged",
         "InsertEnter",
         "TextChangedI",
         "TextChangedP",
@@ -22,6 +24,15 @@ export class Config extends BaseConfig {
         "buffer",
         "around",
       ],
+      cmdlineSources: {
+        ":": ["shell_native", "cmdline", "cmdline_history", "around"],
+        "@": ["input", "cmdline_history", "file"],
+        ">": ["input", "cmdline_history", "file", "around"],
+        "/": ["around"],
+        "?": ["around"],
+        "-": ["around"],
+        "=": ["input"],
+      },
       sourceOptions: {
         _: {
           ignoreCase: true,
@@ -57,6 +68,23 @@ export class Config extends BaseConfig {
           converters: [],
           isVolatile: true,
         },
+        cmdline: {
+          mark: " ",
+          isVolatile: true,
+          matchers: ["matcher_fuzzy"],
+          sorters: ["sorter_cmdline_history", "sorter_fuzzy"],
+          converters: ["converter_fuzzy"],
+          forceCompletionPattern: String.raw`\S/\S*|\.\w*`,
+        },
+        cmdline_history: {
+          mark: " ",
+        },
+        shell_native: {
+          mark: "ZSH",
+          isVolatile: true,
+          minAutoCompleteLength: 1,
+          minKeywordLength: 0,
+        },
       },
       sourceParams: {
         buffer: {
@@ -72,6 +100,9 @@ export class Config extends BaseConfig {
           displaySym: "sym",
           displaySymFile: "sym ",
           displaySymDir: "sym ",
+        },
+        shell_native: {
+          shell: "zsh",
         },
       },
       filterParams: {

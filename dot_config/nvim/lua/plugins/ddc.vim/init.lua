@@ -1,6 +1,36 @@
+local augroup = vim.api.nvim_create_augroup("ydog.ddc_vim", { clear = true })
+
+---@diagnostic disable-next-line: unused-local
+local cmdline_pre = function(mode)
+	local buf = vim.api.nvim_get_current_buf()
+	local buf_config = vim.fn["ddc#custom#get_buffer"]()
+	vim.api.nvim_create_autocmd("User", {
+		group = augroup,
+		pattern = "DDCCmdlineLeave",
+		once = true,
+		callback = function()
+			if vim.api.nvim_buf_is_valid(buf) then
+				vim.api.nvim_buf_call(buf, function()
+					vim.fn["ddc#custom#set_buffer"](buf_config or vim.empty_dict())
+				end)
+			end
+		end,
+	})
+
+	vim.fn["ddc#enable_cmdline_completion"]()
+end
+
+for _, lhs in ipairs({ "/", "?", ":" }) do
+	vim.keymap.set({ "n", "x" }, lhs, function()
+		cmdline_pre(lhs)
+		return lhs
+	end, { expr = true, noremap = true })
+end
+
 return {
 	{
 		"https://github.com/Shougo/ddc.vim",
+		lazy = false,
 		dependencies = {
 			"vim-denops/denops.vim",
 		},
@@ -18,6 +48,7 @@ return {
 			vim.fn["pum#set_option"]({
 				border = "single",
 				max_height = 15,
+				max_width = 80,
 				scrollbar_char = "",
 			})
 
@@ -47,6 +78,10 @@ return {
 	"https://github.com/Shougo/ddc-source-around",
 	"https://github.com/matsui54/ddc-source-buffer",
 	"https://github.com/LumaKernel/ddc-source-file",
+	"https://github.com/Shougo/ddc-source-cmdline",
+	"https://github.com/Shougo/ddc-source-cmdline_history",
+	"https://github.com/Shougo/ddc-source-input",
+	"https://github.com/Shougo/ddc-source-shell_native",
 	"https://github.com/tani/ddc-fuzzy",
 	"https://github.com/Shougo/ddc-filter-sorter_lsp_kind",
 	"https://github.com/Shougo/ddc-filter-sorter_rank",
