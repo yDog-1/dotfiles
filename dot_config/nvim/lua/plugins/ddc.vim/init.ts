@@ -168,7 +168,7 @@ export class Config extends BaseConfig {
             Value: " ",
             Enum: " ",
             Keyword: " ",
-            Snippet: " ",
+            Snippet: " ",
             Color: " ",
             File: " ",
             Reference: " ",
