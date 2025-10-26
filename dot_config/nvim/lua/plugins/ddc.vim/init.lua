@@ -71,6 +71,49 @@ return {
 				end
 			end, { expr = true })
 			vim.keymap.set({ "i", "c" }, "<C-e>", "<Cmd>call pum#map#cancel<CR>")
+			vim.keymap.set({ "i", "c" }, "<tab>", function()
+				if vim.fn["denippet#jumpable"]() then
+					return "<plug>(denippet-jump-next)"
+				end
+				if vim.fn["pum#visible"]() then
+					if vim.fn["pum#entered"]() then
+						return "<C-r>=pum#map#confirm()<CR>"
+					end
+					return '<C-r>=pum#map#insert_relative(1, "loop")<CR><C-r>=pum#map#confirm()<CR>'
+				end
+				return "<tab>"
+			end, { expr = true })
+			vim.keymap.set({ "i", "c" }, "<S-tab>", function()
+				if vim.fn["denippet#jumpable"](-1) then
+					return "<plug>(denippet-jump-prev)"
+				end
+				return "<S-tab>"
+			end, { expr = true })
+		end,
+	},
+	{
+		"https://github.com/uga-rosa/denippet.vim",
+		lazy = false,
+		dependencies = {
+			"vim-denops/denops.vim",
+			"https://github.com/rafamadriz/friendly-snippets",
+		},
+		config = function()
+			-- Load snippets from friendly-snippets/snippets
+			local options = require("lazy.core.config").options
+			local root = vim.fs.joinpath(options.root, "friendly-snippets", "snippets")
+			for name, type in vim.fs.dir(root) do
+				if type == "file" then
+					vim.fn["denippet#load"](vim.fs.joinpath(root, name))
+				elseif type == "directory" then
+					local dirname = name
+					for name2, type2 in vim.fs.dir(vim.fs.joinpath(root, dirname)) do
+						if type2 == "file" then
+							vim.fn["denippet#load"](vim.fs.joinpath(root, dirname, name2))
+						end
+					end
+				end
+			end
 		end,
 	},
 	"https://github.com/Shougo/ddc-ui-pum",

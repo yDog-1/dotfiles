@@ -18,6 +18,7 @@ export class Config extends BaseConfig {
       ],
       sources: [
         "file",
+        "denippet",
         "lsp",
         "skkeleton",
         "skkeleton_okuri",
@@ -47,6 +48,11 @@ export class Config extends BaseConfig {
           sorters: ["sorter_rank", "sorter_fuzzy", "sorter_lsp_kind"],
           converters: ["converter_fuzzy", "converter_kind_labels"],
           maxItems: 20,
+        },
+        denippet: {
+          matchers: ["matcher_fuzzy"],
+          minKeywordLength: 1,
+          minAutoCompleteLength: 1,
         },
         file: {
           isVolatile: true,
@@ -93,6 +99,7 @@ export class Config extends BaseConfig {
         lsp: {
           enableResolveItem: true,
           enableAdditionalTextEdit: true,
+          snippetEngine: "",
         },
         file: {
           displayFile: " ",
