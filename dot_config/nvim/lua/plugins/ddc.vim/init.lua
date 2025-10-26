@@ -58,28 +58,28 @@ return {
 			vim.keymap.set({ "i", "c" }, "<C-y>", "<Cmd>call pum#map#confirm()<CR>")
 			vim.keymap.set("i", "<CR>", function()
 				if vim.fn["pum#visible"]() and vim.fn["pum#entered"]() then
-					return vim.fn["pum#map#confirm"]()
+					return "<cmd>call pum#map#confirm()<CR>"
 				else
 					return "<C-r>=lexima#expand('<LT>CR>', 'i')<CR>"
 				end
 			end, { expr = true })
 			vim.keymap.set("c", "<CR>", function()
 				if vim.fn["pum#visible"]() and vim.fn["pum#entered"]() then
-					return vim.fn["pum#map#confirm"]()
+					return "<cmd>call pum#map#confirm()<CR>"
 				else
 					return "<CR>"
 				end
 			end, { expr = true })
-			vim.keymap.set({ "i", "c" }, "<C-e>", "<Cmd>call pum#map#cancel<CR>")
+			vim.keymap.set({ "i", "c" }, "<C-e>", "<cmd>call pum#map#cancel()<CR>")
 			vim.keymap.set({ "i", "c" }, "<tab>", function()
 				if vim.fn["denippet#jumpable"]() then
 					return "<plug>(denippet-jump-next)"
 				end
 				if vim.fn["pum#visible"]() then
 					if vim.fn["pum#entered"]() then
-						return "<C-r>=pum#map#confirm()<CR>"
+						return "<cmd>call pum#map#confirm()<CR>"
 					end
-					return '<C-r>=pum#map#insert_relative(1, "loop")<CR><C-r>=pum#map#confirm()<CR>'
+					return '<cmd>call pum#map#insert_relative(1, "loop")<CR><cmd>call pum#map#confirm()<CR>'
 				end
 				return "<tab>"
 			end, { expr = true })
