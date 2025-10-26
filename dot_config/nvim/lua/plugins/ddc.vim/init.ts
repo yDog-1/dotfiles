@@ -37,9 +37,15 @@ export class Config extends BaseConfig {
       sourceOptions: {
         _: {
           ignoreCase: true,
-          matchers: ["matcher_fuzzy", "matcher_length"],
+          matchers: ["matcher_fuzzy"],
           sorters: ["sorter_rank", "sorter_fuzzy"],
           converters: ["converter_fuzzy"],
+        },
+        around: {
+          matchers: ["matcher_length"],
+        },
+        buffer: {
+          matchers: ["matcher_length"],
         },
         lsp: {
           mark: "LSP",
