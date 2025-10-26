@@ -37,12 +37,6 @@ set("n", "<Leader><CR>", "i<CR><Esc>", { desc = "Insert newline from cursor" })
 set({ "n", "v" }, "x", '"_x')
 set({ "n", "v" }, "X", '"_d')
 
--- ウィンドウ操作
-set("n", "<C-h>", "<C-w>h")
-set("n", "<C-j>", "<C-w>j")
-set("n", "<C-k>", "<C-w>k")
-set("n", "<C-l>", "<C-w>l")
-
 -- Quickfix
 set("n", "<Leader>q", "<cmd>copen<CR>", { desc = "Open quickfix" })
 
@@ -65,3 +59,51 @@ end, { expr = true })
 
 -- ターミナルモード
 set("t", "<c-]><c-]>", "<C-\\><C-n>", { noremap = true })
+
+-- submode
+
+---[TODO:summary]
+---@param mode string|string[]
+---@param prefix string
+---@param modename string
+---@param key string
+---@param opts? vim.keymap.set.Opts
+local submode = function(mode, prefix, modename, key, opts)
+	local submode = "<plug>(submode-" .. modename .. ")"
+	local rhs = prefix .. key .. submode
+	vim.keymap.set(mode, prefix .. key, rhs, opts)
+	-- submode mappings
+	vim.keymap.set(mode, submode .. key, rhs, opts)
+end
+
+-- ウィンドウ移動
+for _, key in ipairs({
+	"<c-h>",
+	"<c-j>",
+	"<c-k>",
+	"<c-l>",
+	"H",
+	"J",
+	"K",
+	"L",
+	"w",
+	"<c-w>",
+	"q",
+	"<c-q>",
+	"s",
+	"v",
+	"r",
+	"<c-r>",
+	"R",
+	"x",
+	"<c-x>",
+	"=",
+	"-",
+	"+",
+	"_",
+	"<",
+	">",
+	"|",
+}) do
+	submode({ "n", "x" }, "<c-w>", "window", key)
+end
