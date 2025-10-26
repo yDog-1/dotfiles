@@ -53,9 +53,15 @@ return {
 			})
 
 			vim.fn["lexima#set_default_rules"]()
-			vim.keymap.set({ "i", "c" }, "<C-n>", "<Cmd>call pum#map#insert_relative(+1, 'loop')<CR>")
-			vim.keymap.set({ "i", "c" }, "<C-p>", "<Cmd>call pum#map#insert_relative(-1, 'loop')<CR>")
-			vim.keymap.set({ "i", "c" }, "<C-y>", "<Cmd>call pum#map#confirm()<CR>")
+			vim.keymap.set({ "i", "c" }, "<C-n>", function()
+				if vim.fn["pum#visible"]() then
+					return "<cmd>call pum#map#insert_relative(+1, 'loop')<CR>"
+				else
+					return "<cmd>call ddc#map#manual_complete()<CR>"
+				end
+			end, { expr = true })
+			vim.keymap.set({ "i", "c" }, "<C-p>", "<cmd>call pum#map#insert_relative(-1, 'loop')<CR>")
+			vim.keymap.set({ "i", "c" }, "<C-y>", "<cmd>call pum#map#confirm()<CR>")
 			vim.keymap.set("i", "<CR>", function()
 				if vim.fn["pum#visible"]() and vim.fn["pum#entered"]() then
 					return "<cmd>call pum#map#confirm()<CR>"
@@ -89,6 +95,8 @@ return {
 				end
 				return "<S-tab>"
 			end, { expr = true })
+			vim.keymap.set({ "i", "c" }, "<C-x>f", "<cmd>call ddc#map#manual_complete({'sources':['file']})<CR>")
+			vim.keymap.set({ "i", "c" }, "<C-x><C-f>", "<cmd>call ddc#map#manual_complete({'sources':['file']})<CR>")
 		end,
 	},
 	{
