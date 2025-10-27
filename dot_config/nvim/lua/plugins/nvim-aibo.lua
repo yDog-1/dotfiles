@@ -1,6 +1,9 @@
 return {
 	"lambdalisue/nvim-aibo",
 	lazy = false,
+	dependencies = {
+		"https://github.com/Shougo/ddc.vim",
+	},
 	keys = {
 		{
 			"<leader>aa",
@@ -39,6 +42,9 @@ return {
 					vim.keymap.set("n", "J", "<plug>(aibo-send)<down>", { buffer = bufnr, desc = "Down arrow" })
 					vim.keymap.set("n", "<Enter>", "<plug>(aibo-send)<Enter>", { buffer = bufnr, desc = "Enter" })
 					vim.keymap.set("n", "<Esc>", "<plug>(aibo-send)<Esc>", { buffer = bufnr, desc = "Escape" })
+
+          -- for ddc.vim
+          vim.fn["ddc#custom#patch_buffer"]("specialBufferCompletion", true)
 				end,
 			},
 			console = {
