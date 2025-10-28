@@ -38,7 +38,7 @@ return {
 			vim.fn["ddc#custom#load_config"](
 				vim.fs.joinpath(vim.fs.dirname(debug.getinfo(1, "S").source:sub(2)), "init.ts")
 			)
-			vim.fn["ddc#enable"]()
+			vim.fn["ddc#enable"]({ "treesitter" })
 		end,
 	},
 	{
