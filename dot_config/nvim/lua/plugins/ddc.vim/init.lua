@@ -97,6 +97,24 @@ return {
 			end, { expr = true })
 			vim.keymap.set({ "i", "c" }, "<C-x>f", "<cmd>call ddc#map#manual_complete({'sources':['file']})<CR>")
 			vim.keymap.set({ "i", "c" }, "<C-x><C-f>", "<cmd>call ddc#map#manual_complete({'sources':['file']})<CR>")
+			vim.keymap.set("i", "<C-u>", function()
+				local ok, _ = pcall(vim.fn["popup_preview#is_enabled"])
+				if ok then
+					if vim.fn["pum#visible"]() and vim.fn["popup_preview#is_enabled"]() then
+						return "<cmd>call popup_preview#scroll(-4)<CR>"
+					end
+				end
+				return "<C-u>"
+			end, { expr = true })
+			vim.keymap.set("i", "<C-d>", function()
+				local ok, _ = pcall(vim.fn["popup_preview#is_enabled"])
+				if ok then
+					if vim.fn["pum#visible"]() and vim.fn["popup_preview#is_enabled"]() then
+						return "<cmd>call popup_preview#scroll(+4)<CR>"
+					end
+				end
+				return "<C-d>"
+			end, { expr = true })
 		end,
 	},
 	{
@@ -138,4 +156,28 @@ return {
 	"https://github.com/Shougo/ddc-filter-sorter_rank",
 	"https://github.com/Shougo/ddc-filter-converter_kind_labels",
 	"https://github.com/Shougo/ddc-filter-matcher_length",
+	{
+		"https://github.com/matsui54/denops-popup-preview.vim",
+		init = function()
+			vim.g.popup_preview_config = {
+				max_height = 30,
+				max_width = 60,
+			}
+		end,
+		config = function()
+			vim.fn["popup_preview#enable"]()
+		end,
+	},
+	{
+		"https://github.com/matsui54/denops-signature_help",
+		init = function()
+			vim.g.signature_help_config = {
+				border = false,
+				contentsStyle = "labels",
+			}
+		end,
+		config = function()
+			vim.fn["signature_help#enable"]()
+		end,
+	},
 }
