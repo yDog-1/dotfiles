@@ -23,7 +23,8 @@ end
 -- LSP servers managed by Nix
 local servers = {
 	"efm",
-	"lua_ls",
+	-- "lua_ls",
+	"emmylua_ls",
 	"gopls",
 	"golangci_lint_ls",
 	"sqls",
@@ -36,6 +37,7 @@ local servers = {
 	-- "tailwindcss",  -- 未設定
 	"cssls",
 	"nixd",
+	"pylsp",
 }
 
 return {
@@ -80,18 +82,12 @@ return {
 				capabilities = capabilities,
 			})
 
-			vim.lsp.config("lua_ls", {
+			vim.lsp.config("emmylua_ls", {
 				settings = {
 					Lua = {
-						runtime = { version = "LuaJIT" },
-						diagnostics = { globals = { "vim" } },
 						workspace = {
-							library = { vim.env.VIMRUNTIME },
-							checkThirdParty = false,
+							library = vim.api.nvim_get_runtime_file("lua", true),
 						},
-						telemetry = { enable = false },
-						format = { enable = false },
-						semantic = { enable = false },
 					},
 				},
 			})
