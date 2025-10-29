@@ -16,6 +16,10 @@
       url = "github:natsukium/mcp-servers-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    emmylua-analyzer-rust = {
+      url = "github:EmmyLuaLs/emmylua-analyzer-rust";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
