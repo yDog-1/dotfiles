@@ -4,6 +4,10 @@ import {
   type ConfigArguments,
 } from "jsr:@shougo/ddc-vim@10.1.0/config";
 
+const baseMatchers = ["matcher_fuzzy"];
+const baseSorters = ["sorter_fuzzy", "sorter_rank"];
+const baseConverters = ["converter_fuzzy"];
+
 export class Config extends BaseConfig {
   // deno-lint-ignore require-await
   override async config(args: ConfigArguments) {
@@ -38,26 +42,25 @@ export class Config extends BaseConfig {
       sourceOptions: {
         _: {
           ignoreCase: true,
-          matchers: ["matcher_fuzzy"],
-          sorters: ["sorter_rank", "sorter_fuzzy"],
-          converters: ["converter_fuzzy"],
+          matchers: baseMatchers,
+          sorters: baseSorters,
+          converters: baseConverters,
         },
         around: {
-          matchers: ["matcher_length"],
+          matchers: [...baseMatchers, "matcher_length"],
         },
         buffer: {
-          matchers: ["matcher_length"],
+          matchers: [...baseMatchers, "matcher_length"],
         },
         lsp: {
           mark: "LSP",
           forceCompletionPattern: String.raw`\.\w*|::\w*|->\w*`,
           isVolatile: true,
-          sorters: ["sorter_rank", "sorter_fuzzy", "sorter_lsp_kind"],
-          converters: ["converter_fuzzy", "converter_kind_labels"],
+          sorters: [...baseSorters, "sorter_lsp_kind"],
+          converters: [...baseConverters, "converter_kind_labels"],
           maxItems: 20,
         },
         denippet: {
-          matchers: ["matcher_fuzzy"],
           minKeywordLength: 1,
           minAutoCompleteLength: 1,
         },
@@ -84,9 +87,7 @@ export class Config extends BaseConfig {
         cmdline: {
           mark: " ",
           isVolatile: true,
-          matchers: ["matcher_fuzzy"],
-          sorters: ["sorter_cmdline_history", "sorter_fuzzy"],
-          converters: ["converter_fuzzy"],
+          sorters: [...baseSorters, "sorter_cmdline_history"],
           forceCompletionPattern: String.raw`\S/\S*|\.\w*`,
         },
         cmdline_history: {
@@ -100,6 +101,9 @@ export class Config extends BaseConfig {
         },
       },
       sourceParams: {
+        around: {
+          maxSize: 30,
+        },
         buffer: {
           requireSameFiletype: false,
         },
@@ -121,9 +125,6 @@ export class Config extends BaseConfig {
         },
       },
       filterParams: {
-        matcher_fuzzy: {
-          splitMode: "word",
-        },
         sorter_lsp_kind: {
           priority: [
             "Method",
