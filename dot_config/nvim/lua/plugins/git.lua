@@ -19,6 +19,7 @@ return {
 		lazy = true,
 		cmd = {
 			"Gin",
+			"GinBlame",
 			"GinBuffer",
 			"GinBranch",
 			"GinBrowse",
@@ -37,6 +38,7 @@ return {
 			{ "<Leader>gP", "<cmd>Gin pull --autostash<CR>", desc = "Pull" },
 			{ "<leader>gs", "<Cmd>GinStatus<Cr>", desc = "Status" },
 			{ "<leader>gbr", "<Cmd>GinBranch<Cr>", desc = "Branch" },
+			{ "<leader>gbl", "<Cmd>GinBlame HEAD %<Cr>", desc = "Blame" },
 			{ "<leader>gd", "<Cmd>GinDiff<Cr>", desc = "Diff" },
 			{ "<leader>gl", "<Cmd>GinLog<Cr>", desc = "Log" },
 			{
@@ -71,6 +73,7 @@ return {
 			vim.g["gin_proxy_editor_opener"] = "split"
 			vim.g["gin_diff_persistent_args"] = { "++processor=delta -n --color-only" }
 			vim.g["gin_log_default_args"] = { "++emojify", "--oneline", "--graph" }
+			vim.g["gin_blame_persistent_args"] = { "++emojify" }
 		end,
 		config = function()
 			require("denops-lazy").load("vim-gin", { wait_load = false })
@@ -223,7 +226,6 @@ return {
 				{ "<leader>gR", gitsigns.reset_buffer, desc = "Reset buffer" },
 				{ "<leader>gh", gitsigns.preview_hunk, desc = "Preview hunk" },
 				{ "<leader>gi", gitsigns.preview_hunk_inline, desc = "Preview hunk inline" },
-				{ "<leader>gbl", gitsigns.blame, desc = "Blame" },
 				{
 					"<leader>gbL",
 					function()
