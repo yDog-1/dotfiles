@@ -187,6 +187,7 @@ return {
 						if vim.wo.diff then
 							vim.cmd.normal({ "]c", bang = true })
 						else
+							---@diagnostic disable-next-line: need-check-nil
 							gitsigns.nav_hunk("next")
 						end
 					end,
@@ -198,6 +199,7 @@ return {
 						if vim.wo.diff then
 							vim.cmd.normal({ "[c", bang = true })
 						else
+							---@diagnostic disable-next-line: need-check-nil
 							gitsigns.nav_hunk("prev")
 						end
 					end,
@@ -209,6 +211,7 @@ return {
 				{
 					"<leader>ga",
 					function()
+						---@diagnostic disable-next-line: need-check-nil
 						gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 					end,
 					mode = "v",
@@ -217,6 +220,7 @@ return {
 				{
 					"<leader>gr",
 					function()
+						---@diagnostic disable-next-line: need-check-nil
 						gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 					end,
 					mode = "v",
@@ -229,6 +233,7 @@ return {
 				{
 					"<leader>gbL",
 					function()
+						---@diagnostic disable-next-line: need-check-nil
 						gitsigns.blame_line({ full = true })
 					end,
 					desc = "Blame on the current line",
@@ -237,6 +242,7 @@ return {
 				{
 					"<leader>gQ",
 					function()
+						---@diagnostic disable-next-line: need-check-nil
 						gitsigns.setqflist("all")
 					end,
 					desc = "Open all hunks list",
