@@ -176,7 +176,6 @@ return {
 		},
 		event = { "BufReadPre" },
 		keys = {
-			{ "K", "<cmd>Lspsaga hover_doc<CR>", desc = "see document" },
 			{ "<Leader>cD", "<cmd>Lspsaga peek_definition<CR>", desc = "peek definition" },
 			{ "<Leader>cT", "<cmd>Lspsaga peek_type_definition<CR>", desc = "peek type definition" },
 			{ "<Leader>cr", "<cmd>Lspsaga rename<CR>", desc = "rename" },
@@ -210,6 +209,56 @@ return {
 				options = {},
 			},
 		},
+	},
+	{
+		"https://github.com/lewis6991/hover.nvim",
+		keys = {
+			{
+				"K",
+				function()
+					require("hover").open()
+				end,
+				desc = "Hover",
+			},
+			{
+				"gK",
+				function()
+					require("hover").enter()
+				end,
+				desc = "Hover (enter)",
+			},
+		},
+		config = function()
+			---@diagnostic disable-next-line: missing-fields, param-type-mismatch
+			require("hover").config({
+				providers = {
+					{
+						module = "hover.providers.lsp",
+						priority = 200,
+					},
+					{
+						module = "hover.providers.gh",
+						priority = 150,
+					},
+					{
+						module = "hover.providers.diagnostic",
+						priority = 100,
+					},
+					{
+						module = "hover.providers.highlight",
+						priority = 80,
+					},
+					{
+						module = "hover.providers.man",
+						priority = 75,
+					},
+					{
+						module = "hover.providers.dictionary",
+						priority = 50,
+					},
+				},
+			})
+		end,
 	},
 	-- LSP progress notification
 	{
