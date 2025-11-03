@@ -168,54 +168,6 @@ return {
 		},
 		dependencies = { "neovim/nvim-lspconfig" },
 	},
-
-	-- UI/UXを改善
-	{
-		"dnlhc/glance.nvim",
-
-		keys = {
-			{ "<Leader>cd", "<cmd>Glance definitions<CR>", desc = "show definitions" },
-			{ "<Leader>ct", "<cmd>Glance type_definitions<CR>", desc = "show type definitions" },
-			{ "<Leader>ci", "<cmd>Glance implementations<CR>", desc = "show implementations" },
-		},
-		opts = {
-			border = {
-				enable = true,
-			},
-			theme = {
-				mode = "darken",
-			},
-		},
-		config = function(_, opts)
-			require("glance").setup(opts)
-
-			local color = {
-				ctermbg = 236,
-				guibg = "#363944",
-			}
-
-			local highlights = {
-				"GlancePreviewNormal",
-				"GlanceListCursorLine",
-				"GlancePreviewLineNr",
-				"GlancePreviewCursorLine",
-				"GlancePreviewBorderBottom",
-				"GlanceListBorderBottom",
-				"GlanceBorderTop",
-				"GlanceFoldIcon",
-				"GlanceIndent",
-				"GlanceWinBarTitle",
-				"GlanceWinBarFilepath",
-				"GlanceWinBarFilename",
-				"GlanceListFilepath",
-				"GlanceListNormal",
-			}
-
-			for _, hl in ipairs(highlights) do
-				vim.cmd("highlight " .. hl .. " guibg=" .. color.guibg .. " ctermbg=" .. color.ctermbg)
-			end
-		end,
-	},
 	{
 		"nvimdev/lspsaga.nvim",
 		dependencies = {
@@ -225,7 +177,6 @@ return {
 		event = { "BufReadPre" },
 		keys = {
 			{ "K", "<cmd>Lspsaga hover_doc<CR>", desc = "see document" },
-			{ "<Leader>cs", "<cmd>Lspsaga finder<CR>", desc = "fuzy find cursor word" },
 			{ "<Leader>cD", "<cmd>Lspsaga peek_definition<CR>", desc = "peek definition" },
 			{ "<Leader>cT", "<cmd>Lspsaga peek_type_definition<CR>", desc = "peek type definition" },
 			{ "<Leader>cr", "<cmd>Lspsaga rename<CR>", desc = "rename" },
@@ -239,6 +190,24 @@ return {
 		opts = {
 			lightbulb = {
 				enable = false,
+			},
+		},
+	},
+	-- Zed inspired fuzzy picker for LSP
+	{
+		"https://github.com/bassamsdata/namu.nvim",
+		keys = {
+			{ "<leader>cs", "<cmd>Namu symbols<cr>", desc = "Jump to LSP symbol" },
+			{ "<leader>cS", "<cmd>Namu workspace<cr>", desc = "LSP symbols - Workspace" },
+		},
+		opts = {
+			global = {
+				movement = {
+					close = { "<Esc>", "<C-c>" },
+				},
+			},
+			namu_symbols = {
+				options = {},
 			},
 		},
 	},
