@@ -1,6 +1,6 @@
 local augroup = vim.api.nvim_create_augroup("ydog.ddc_vim", { clear = true })
 
----@diagnostic disable-next-line: unused-local
+---@diagnostic disable-next-line: unused
 local cmdline_pre = function(mode)
 	local buf = vim.api.nvim_get_current_buf()
 	local buf_config = vim.fn["ddc#custom#get_buffer"]()
@@ -78,14 +78,14 @@ return {
 			end, { expr = true })
 			vim.keymap.set({ "i", "c" }, "<C-e>", "<cmd>call pum#map#cancel()<CR>")
 			vim.keymap.set({ "i", "c" }, "<tab>", function()
-				if vim.fn["denippet#jumpable"]() then
-					return "<plug>(denippet-jump-next)"
-				end
 				if vim.fn["pum#visible"]() then
 					if vim.fn["pum#entered"]() then
 						return "<cmd>call pum#map#confirm()<CR>"
 					end
 					return '<cmd>call pum#map#insert_relative(1, "loop")<CR><cmd>call pum#map#confirm()<CR>'
+				end
+				if vim.fn["denippet#jumpable"]() then
+					return "<plug>(denippet-jump-next)"
 				end
 				return "<tab>"
 			end, { expr = true })
