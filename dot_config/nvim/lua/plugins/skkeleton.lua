@@ -3,6 +3,8 @@ return {
 		"https://github.com/vim-skk/skkeleton",
 		dependencies = {
 			"vim-denops/denops.vim",
+			"https://github.com/delphinus/skkeleton_indicator.nvim",
+			"https://github.com/NI57721/skkeleton-henkan-highlight",
 		},
 		keys = {
 			-- <C-j>, <C-k>でskkeletonの切り替え
@@ -10,7 +12,6 @@ return {
 			{ "<C-k>", "<Plug>(skkeleton-disable)", mode = { "i", "c", "t" } },
 		},
 		lazy = false,
-		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
 			local skk_dict_path = os.getenv("SKK_DICT_PATH")
 			local skk_dict_paths = os.getenv("SKK_DICT_PATHS")
@@ -80,8 +81,6 @@ return {
 	-- skkeletonの入力中、右下にインジケータを表示
 	{
 		"https://github.com/delphinus/skkeleton_indicator.nvim",
-		lazy = true,
-		event = "User DenopsReady",
 		branch = "v2",
 		config = function()
 			require("skkeleton_indicator").setup({
