@@ -69,8 +69,8 @@ set("t", "<c-]><c-]>", "<C-\\><C-n>", { noremap = true })
 ---@param key string
 ---@param opts? vim.keymap.set.Opts
 local submode = function(mode, prefix, modename, key, opts)
-	local submode = "<plug>(submode-" .. modename .. ")"
-	local rhs = prefix .. key .. submode
+	local submode_map = "<plug>(submode-" .. modename .. ")"
+	local rhs = prefix .. key .. submode_map
 	set(mode, prefix .. key, rhs, opts)
 	-- submode mappings
 	set(mode, submode_map .. key, rhs, opts)
