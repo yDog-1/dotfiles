@@ -62,9 +62,9 @@ return {
 				sources = { "deno_kv", "skk_dictionary" },
 				-- キャンセルの挙動
 				immediatelyCancel = false,
-				-- 変換中の文字に空白を追加し、'ambiwidth' singleでも文字に重ならないようにする
-				markerHenkan = "▽",
-				markerHenkanSelect = "▼",
+				-- 変換中の文字を無くす
+				markerHenkan = "",
+				markerHenkanSelect = "",
 			})
 
 			vim.fn["skkeleton#register_keymap"]("henkan", "<CR>", "kakutei")
@@ -85,6 +85,19 @@ return {
 		config = function()
 			require("skkeleton_indicator").setup({
 				zindex = 150,
+			})
+		end,
+	},
+	{
+		"https://github.com/NI57721/skkeleton-henkan-highlight",
+		config = function()
+			vim.api.nvim_set_hl(0, "SkkeletonHenkan", {
+				bg = "#85d3f2",
+				fg = "#2c2e34",
+				blend = 0,
+			})
+			vim.api.nvim_set_hl(0, "SkkeletonHenkanSelect", {
+				link = "SkkeletonHenkan",
 			})
 		end,
 	},
