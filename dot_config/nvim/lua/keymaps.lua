@@ -1,7 +1,7 @@
 local set = vim.keymap.set
 
 -- <Leader>をスペースキーに設定
-vim.keymap.set("", "<Space>", "<Nop>")
+set("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
 
 -- jjでノーマルモードに戻る
@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- https://zenn.dev/vim_jp/articles/2024-10-07-vim-insert-uppercase
 -- 直前に入力した word を大文字に変換
-vim.keymap.set("i", "<C-k>", function()
+set("i", "<C-k>", function()
 	local line = vim.fn.getline(".")
 	local col = vim.fn.getpos(".")[3]
 	local substring = line:sub(1, col - 1)
@@ -71,9 +71,9 @@ set("t", "<c-]><c-]>", "<C-\\><C-n>", { noremap = true })
 local submode = function(mode, prefix, modename, key, opts)
 	local submode = "<plug>(submode-" .. modename .. ")"
 	local rhs = prefix .. key .. submode
-	vim.keymap.set(mode, prefix .. key, rhs, opts)
+	set(mode, prefix .. key, rhs, opts)
 	-- submode mappings
-	vim.keymap.set(mode, submode .. key, rhs, opts)
+	set(mode, submode_map .. key, rhs, opts)
 end
 
 -- ウィンドウ移動
