@@ -1,3 +1,5 @@
+local open_codex_cmd = [[<cmd>Aibo -opener=botright\ vsplit -stay -toggle codex<CR>]]
+
 return {
 	"lambdalisue/nvim-aibo",
 	lazy = false,
@@ -5,12 +7,21 @@ return {
 		"https://github.com/Shougo/ddc.vim",
 	},
 	keys = {
+		{ "<leader>aa", open_codex_cmd, desc = "Aibo Codex" },
 		{
-			"<leader>aa",
+			"<leader>as",
 			function()
-				vim.api.nvim_command("Aibo -opener=botright\\ vsplit -toggle codex resume")
+				local aibo_console = require("aibo.internal.console_window")
+				local bufname = vim.fn.bufname("%")
+				local codex = aibo_console.find_info_globally({ cmd = "codex" }) or { winid = -1 }
+				local ret = ""
+				if codex.winid == -1 then
+					ret = open_codex_cmd
+				end
+				return ret .. [[<cmd>AiboSend -input -prefix="]] .. bufname .. [[\n\n"<CR>]]
 			end,
-			desc = "Aibo Codex",
+			desc = "Aibo Send to Codex",
+			expr = true,
 		},
 	},
 	config = function()
@@ -18,6 +29,7 @@ return {
 		require("aibo").setup({
 			disable_startinsert_on_insert = false,
 			disable_startinsert_on_startup = true,
+			prompt_height = 20,
 			prompt = {
 				on_attach = function(bufnr)
 					vim.o.hidden = true
