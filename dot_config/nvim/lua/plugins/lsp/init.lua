@@ -179,7 +179,6 @@ return {
 			{ "<Leader>cD", "<cmd>Lspsaga peek_definition<CR>", desc = "peek definition" },
 			{ "<Leader>cT", "<cmd>Lspsaga peek_type_definition<CR>", desc = "peek type definition" },
 			{ "<Leader>cr", "<cmd>Lspsaga rename<CR>", desc = "rename" },
-			{ "<Leader>co", "<cmd>Lspsaga outline<CR>", desc = "show outline" },
 			{ "<Leader>cc", "<cmd>Lspsaga incoming_calls<CR>", desc = "incoming calls" },
 			{ "<Leader>cC", "<cmd>Lspsaga outgoing_calls<CR>", desc = "outgoing calls" },
 			{ "<Leader>ca", "<cmd>Lspsaga code_action<CR>", desc = "code action" },
