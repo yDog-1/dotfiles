@@ -150,4 +150,7 @@ config.window_padding = {
 
 config.status_update_interval = 500
 
+-- <C-CR>などを有効化する
+config.enable_kitty_keyboard = true
+
 return config
