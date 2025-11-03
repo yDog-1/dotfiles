@@ -78,10 +78,12 @@ return {
 				end,
 			})
 
+			---@diagnostic disable-next-line: param-type-mismatch
 			vim.lsp.config("*", {
 				capabilities = capabilities,
 			})
 
+			---@diagnostic disable-next-line: param-type-mismatch
 			vim.lsp.config("emmylua_ls", {
 				settings = {
 					Lua = {
@@ -92,6 +94,7 @@ return {
 				},
 			})
 
+			---@diagnostic disable-next-line: param-type-mismatch
 			vim.lsp.config("jsonls", {
 				settings = {
 					json = {
@@ -101,6 +104,7 @@ return {
 				},
 			})
 
+			---@diagnostic disable-next-line: param-type-mismatch
 			vim.lsp.config("yamlls", {
 				settings = {
 					yaml = {
@@ -116,6 +120,7 @@ return {
 				},
 			})
 
+			---@diagnostic disable-next-line: param-type-mismatch
 			vim.lsp.config("denols", {
 				settings = {
 					single_file_support = true,
@@ -123,6 +128,7 @@ return {
 			})
 
 			local username = os.getenv("USER") or os.getenv("USERNAME") or vim.fn.system("whoami"):gsub("\n", "")
+			---@diagnostic disable-next-line: param-type-mismatch
 			vim.lsp.config("nixd", {
 				command = { "nixd" },
 				filetypes = { "nix" },
