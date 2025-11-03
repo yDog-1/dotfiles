@@ -7,9 +7,7 @@ return {
 			"https://github.com/NI57721/skkeleton-henkan-highlight",
 		},
 		keys = {
-			-- <C-j>, <C-k>でskkeletonの切り替え
-			{ "<C-j>", "<Plug>(skkeleton-enable)", mode = { "i", "c", "t" } },
-			{ "<C-k>", "<Plug>(skkeleton-disable)", mode = { "i", "c", "t" } },
+			{ "<C-l>", "<Plug>(skkeleton-enable)", mode = { "i", "c", "t" } },
 		},
 		lazy = false,
 		config = function()
