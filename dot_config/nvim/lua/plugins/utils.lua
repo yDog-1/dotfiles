@@ -1,4 +1,5 @@
 vim.g.chezmoidir = os.getenv("HOME") .. "/.local/share/chezmoi"
+
 return {
 	-- アイコンプラグイン
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
@@ -107,7 +108,7 @@ return {
 			---@module "AutoSession"
 			---@type AutoSession.Config
 			return {
-				auto_save = true,
+				auto_save = false,
 				bypass_save_filetypes = {
 					"auto-session-bypass",
 				},
