@@ -185,3 +185,9 @@ for _, key in ipairs({
 }) do
 	submode({ "n", "x" }, "<c-w>", "window", key[1], key[2])
 end
+
+-- <C-w>h/j/k/l のウィンドウ移動を無効化
+set("n", "<c-w>h", "<Nop>", { desc = "Disable <C-w>h window movement" })
+set("n", "<c-w>j", "<Nop>", { desc = "Disable <C-w>j window movement" })
+set("n", "<c-w>k", "<Nop>", { desc = "Disable <C-w>k window movement" })
+set("n", "<c-w>l", "<Nop>", { desc = "Disable <C-w>l window movement" })
