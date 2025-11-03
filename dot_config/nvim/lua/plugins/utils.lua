@@ -104,19 +104,12 @@ return {
 			-- localoptionsを保存するようにし、ファイルタイプ等を復元できるようにする
 			vim.opt.sessionoptions:append("localoptions")
 
+			---@module "AutoSession"
+			---@type AutoSession.Config
 			return {
 				auto_save = true,
 				bypass_save_filetypes = {
-					"codecompanion",
-					"aider",
-					"help",
-				},
-				close_filetypes_on_save = {
-					"checkhealth",
-					"codecompanion",
-					"aider",
-					"help",
-					"aibo-console.aibo-tool.codex",
+					"auto-session-bypass",
 				},
 				close_unsupported_windows = true,
 				git_use_branch_name = true,
@@ -124,6 +117,38 @@ return {
 					picker = "telescope",
 				},
 				suppressed_dirs = { "~/" },
+				pre_save_cmds = {
+					function()
+						-- 'buftype'が空文字以外のバッファはセッションに保存しない。
+						for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+							if vim.api.nvim_buf_is_loaded(buf) then
+								local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf })
+								if buftype ~= "" then
+									vim.g["auto-session-bypassed_ft_" .. buf] =
+										vim.api.nvim_get_option_value("filetype", { buf = buf })
+									vim.api.nvim_set_option_value("filetype", "auto-session-bypass", { buf = buf })
+								end
+							end
+						end
+					end,
+				},
+				post_save_cmds = {
+					function()
+						-- セッション保存後に 'auto-session-bypass' のファイルタイプを元に戻す
+						for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+							if vim.api.nvim_buf_is_loaded(buf) then
+								local filetype = vim.api.nvim_get_option_value("filetype", { buf = buf })
+								if filetype == "auto-session-bypass" then
+									local original_ft = vim.g["auto-session-bypassed_ft_" .. buf]
+									if original_ft then
+										vim.api.nvim_set_option_value("filetype", original_ft, { buf = buf })
+										vim.g["auto-session-bypassed_ft_" .. buf] = nil
+									end
+								end
+							end
+						end
+					end,
+				},
 			}
 		end,
 	},
