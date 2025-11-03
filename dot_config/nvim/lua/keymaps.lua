@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- https://zenn.dev/vim_jp/articles/2024-10-07-vim-insert-uppercase
 -- 直前に入力した word を大文字に変換
-vim.keymap.set("i", "<C-l>", function()
+vim.keymap.set("i", "<C-k>", function()
 	local line = vim.fn.getline(".")
 	local col = vim.fn.getpos(".")[3]
 	local substring = line:sub(1, col - 1)
