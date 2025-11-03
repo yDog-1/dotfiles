@@ -69,7 +69,7 @@ keybinds clear-defaults=true {
         bind "tab" { ToggleTab; }
     }
     move {
-        bind "Alt m" { SwitchToMode "normal"; }
+        bind "Alt ," { SwitchToMode "normal"; }
         bind "left" { MovePane "left"; }
         bind "down" { MovePane "down"; }
         bind "up" { MovePane "up"; }
@@ -186,7 +186,7 @@ keybinds clear-defaults=true {
         bind "Alt s" { SwitchToMode "scroll"; }
         bind "Alt t" { SwitchToMode "tab"; }
         bind "Alt p" { SwitchToMode "pane"; }
-        bind "Alt m" { SwitchToMode "move"; }
+        bind "Alt ," { SwitchToMode "move"; }
     }
     shared_except "normal" "locked" "entersearch" {
         bind "enter" { SwitchToMode "normal"; }
