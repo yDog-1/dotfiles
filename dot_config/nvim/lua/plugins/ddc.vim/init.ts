@@ -63,11 +63,13 @@ export class Config extends BaseConfig {
         denippet: {
           minKeywordLength: 1,
           minAutoCompleteLength: 1,
+          maxItems: 4,
         },
         file: {
           isVolatile: true,
           minAutoCompleteLength: 1000,
           forceCompletionPattern: String.raw`\S/\S*`,
+          maxItems: 8,
         },
         skkeleton: {
           mark: "SKK",
