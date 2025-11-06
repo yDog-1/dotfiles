@@ -271,4 +271,46 @@ return {
 			},
 		},
 	},
+	{
+		"rmagatti/goto-preview",
+		dependencies = { "rmagatti/logger.nvim" },
+		event = "BufEnter",
+		keys = {
+			{
+				"<leader>cd",
+				"<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+				desc = "Preview Definition",
+			},
+			{
+				"<leader>ct",
+				"<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
+				desc = "Preview Type Definition",
+			},
+			{
+				"<leader>ci",
+				"<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+				desc = "Preview Implementation",
+			},
+			{
+				"<leader>cD",
+				"<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
+				desc = "Preview Declaration",
+			},
+			{
+				"<leader>cr",
+				"<cmd>lua require('goto-preview').goto_preview_references()<CR>",
+				desc = "Preview References",
+			},
+			{
+				"<leader>cq",
+				"<cmd>lua require('goto-preview').close_all_win()<CR>",
+				desc = "Close All Preview Windows",
+			},
+		},
+		config = function()
+      require("goto-preview").setup({
+        opacity = 0
+      })
+    end
+	},
 }
