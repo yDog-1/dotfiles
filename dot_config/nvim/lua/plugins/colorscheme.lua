@@ -1,14 +1,27 @@
 return {
 	{
-		-- カラースキーム
-		"sainnhe/sonokai",
+		"https://github.com/olimorris/onedarkpro.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("sonokai")
-		end,
-		init = function()
-			vim.g.sonokai_transparent_background = 1
+			require("onedarkpro").setup({
+				styles = {
+					comments = "italic",
+					keywords = "bold,italic",
+					functions = "bold",
+					strings = "italic",
+					variables = "bold,italic",
+					constants = "bold",
+					types = "bold",
+					parameters = "italic",
+				},
+				options = {
+					cursorline = true,
+					terminal_colors = false,
+					highlight_inactive_windows = true,
+				},
+			})
+			vim.cmd.colorscheme("onedark_dark")
 		end,
 	},
 }
