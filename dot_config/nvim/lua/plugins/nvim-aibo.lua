@@ -13,12 +13,14 @@ return {
 			function()
 				local aibo_console = require("aibo.internal.console_window")
 				local bufname = vim.fn.bufname("%")
+				-- pwd .. file path
+				local filename_from_pwd = vim.fn.fnamemodify(bufname, ":p:.")
 				local codex = aibo_console.find_info_globally({ cmd = "codex" }) or { winid = -1 }
 				local ret = ""
 				if codex.winid == -1 then
 					ret = open_codex_cmd
 				end
-				return ret .. [[<cmd>AiboSend -input -prefix="]] .. bufname .. [[\n\n"<CR>]]
+				return ret .. [[<cmd>AiboSend -input -prefix="]] .. filename_from_pwd .. [[\n\n"<CR>]]
 			end,
 			desc = "Aibo Send to Codex",
 			expr = true,
