@@ -65,34 +65,4 @@ return {
 			},
 		},
 	},
-	-- W, E モーションを日本語対応
-
-	{
-		"atusy/budouxify.nvim",
-		dependencies = {
-			"atusy/budoux.lua",
-		},
-		keys = {
-			{
-				"W",
-				function()
-					local pos = require("budouxify.motion").find_forward({ head = true })
-					if pos then
-						vim.api.nvim_win_set_cursor(0, { pos.row, pos.col })
-					end
-				end,
-				mode = { "n", "v" },
-			},
-			{
-				"E",
-				function()
-					local pos = require("budouxify.motion").find_forward({ head = false })
-					if pos then
-						vim.api.nvim_win_set_cursor(0, { pos.row, pos.col })
-					end
-				end,
-				mode = { "n", "v" },
-			},
-		},
-	},
 }
