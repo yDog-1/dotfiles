@@ -130,6 +130,9 @@ elseif os_type == "macos" then
 	config.default_prog = { user_shell, "-l" }
 end
 
+-- 背景の透明度
+config.window_background_opacity = 0.80
+
 -- ウィンドウを閉じる確認をしない
 config.window_close_confirmation = "NeverPrompt"
 
