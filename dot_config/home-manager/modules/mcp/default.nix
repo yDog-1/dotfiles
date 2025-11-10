@@ -14,6 +14,16 @@
         context = "chatgpt";
         enableWebDashboard = false;
       };
+      memory.enable = true;
+    };
+    settings.servers = {
+      sdd-mcp = {
+        command = "${pkgs.bun}/bin/bunx";
+        args = [
+          "sdd-mcp@latest"
+
+        ];
+      };
     };
   };
 in {
