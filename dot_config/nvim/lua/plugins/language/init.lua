@@ -5,5 +5,4 @@ require("plugins.which-key.spec").add({
 
 return {
 	require("plugins.language.markdown"),
-	require("plugins.language.go"),
 }

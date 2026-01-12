@@ -1,7 +1,3 @@
-local default_tool = {
-	name = "codex",
-	focus = true,
-}
 
 local user_sidekick_autocmd = vim.api.nvim_create_augroup("UserSidekick", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {

@@ -1,3 +1,12 @@
+for _, spec in ipairs({
+	{ "Aibo", "<Leader>a", "󰧑 ", "red" },
+}) do
+	require("plugins.which-key.spec").add({
+		mode = { "n", "v" },
+		{ spec[2], group = spec[1], icon = { icon = spec[3], color = spec[4] } },
+	})
+end
+
 local open_codex_cmd = [[<cmd>Aibo -opener=botright\ vsplit -focus codex resume<CR>]]
 local function build_aibo_send_cmd(range_prefix)
 	local aibo_console = require("aibo.internal.console_window")
