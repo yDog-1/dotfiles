@@ -1,4 +1,4 @@
-local open_codex_cmd = [[<cmd>Aibo -opener=botright\ vsplit -stay -toggle codex<CR>]]
+local open_codex_cmd = [[<cmd>Aibo -opener=botright\ vsplit -focus codex resume<CR>]]
 local function build_aibo_send_cmd(range_prefix)
 	local aibo_console = require("aibo.internal.console_window")
 	local bufname = vim.fn.bufname("%")
