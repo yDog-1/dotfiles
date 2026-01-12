@@ -45,7 +45,6 @@ return {
 		},
 	},
 	config = function()
-		---@diagnostic disable-next-line: redundant-parameter
 		require("aibo").setup({
 			disable_startinsert_on_insert = false,
 			disable_startinsert_on_startup = true,
