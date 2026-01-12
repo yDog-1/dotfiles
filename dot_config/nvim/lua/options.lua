@@ -59,3 +59,11 @@ o.timeout = false
 
 -- substitute時に変更箇所をプレビュー
 o.inccommand = "split"
+
+-- codexなどの外部ツールでファイルが変更された場合に自動で再読み込み
+o.autoread = true
+vim.api.nvim_create_autocmd("WinEnter", {
+	group = vim.api.nvim_create_augroup("checktime_on_focus", { clear = true }),
+	pattern = "*",
+	command = "checktime",
+})
