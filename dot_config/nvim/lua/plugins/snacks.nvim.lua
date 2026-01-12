@@ -4,7 +4,6 @@ return {
 	lazy = false,
 	keys = {
 		{ "<leader>.", "<cmd>lua Snacks.dashboard()<CR>", desc = "Dashboard" },
-		{ "<leader>gB", "<cmd>lua Snacks.gitbrowse()<CR>", desc = "Browse git repository" },
 		{ "<leader>d", "<cmd>lua Snacks.scratch()<CR>", desc = "Toggle Scratch Buffer" },
 		{ "<leader>fs", "<cmd>lua Snacks.scratch.select()<CR>", desc = "Select Scratch Buffer" },
 	},

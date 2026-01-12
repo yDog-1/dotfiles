@@ -34,9 +34,10 @@ return {
 			"GinStatus",
 		},
 		keys = {
-			{ "<Leader>gp", "<cmd>Gin push<CR>", desc = "Push" },
-			{ "<Leader>gP", "<cmd>Gin pull --autostash<CR>", desc = "Pull" },
+			{ "<Leader>gP", "<cmd>Gin push<CR>", desc = "Push" },
+			{ "<Leader>gp", "<cmd>Gin pull --autostash<CR>", desc = "Pull" },
 			{ "<leader>gs", "<Cmd>GinStatus<Cr>", desc = "Status" },
+			{ "<leader>gx", "<Cmd>GinBrowse ++repository<Cr>", desc = "Open the repository webpage" },
 			{ "<leader>gbr", "<Cmd>GinBranch<Cr>", desc = "Branch" },
 			{ "<leader>gbl", "<Cmd>GinBlame HEAD %<Cr>", desc = "Blame" },
 			{ "<leader>gd", "<Cmd>GinDiff<Cr>", desc = "Diff" },
