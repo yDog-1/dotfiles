@@ -34,6 +34,15 @@ return {
 			mode = "n",
 			expr = true,
 		},
+		{
+			"<leader>as",
+			function()
+				return build_aibo_send_cmd("'<,'>")
+			end,
+			desc = "Aibo Send to Codex (visual)",
+			mode = "v",
+			expr = true,
+		},
 	},
 	config = function()
 		---@diagnostic disable-next-line: redundant-parameter
