@@ -19,18 +19,38 @@ return {
 				end,
 			})
 
-			vim.api.nvim_create_autocmd({ "Filetype" }, {
+			vim.api.nvim_create_autocmd("FileType", {
 				group = vim.api.nvim_create_augroup("TreesitterAutoInstall", { clear = true }),
 				callback = function(event)
-					local ok, nvim_treesitter = pcall(require, "nvim-treesitter")
-					if not ok then
+					local ok_ts, ts = pcall(require, "nvim-treesitter")
+					if not ok_ts then
 						return
 					end
+					if type(ts.install) ~= "function" then
+						return
+					end
+
 					local ft = vim.bo[event.buf].ft
 					local lang = vim.treesitter.language.get_lang(ft)
-					nvim_treesitter.install({ lang }):await(function(err)
+					if not lang then
+						return
+					end
+
+					local ok_parsers, parsers = pcall(require, "nvim-treesitter.parsers")
+					if not ok_parsers then
+						return
+					end
+					if type(parsers.get_parser_configs) ~= "function" then
+						return
+					end
+
+					local configs = parsers.get_parser_configs()
+					if not configs[lang] then
+						return
+					end
+
+					ts.install({ lang }):await(function(err)
 						if err then
-							vim.notify("Treesitter install error for ft: " .. ft .. " err: " .. err)
 							return
 						end
 						pcall(vim.treesitter.start, event.buf)
