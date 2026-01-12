@@ -1,4 +1,21 @@
 local open_codex_cmd = [[<cmd>Aibo -opener=botright\ vsplit -stay -toggle codex<CR>]]
+local function build_aibo_send_cmd(range_prefix)
+	local aibo_console = require("aibo.internal.console_window")
+	local bufname = vim.fn.bufname("%")
+	-- pwd .. file path
+	local filename_from_pwd = vim.fn.fnamemodify(bufname, ":p:.")
+	local codex = aibo_console.find_info_globally({ cmd = "codex" }) or { winid = -1 }
+	local ret = ""
+	if codex.winid == -1 then
+		ret = open_codex_cmd
+	end
+	return ret
+		.. [[<cmd>]]
+		.. (range_prefix or "")
+		.. [[AiboSend -input -replace -prefix="]]
+		.. filename_from_pwd
+		.. [[\n\n"<CR>]]
+end
 
 return {
 	"lambdalisue/nvim-aibo",
@@ -11,18 +28,10 @@ return {
 		{
 			"<leader>as",
 			function()
-				local aibo_console = require("aibo.internal.console_window")
-				local bufname = vim.fn.bufname("%")
-				-- pwd .. file path
-				local filename_from_pwd = vim.fn.fnamemodify(bufname, ":p:.")
-				local codex = aibo_console.find_info_globally({ cmd = "codex" }) or { winid = -1 }
-				local ret = ""
-				if codex.winid == -1 then
-					ret = open_codex_cmd
-				end
-				return ret .. [[<cmd>AiboSend -input -prefix="]] .. filename_from_pwd .. [[\n\n"<CR>]]
+				return build_aibo_send_cmd()
 			end,
 			desc = "Aibo Send to Codex",
+			mode = "n",
 			expr = true,
 		},
 	},
