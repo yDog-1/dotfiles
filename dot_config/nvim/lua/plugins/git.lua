@@ -74,7 +74,10 @@ return {
 			vim.g["gin_proxy_editor_opener"] = "split"
 			vim.g["gin_diff_persistent_args"] = { "++processor=delta -n --color-only" }
 			vim.g["gin_log_default_args"] = { "++emojify", "--oneline", "--graph" }
+			vim.g["gin_log_persistent_args"] = { "++opener=tabedit" }
 			vim.g["gin_blame_persistent_args"] = { "++emojify" }
+			vim.g["gin_status_persistent_args"] = { "++opener=tabedit" }
+			vim.g["gin_patch_default_args"] = { "++no-worktree" }
 		end,
 		config = function()
 			require("denops-lazy").load("vim-gin", { wait_load = false })
@@ -97,12 +100,15 @@ return {
 					set({ "n" }, "c", "<Cmd>Gin commit<Cr>", opts({ desc = "Commit" }))
 					set({ "n" }, "s", "<Cmd>GinStatus<Cr>", opts({ desc = "Status" }))
 					set({ "n" }, "d", "<Cmd>GinDiff --staged<Cr>", opts({ desc = "Diff" }))
-					set({ "n" }, "q", "<Cmd>Bdelete<Cr>", opts({ desc = "Close" }))
 					set({ "n" }, "p", "<Cmd>Gin push<Cr>", opts({ desc = "Push" }))
 					set({ "n" }, "P", "<Cmd>Gin pull<Cr>", opts({ desc = "Pull" }))
 					set({ "n" }, "if", "<Plug>(gin-action-fixup:instant-fixup)", opts({ desc = "Fixup" }))
 					set({ "n" }, "ir", "<Plug>(gin-action-fixup:instant-reword)", opts({ desc = "Reword" }))
+					set({ "n" }, "q", "<Cmd>bd<Cr>", opts({ desc = "Close" }))
 
+					if vim.bo.filetype == "gin-status" or vim.bo.filetype == "gin-log" then
+						set({ "n" }, "q", "<Cmd>tabclose<Cr>", opts({ desc = "Close" }))
+					end
 					vim.opt_local.buflisted = false
 				end,
 			})
