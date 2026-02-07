@@ -309,9 +309,9 @@ return {
 			},
 		},
 		config = function()
-      require("goto-preview").setup({
-        opacity = 0
-      })
-    end
+			require("goto-preview").setup({
+				opacity = 0,
+			})
+		end,
 	},
 }
