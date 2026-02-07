@@ -1,3 +1,4 @@
+---@diagnostic disable-next-line: param-type-mismatch
 local efm_config = require("plugins.lsp.utils.efm_config").setup({
 	filetypes = {
 		lua = {
@@ -222,7 +223,7 @@ local efm_config = require("plugins.lsp.utils.efm_config").setup({
 					},
 				},
 			},
-			-- TODO: なぜか動かない
+      -- TODO: なぜか動かない
 			{
 				kind = "linters",
 				name = "gdformat",
