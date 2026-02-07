@@ -222,6 +222,23 @@ local efm_config = require("plugins.lsp.utils.efm_config").setup({
 					},
 				},
 			},
+			-- TODO: なぜか動かない
+			{
+				kind = "linters",
+				name = "gdformat",
+				settings = {
+					default = false,
+					options = {
+						formatCommand = "gdscript-formatter lint ${INPUT}",
+						lintFormats = {
+							[[%f:%l:%*[^:]:%trror: %m]],
+							[[%f:%l:%*[^:]:%tarning: %m]],
+						},
+						lintIgnoreExitCode = true,
+						rootMarkers = { ".godot" },
+					},
+				},
+			},
 		},
 	},
 })
