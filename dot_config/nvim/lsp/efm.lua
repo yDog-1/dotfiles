@@ -184,10 +184,12 @@ local efm_config = require("plugins.lsp.utils.efm_config").setup({
 			},
 		},
 		toml = {
-			kind = "formatters",
-			name = "taplo",
-			settings = {
-				default = true,
+			{
+				kind = "formatters",
+				name = "taplo",
+				settings = {
+					default = true,
+				},
 			},
 		},
 		markdown = {
