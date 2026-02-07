@@ -38,6 +38,7 @@ local servers = {
 	"cssls",
 	"nixd",
 	"pylsp",
+	"gdscript",
 }
 
 return {
