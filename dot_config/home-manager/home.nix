@@ -71,6 +71,9 @@
     cargo
     rustc
 
+    # gdscript
+    gdscript-formatter
+
     # クリップボード
     xclip # X11用
     wl-clipboard # Wayland用
