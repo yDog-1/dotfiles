@@ -63,6 +63,7 @@ return {
 						return
 					end
 					format(o.buf)
+					vim.cmd("silent! checktime")
 				end,
 			})
 
