@@ -208,6 +208,19 @@ local efm_config = require("plugins.lsp.utils.efm_config").setup({
 				},
 			},
 		},
+		gdscript = {
+			{
+				kind = "formatters",
+				name = "gdformat",
+				settings = {
+					default = false,
+					options = {
+						formatCommand = "gdscript-formatter format ${INPUT}",
+						rootMarkers = { ".godot" },
+					},
+				},
+			},
+		},
 	},
 })
 
