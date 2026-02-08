@@ -4,9 +4,10 @@ import {
   type ConfigArguments,
 } from "jsr:@shougo/ddc-vim@10.1.0/config";
 
-const baseMatchers = ["matcher_fuzzy"];
+const baseMatchers = ["matcher_prefix", "matcher_fuzzy"];
 const baseSorters = ["sorter_fuzzy", "sorter_rank"];
 const baseConverters = ["converter_fuzzy"];
+
 
 export class Config extends BaseConfig {
   // deno-lint-ignore require-await
@@ -127,6 +128,9 @@ export class Config extends BaseConfig {
         },
       },
       filterParams: {
+        matcher_prefix: {
+          prefixLength: 3,
+        },
         sorter_lsp_kind: {
           priority: [
             "Method",

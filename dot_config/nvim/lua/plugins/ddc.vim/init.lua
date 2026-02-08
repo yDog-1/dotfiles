@@ -156,6 +156,7 @@ return {
 	"https://github.com/Shougo/ddc-filter-sorter_rank",
 	"https://github.com/Shougo/ddc-filter-converter_kind_labels",
 	"https://github.com/Shougo/ddc-filter-matcher_length",
+	"https://github.com/Shougo/ddc-filter-matcher_prefix",
 	{
 		"https://github.com/matsui54/denops-popup-preview.vim",
 		init = function()
