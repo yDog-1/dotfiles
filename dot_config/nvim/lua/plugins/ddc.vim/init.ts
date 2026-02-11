@@ -2,7 +2,7 @@
 import {
   BaseConfig,
   type ConfigArguments,
-} from "jsr:@shougo/ddc-vim@10.1.0/config";
+} from "jsr:@shougo/ddc-vim@~10.1.0/config";
 
 const baseMatchers = ["matcher_prefix", "matcher_fuzzy"];
 const baseSorters = ["sorter_fuzzy", "sorter_rank"];
