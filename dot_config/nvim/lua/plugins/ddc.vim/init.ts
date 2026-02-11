@@ -8,7 +8,6 @@ const baseMatchers = ["matcher_prefix", "matcher_fuzzy"];
 const baseSorters = ["sorter_fuzzy", "sorter_rank"];
 const baseConverters = ["converter_fuzzy"];
 
-
 export class Config extends BaseConfig {
   // deno-lint-ignore require-await
   override async config(args: ConfigArguments) {
@@ -197,6 +196,14 @@ export class Config extends BaseConfig {
             Class: "Structure",
             Interface: "Structure",
           },
+        },
+      },
+    });
+    args.contextBuilder.setFiletype("gdscript", {
+      postFilters: ["converter_strip_completion_text_chars"],
+      filterParams: {
+        converter_strip_completion_text_chars: {
+          patterns: ['"'],
         },
       },
     });
