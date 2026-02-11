@@ -200,10 +200,17 @@ export class Config extends BaseConfig {
       },
     });
     args.contextBuilder.setFiletype("gdscript", {
-      postFilters: ["converter_strip_completion_text_chars"],
+      sourceOptions: {
+        lsp: {
+          converters: [
+            ...baseConverters,
+            "converter_strip_completion_text_chars",
+          ],
+        },
+      },
       filterParams: {
         converter_strip_completion_text_chars: {
-          patterns: ['"'],
+          patterns: ['^"', '"$', "\\($"],
         },
       },
     });
