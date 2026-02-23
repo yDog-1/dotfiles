@@ -299,7 +299,7 @@ return {
 				desc = "Preview Declaration",
 			},
 			{
-				"<leader>cr",
+				"<leader>cR",
 				"<cmd>lua require('goto-preview').goto_preview_references()<CR>",
 				desc = "Preview References",
 			},
