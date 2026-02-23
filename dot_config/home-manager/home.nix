@@ -25,6 +25,7 @@
 
     # エディタ
     vim
+    neovim
     tree-sitter
 
     # better man
@@ -81,10 +82,5 @@
 
   programs.zsh.shellAliases = {
     "docker" = "podman";
-  };
-
-  programs.neovim = {
-    enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
   };
 }
