@@ -4,7 +4,7 @@
   ...
 }:
 let
-  emmylua_ls = inputs.emmylua-analyzer-rust.packages.${pkgs.system}.emmylua_ls;
+  emmylua_ls = inputs.emmylua-analyzer-rust.packages.${pkgs.stdenv.hostPlatform.system}.emmylua_ls;
   in{
   home.packages = with pkgs;
     [
