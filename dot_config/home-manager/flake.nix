@@ -8,10 +8,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    mcp-servers-nix = {
-      url = "github:natsukium/mcp-servers-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     emmylua-analyzer-rust = {
       url = "github:EmmyLuaLs/emmylua-analyzer-rust";
       inputs.nixpkgs.follows = "nixpkgs";
