@@ -85,6 +85,7 @@ in {
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
+    shellWrapperName = "y";
     flavors = {
       monokai-vibrant = pkgs.fetchFromGitHub {
         owner = "sanjinso";
@@ -108,17 +109,6 @@ in {
   # Zsh関数とキーバインドの追加
   programs.zsh = {
     enableCompletion = false;
-
-    initContent = ''
-      # CWDを自動で変更する、Yaziのラッパー関数
-      function y() {
-        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-        yazi "$@" --cwd-file="$tmp"
-        IFS= read -r -d \'\' cwd < "$tmp"
-        [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-        rm -f -- "$tmp"
-      }
-    '';
 
     completionInit = ''
       source ${gtrashCompletion}/share/zsh/site-functions/_gtrash
