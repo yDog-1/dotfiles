@@ -54,6 +54,7 @@ export class Config extends BaseConfig {
         },
         lsp: {
           mark: "LSP",
+          keywordPattern: String.raw`[a-zA-Z_\-]\w*`,
           forceCompletionPattern: String.raw`\.\w*|::\w*|->\w*`,
           isVolatile: true,
           sorters: [...baseSorters, "sorter_lsp_kind"],
