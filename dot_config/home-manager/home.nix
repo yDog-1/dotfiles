@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./modules/shell
     ./modules/tools.nix
@@ -62,6 +58,7 @@
     nodejs
     deno
     bun
+    pnpm
 
     # Python
     python3
