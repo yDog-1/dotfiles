@@ -71,11 +71,13 @@ return {
 			-- ts_ls denols
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-				callback = function(ctx)
+				callback = function()
 					if vim.fn.findfile("package.json", ".;") ~= "" then
-						vim.lsp.start(vim.lsp.config.ts_ls, { bufnr = ctx.buf })
+						vim.lsp.enable("ts_ls")
+						vim.lsp.enable("denols", false)
 					else
-						vim.lsp.start(vim.lsp.config.denols, { bufnr = ctx.buf })
+						vim.lsp.enable("denols")
+						vim.lsp.enable("ts_ls", false)
 					end
 				end,
 			})
