@@ -1,8 +1,6 @@
-
 return {
 	{
 		"https://github.com/github/copilot.vim",
-		event = "VeryLazy",
 		init = function()
 			vim.g.copilot_filetypes = {
 				yaml = true,
@@ -27,8 +25,18 @@ return {
 			})
 		end,
 		config = function()
-			vim.keymap.set("i", "<M-l>", "copilot#AcceptWord()", { silent = true, expr = true })
-			vim.keymap.set("i", "<M-C-l>", "copilot#AcceptLine()", { silent = true, expr = true })
+			vim.keymap.set(
+				"i",
+				"<M-l>",
+				"copilot#AcceptWord()",
+				{ silent = true, expr = true, replace_keycodes = false }
+			)
+			vim.keymap.set(
+				"i",
+				"<M-C-l>",
+				"copilot#AcceptLine()",
+				{ silent = true, expr = true, replace_keycodes = false }
+			)
 		end,
 	},
 }
