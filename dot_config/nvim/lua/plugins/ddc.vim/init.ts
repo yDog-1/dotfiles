@@ -5,8 +5,6 @@ import {
 } from "jsr:@shougo/ddc-vim@~10.1.0/config";
 
 const baseMatchers = ["matcher_prefix", "matcher_fuzzy"];
-const baseSorters = ["sorter_fuzzy", "sorter_rank"];
-const baseConverters = ["converter_fuzzy"];
 
 export class Config extends BaseConfig {
   // deno-lint-ignore require-await
@@ -43,8 +41,6 @@ export class Config extends BaseConfig {
         _: {
           ignoreCase: true,
           matchers: baseMatchers,
-          sorters: baseSorters,
-          converters: baseConverters,
         },
         around: {
           matchers: [...baseMatchers, "matcher_length"],
@@ -57,8 +53,8 @@ export class Config extends BaseConfig {
           // It matches the keyword that follow a hyphen, like `black` in `text-black`.
           keywordPattern: `[-[:keyword:]]*`,
           forceCompletionPattern: String.raw`\.\w*|::\w*|->\w*`,
-          sorters: [...baseSorters, "sorter_lsp_kind"],
-          converters: [...baseConverters, "converter_kind_labels"],
+          sorters: [ "sorter_lsp_kind"],
+          converters: ["converter_kind_labels"],
           maxItems: 20,
         },
         denippet: {
@@ -90,11 +86,12 @@ export class Config extends BaseConfig {
         cmdline: {
           mark: " ",
           isVolatile: true,
-          sorters: [...baseSorters, "sorter_cmdline_history"],
+          sorters: [ "sorter_cmdline_history"],
           forceCompletionPattern: String.raw`\S/\S*|\.\w*`,
         },
         cmdline_history: {
           mark: " ",
+          sorters: [],
         },
         shell_native: {
           mark: "ZSH",
@@ -129,7 +126,7 @@ export class Config extends BaseConfig {
       },
       filterParams: {
         matcher_prefix: {
-          prefixLength: 3,
+          prefixLength: 2,
         },
         sorter_lsp_kind: {
           priority: [
@@ -198,15 +195,24 @@ export class Config extends BaseConfig {
             Interface: "Structure",
           },
         },
+        converter_fuzzy: {
+          hlGroup: "Title"
+        },
+        postfilter_score: {
+          excludeSources: ["skkeleton", "skkeleton_okuri", "cmdline_history"],
+          hlGroup: "",
+        },
       },
+      postFilters: ["postfilter_score", "sorter_head", "converter_fuzzy"],
     });
+
+    // Godot's LSP server returns completion function items with bracket like `func(`.
+    // And it returns the completion text with quotation marks like `"move-right"` for the TEXT completion items.
+    // This configuration removes the brackets and quotation marks from the completion text.
     args.contextBuilder.setFiletype("gdscript", {
       sourceOptions: {
         lsp: {
-          converters: [
-            ...baseConverters,
-            "converter_strip_completion_text_chars",
-          ],
+          converters: ["converter_strip_completion_text_chars"],
         },
       },
       filterParams: {

@@ -158,6 +158,9 @@ return {
 	"https://github.com/Shougo/ddc-filter-matcher_length",
 	"https://github.com/Shougo/ddc-filter-matcher_prefix",
 	"https://github.com/yDog-1/ddc-filter-converter_strip_completion_text_chars",
+	-- post filter
+	"https://github.com/Shougo/ddc-filter-sorter_head",
+	"https://github.com/matsui54/ddc-postfilter_score",
 	{
 		"https://github.com/matsui54/denops-popup-preview.vim",
 		init = function()
