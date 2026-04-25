@@ -54,9 +54,9 @@ export class Config extends BaseConfig {
         },
         lsp: {
           mark: "LSP",
-          keywordPattern: String.raw`[a-zA-Z_\-]\w*`,
+          // It matches the keyword that follow a hyphen, like `black` in `text-black`.
+          keywordPattern: `[-[:keyword:]]*`,
           forceCompletionPattern: String.raw`\.\w*|::\w*|->\w*`,
-          isVolatile: true,
           sorters: [...baseSorters, "sorter_lsp_kind"],
           converters: [...baseConverters, "converter_kind_labels"],
           maxItems: 20,
