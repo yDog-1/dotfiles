@@ -1,10 +1,6 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # LSP Servers
-    efm-langserver
     lua-language-server
     typescript-language-server
     gopls
@@ -19,23 +15,18 @@
     tailwindcss-language-server
     nixd
     python313Packages.python-lsp-server
-    emmylua-ls
 
     # Linters
     gitlint
+    gitleaks
     hadolint
-    tflint
-    eslint
-    sqlfluff
     yamllint
     markdownlint-cli
     golangci-lint
+    typos
 
     # Formatters
     stylua
-    biome
-    dprint
-    prettier
     gotools
     alejandra
 
