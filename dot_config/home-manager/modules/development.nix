@@ -1,4 +1,12 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  gotoolsWithoutModernize = pkgs.symlinkJoin {
+    name = "gotools-without-modernize";
+    paths = [pkgs.gotools];
+    postBuild = ''
+      rm -f "$out/bin/modernize"
+    '';
+  };
+in {
   home.packages = with pkgs; [
     # LSP Servers
     lua-language-server
@@ -27,7 +35,8 @@
 
     # Formatters
     stylua
-    gotools
+    # Temporary measures for https://github.com/NixOS/nixpkgs/issues/509480
+    gotoolsWithoutModernize
     alejandra
 
     # Tools
