@@ -44,31 +44,10 @@ return {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown({}),
 					},
-					["smart_open"] = {
-						match_algorithm = "fzf",
-						mappings = {
-							-- https://github.com/danielfalk/smart-open.nvim/issues/71
-							i = {
-								["<C-w>"] = function()
-									vim.api.nvim_input("<C-s-w>")
-								end,
-							},
-						},
-					},
 				},
 			})
 			telescope.load_extension("ui-select")
-			telescope.load_extension("smart_open")
 			telescope.load_extension("chezmoi")
 		end,
-	},
-	{
-		"danielfalk/smart-open.nvim",
-		branch = "0.2.x",
-		dependencies = {
-			"kkharji/sqlite.lua",
-			-- Only required if using match_algorithm fzf
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-		},
 	},
 }
