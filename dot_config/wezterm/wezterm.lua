@@ -21,6 +21,8 @@ config.automatically_reload_config = true
 
 -- NeovimでSKKが有効なため、IMEを無効化
 config.use_ime = false
+-- 何故かWaylandでIMEが有効になってしまうため、Waylandも無効化
+config.enable_wayland = false
 
 -- キーバインドを設定
 config.keys = keybinds.keys
