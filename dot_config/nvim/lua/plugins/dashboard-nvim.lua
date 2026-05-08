@@ -15,7 +15,7 @@ return {
 					desc_hl = "DiagnosticInfo",
 					key = "f",
 					key_hl = "DiagnosticInfo",
-					action = "Telescope smart_open",
+					action = "Telescope find_files",
 				},
 				{
 					icon = "  ",
