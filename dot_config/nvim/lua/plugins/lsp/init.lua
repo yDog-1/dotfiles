@@ -3,9 +3,7 @@ require("plugins.which-key.spec").add({
 	{ "<Leader>c", group = "code" },
 })
 
-local nix_utils = require("utils.nix")
-
--- LSP servers managed by Nix
+-- LSP servers available on PATH
 local servers = {
 	"lua_ls",
 	"gopls",
@@ -104,33 +102,6 @@ return {
 			vim.lsp.config("denols", {
 				settings = {
 					single_file_support = true,
-				},
-			})
-
-			local username = os.getenv("USER") or os.getenv("USERNAME") or vim.fn.system("whoami"):gsub("\n", "")
-			---@diagnostic disable-next-line: param-type-mismatch
-			vim.lsp.config("nixd", {
-				command = { "nixd" },
-				filetypes = { "nix" },
-				settings = {
-					nixd = {
-						nixpkgs = {
-							expr = string.format(
-								'(builtins.getFlake "%s/.config/home-manager").inputs.nixpkgs.legacyPackages.%s',
-								os.getenv("HOME"),
-								nix_utils.get_system()
-							),
-						},
-						options = {
-							home_manager = {
-								expr = string.format(
-									'(builtins.getFlake "%s/.config/home-manager").homeConfigurations."%s".options',
-									os.getenv("HOME"),
-									username
-								),
-							},
-						},
-					},
 				},
 			})
 
