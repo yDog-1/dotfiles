@@ -38,7 +38,7 @@ end
 ---@param bufnr? integer
 local create_lint_autocmd = function(linter, bufnr)
 	local buffer = bufnr or nil
-	vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+	vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
 		buffer = buffer,
 		group = vim.api.nvim_create_augroup("ydog.lint." .. linter, { clear = true }),
 		callback = function()
