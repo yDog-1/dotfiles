@@ -39,12 +39,6 @@ config.mouse_bindings = {
 	},
 }
 
-config.color_schemes = {
-	["Tokyo Night"] = {
-		background = "black",
-	},
-}
-
 -- フォント設定
 config.font = wezterm.font_with_fallback({
 	{
@@ -132,8 +126,9 @@ elseif os_type == "macos" then
 	config.default_prog = { user_shell, "-l" }
 end
 
--- 背景の透明度
-config.window_background_opacity = 0.80
+config.window_background_opacity = 0.50
+config.kde_window_background_blur = true
+config.macos_window_background_blur = 20
 
 -- ウィンドウを閉じる確認をしない
 config.window_close_confirmation = "NeverPrompt"
