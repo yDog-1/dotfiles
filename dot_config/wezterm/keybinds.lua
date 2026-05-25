@@ -1,4 +1,6 @@
 local wezterm = require("wezterm")
+local io = require("io")
+local os = require("os")
 local act = wezterm.action
 
 return {
@@ -31,6 +33,34 @@ return {
 		{ mods = "LEADER", key = "c", action = act.CloseCurrentPane({ confirm = false }) },
 		-- タブを閉じる
 		{ mods = "LEADER|CTRL", key = "c", action = act.CloseCurrentTab({ confirm = false }) },
+		-- 現在のターミナルのスクロールバック全体を同じウィンドウ内のNeovimで開く
+		{
+			mods = "CTRL|SHIFT",
+			key = "E",
+			action = wezterm.action_callback(function(window, pane)
+				local text = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows)
+				local name = os.tmpname()
+
+				local file = io.open(name, "w+")
+				if file == nil then
+					return
+				end
+
+				file:write(text)
+				file:flush()
+				file:close()
+
+				window:perform_action(
+					act.SpawnCommandInNewTab({
+						args = { "zsh", "-lc", "exec $EDITOR " .. name },
+					}),
+					pane
+				)
+
+				wezterm.sleep_ms(1000)
+				os.remove(name)
+			end),
+		},
 		-- スクロールモードに移行
 		{
 			mods = "LEADER",
