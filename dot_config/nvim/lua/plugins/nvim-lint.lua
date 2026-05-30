@@ -34,13 +34,13 @@ local is_eslint_file_exist = function()
 end
 
 ---Create an autocmd to run the linter on buffer enter and after writing the buffer.
----@param linter string
+---@param linter? string
 ---@param bufnr? integer
 local create_lint_autocmd = function(linter, bufnr)
 	local buffer = bufnr or nil
-	vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
+	vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 		buffer = buffer,
-		group = vim.api.nvim_create_augroup("ydog.lint." .. linter, { clear = true }),
+		group = vim.api.nvim_create_augroup("ydog.lint." .. (linter or "default"), { clear = true }),
 		callback = function()
 			require("lint").try_lint(linter)
 		end,
@@ -62,12 +62,7 @@ return {
 			}
 
 			-- enable auto linting with defined filetypes by `lint.linters_by_ft`
-			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
-				group = vim.api.nvim_create_augroup("ydog.lint", { clear = true }),
-				callback = function()
-					require("lint").try_lint()
-				end,
-			})
+			create_lint_autocmd()
 
 			-- for all filetypes
 			create_lint_autocmd("typos")
