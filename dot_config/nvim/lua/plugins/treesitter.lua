@@ -62,7 +62,7 @@ return {
 			-- 折り畳みの設定
 			local opt = vim.opt
 			opt.foldmethod = "expr"
-			opt.foldexpr = "nvim_treesitter#foldexpr()"
+			opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 		end,
 	},
 	-- treesitter を利用した textobject を追加する
