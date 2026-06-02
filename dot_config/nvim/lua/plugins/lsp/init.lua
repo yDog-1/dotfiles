@@ -19,6 +19,7 @@ local servers = {
 	"nixd",
 	"pylsp",
 	"gdscript",
+	"arduino_language_server",
 }
 
 return {
