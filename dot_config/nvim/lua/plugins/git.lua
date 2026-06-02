@@ -40,7 +40,7 @@ return {
 			{ "<leader>gx", "<Cmd>GinBrowse ++repository<Cr>", desc = "Open the repository webpage" },
 			{ "<leader>gbr", "<Cmd>GinBranch<Cr>", desc = "Branch" },
 			{ "<leader>gbl", "<Cmd>GinBlame HEAD %<Cr>", desc = "Blame" },
-			{ "<leader>gd", "<Cmd>GinDiff<Cr>", desc = "Diff" },
+			{ "<leader>gD", "<Cmd>GinDiff<Cr>", desc = "Gin diff" },
 			{ "<leader>gl", "<Cmd>GinLog<Cr>", desc = "Log" },
 			{
 				"<leader>gc",
@@ -256,6 +256,7 @@ return {
 				},
 				-- Text object
 				{ "ih", gitsigns.select_hunk, mode = { "o", "x" }, desc = "inner hunk" },
+				{ "<leader>gd", "<Cmd>Gitsigns diffthis<Cr>", desc = "Diff" },
 			}
 		end,
 		opts = {
