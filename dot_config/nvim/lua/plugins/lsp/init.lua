@@ -52,59 +52,6 @@ return {
 				capabilities = capabilities,
 			})
 
-			vim.lsp.config("lua_ls", {
-				settings = {
-					Lua = {
-						runtime = {
-							version = "LuaJIT",
-							pathStrict = true,
-							path = { "?.lua", "?/init.lua" },
-						},
-						workspace = {
-							library = vim.list_extend(vim.api.nvim_get_runtime_file("lua", true), {
-								"${3rd}/luv/library",
-								"${3rd}/busted/library",
-								"${3rd}/luassert/library",
-							}),
-							checkThirdParty = "Disable",
-						},
-					},
-				},
-			})
-
-			---@diagnostic disable-next-line: param-type-mismatch
-			vim.lsp.config("jsonls", {
-				settings = {
-					json = {
-						schemas = require("schemastore").json.schemas(),
-						validate = { enable = true },
-					},
-				},
-			})
-
-			---@diagnostic disable-next-line: param-type-mismatch
-			vim.lsp.config("yamlls", {
-				settings = {
-					yaml = {
-						schemaStore = {
-							-- You must disable built-in schemaStore support if you want to use
-							-- this plugin and its advanced options like `ignore`.
-							enable = false,
-							-- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-							url = "",
-						},
-						schemas = require("schemastore").yaml.schemas(),
-					},
-				},
-			})
-
-			---@diagnostic disable-next-line: param-type-mismatch
-			vim.lsp.config("denols", {
-				settings = {
-					single_file_support = true,
-				},
-			})
-
 			vim.lsp.enable(servers)
 		end,
 	},
