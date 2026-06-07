@@ -126,7 +126,7 @@ elseif os_type == "macos" then
 	config.default_prog = { user_shell, "-l" }
 end
 
-config.window_background_opacity = 0.50
+config.window_background_opacity = 0.80
 config.kde_window_background_blur = true
 config.macos_window_background_blur = 20
 
