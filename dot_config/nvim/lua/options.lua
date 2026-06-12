@@ -54,9 +54,6 @@ o.showbreak = ""
 o.foldmethod = "syntax"
 o.foldlevel = 99
 
--- submodeにキーのタイムアウトを無効化
-o.timeout = false
-
 -- substitute時に変更箇所をプレビュー
 o.inccommand = "split"
 
