@@ -7,24 +7,7 @@ for _, spec in ipairs({
 	})
 end
 
-local open_codex_cmd = [[<cmd>Aibo -opener=botright\ vsplit -focus codex resume<CR>]]
-local function build_aibo_send_cmd(range_prefix)
-	local aibo_console = require("aibo.internal.console_window")
-	local bufname = vim.fn.bufname("%")
-	-- pwd .. file path
-	local filename_from_pwd = vim.fn.fnamemodify(bufname, ":p:.")
-	local codex = aibo_console.find_info_globally({ cmd = "codex" }) or { winid = -1 }
-	local ret = ""
-	if codex.winid == -1 then
-		ret = open_codex_cmd
-	end
-	return ret
-		.. [[<cmd>]]
-		.. (range_prefix or "")
-		.. [[AiboSend -input -replace -prefix="]]
-		.. filename_from_pwd
-		.. [[\n\n"<CR>]]
-end
+local opencode = "opencode"
 
 return {
 	"lambdalisue/nvim-aibo",
@@ -33,24 +16,22 @@ return {
 		"https://github.com/Shougo/ddc.vim",
 	},
 	keys = {
-		{ "<leader>aa", open_codex_cmd, desc = "Aibo Codex" },
 		{
-			"<leader>as",
-			function()
-				return build_aibo_send_cmd()
-			end,
-			desc = "Aibo Send to Codex",
-			mode = "n",
-			expr = true,
+			"<leader>aa",
+			string.format("<cmd>Aibo -opener=botright\\ vsplit -focus %s<CR>", opencode),
+			desc = "Chat with OpenCode",
 		},
 		{
 			"<leader>as",
-			function()
-				return build_aibo_send_cmd("'<,'>")
-			end,
-			desc = "Aibo Send to Codex (visual)",
+			"<cmd>AiboSend -input",
+			desc = "Send to Aibo",
+			mode = "n",
+		},
+		{
+			"<leader>as",
+			":AiboSend -input",
+			desc = "Send to Aibo",
 			mode = "v",
-			expr = true,
 		},
 	},
 	config = function()
@@ -59,11 +40,12 @@ return {
 			disable_startinsert_on_startup = true,
 			prompt_height = 20,
 			prompt = {
+				no_default_mappings = true,
 				on_attach = function(bufnr)
 					vim.o.hidden = true
 
 					local opts = { buffer = bufnr, nowait = true, silent = true }
-					vim.keymap.set({ "n" }, "<CR>", "<Plug>(aibo-submit)", opts)
+					vim.keymap.set({ "n" }, "q", "<Cmd>q<CR>", opts)
 					vim.keymap.set({ "n" }, "g<C-C>", "<Plug>(aibo-send)<C-C>", opts)
 					vim.keymap.set({ "n" }, "<C-K>", "<Plug>(aibo-send)<Up>", opts)
 					vim.keymap.set({ "n" }, "<C-J>", "<Plug>(aibo-send)<Down>", opts)
@@ -74,9 +56,9 @@ return {
 					vim.keymap.set({ "n" }, "<Up>", "<Plug>(aibo-send)<Up>", opts)
 					vim.keymap.set({ "n" }, "<Down>", "<Plug>(aibo-send)<Down>", opts)
 					vim.keymap.set({ "n" }, "<C-L>", "<Plug>(aibo-send)<C-L>", opts)
-					vim.keymap.set({ "n" }, "<C-C>", "<Plug>(aibo-send)<Esc>", opts)
+					vim.keymap.set({ "n" }, "<CR>", "<Plug>(aibo-submit)<Cmd>q<CR>", opts)
 					vim.keymap.set({ "n" }, "<F5>", "<Plug>(aibo-submit)<Cmd>q<CR>", opts)
-					vim.keymap.set({ "n" }, "<C-CR>", "<Plug>(aibo-submit)<Cmd>q<CR>", opts)
+					vim.keymap.set({ "n", "i" }, "<C-CR>", "<Plug>(aibo-submit)<Cmd>q<CR>", opts)
 					vim.keymap.set({ "n" }, "<C-G><C-O>", "<Plug>(aibo-send)", opts)
 
 					-- for ddc.vim
@@ -84,6 +66,7 @@ return {
 				end,
 			},
 			console = {
+				no_default_mappings = true,
 				on_attach = function(bufnr)
 					vim.o.hidden = true
 
@@ -92,17 +75,28 @@ return {
 					vim.keymap.set({ "n" }, "<C-J>", "<Plug>(aibo-send)<Down>", opts)
 					vim.keymap.set({ "n" }, "<PageDown>", "<Plug>(aibo-send)<PageDown>", opts)
 					vim.keymap.set({ "n" }, "<PageUp>", "<Plug>(aibo-send)<PageUp>", opts)
+					vim.keymap.set({ "n" }, "<C-U>", "<Plug>(aibo-send)<PageUp>", opts)
+					vim.keymap.set({ "n" }, "<C-D>", "<Plug>(aibo-send)<PageDown>", opts)
 					vim.keymap.set({ "n" }, "<End>", "<Plug>(aibo-send)<End>", opts)
 					vim.keymap.set({ "n" }, "<Home>", "<Plug>(aibo-send)<Home>", opts)
 					vim.keymap.set({ "n" }, "<Up>", "<Plug>(aibo-send)<Up>", opts)
 					vim.keymap.set({ "n" }, "<Down>", "<Plug>(aibo-send)<Down>", opts)
+					vim.keymap.set({ "n" }, "<Right>", "<Plug>(aibo-send)<Right>", opts)
+					vim.keymap.set({ "n" }, "<Left>", "<Plug>(aibo-send)<Left>", opts)
+					vim.keymap.set({ "n" }, "l", "<Plug>(aibo-send)<Right>", opts)
+					vim.keymap.set({ "n" }, "h", "<Plug>(aibo-send)<Left>", opts)
 					vim.keymap.set({ "n" }, "<C-P>", "<Plug>(aibo-send)<C-P>", opts)
 					vim.keymap.set({ "n" }, "<C-N>", "<Plug>(aibo-send)<C-N>", opts)
 					vim.keymap.set({ "n" }, "<C-L>", "<Plug>(aibo-send)<C-L>", opts)
-					vim.keymap.set({ "n" }, "<C-C>", "<Plug>(aibo-send)<Esc>", opts)
+					vim.keymap.set({ "n" }, "<C-C>", "<Plug>(aibo-send)<C-C>", opts)
+					vim.keymap.set({ "n" }, "<Esc>", "<Plug>(aibo-send)<Esc>", opts)
+					vim.keymap.set({ "n" }, "<BS>", "<Plug>(aibo-send)<BS>", opts)
+					vim.keymap.set({ "n" }, "<Tab>", "<Plug>(aibo-send)<Tab>", opts)
+					vim.keymap.set({ "n" }, "/", "<Plug>(aibo-send)/", opts)
+					vim.keymap.set({ "n" }, "<C-G><C-O>", "<Plug>(aibo-send)", opts)
+					vim.keymap.set({ "n" }, "<CR>", "<Plug>(aibo-submit)", opts)
 					vim.keymap.set({ "n" }, "<F5>", "<Plug>(aibo-submit)", opts)
 					vim.keymap.set({ "n" }, "<C-CR>", "<Plug>(aibo-submit)", opts)
-					vim.keymap.set({ "n" }, "<C-G><C-O>", "<Plug>(aibo-send)", opts)
 				end,
 			},
 		})
