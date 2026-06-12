@@ -24,7 +24,6 @@ return {
 		opts = {
 			direction = "horizontal",
 			open_mapping = { [[<c-\>]], [[<c-¥>]] },
-			start_in_insert = false,
 		},
 	},
 }
