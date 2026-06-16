@@ -1,15 +1,31 @@
 return {
 	{
-		-- カラースキーム
-		"sainnhe/sonokai",
+		"https://github.com/rebelot/kanagawa.nvim",
 		lazy = false,
 		priority = 1000,
-		init = function()
-			vim.g.sonokai_transparent_background = 1
-		end,
 		config = function()
-			vim.cmd.colorscheme("sonokai")
-			-- post_colorscheme()
+			require("kanagawa").setup({
+				transparent = true,
+				colors = {
+					theme = {
+						all = {
+							ui = {
+								bg_gutter = "none",
+							},
+						},
+					},
+				},
+				overrides = function(colors)
+					local palette_colors = colors.palette
+					return {
+						NormalFloat = { bg = palette_colors.waveBlue1 },
+						FloatBorder = { bg = palette_colors.waveBlue1 },
+						FloatTitle = { bg = palette_colors.waveBlue1 },
+						CursorLine = { bg = palette_colors.sumiInk5 },
+					}
+				end,
+			})
+			vim.cmd.colorscheme("kanagawa")
 		end,
 	},
 }
