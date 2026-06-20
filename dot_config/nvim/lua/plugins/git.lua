@@ -17,6 +17,9 @@ return {
 	{
 		"lambdalisue/vim-gin",
 		lazy = true,
+		dependencies = {
+			"vim-denops/denops.vim",
+		},
 		cmd = {
 			"Gin",
 			"GinBlame",
