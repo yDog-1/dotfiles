@@ -15,7 +15,9 @@ return {
 					desc_hl = "DiagnosticInfo",
 					key = "f",
 					key_hl = "DiagnosticInfo",
-					action = "Telescope find_files",
+					action = function()
+						vim.fn["ddu#start"]({ name = "file" })
+					end,
 				},
 				{
 					icon = "  ",
@@ -31,7 +33,9 @@ return {
 					desc_hl = "DiagnosticWarn",
 					key = "g",
 					key_hl = "DiagnosticWarn",
-					action = "Telescope live_grep",
+					action = function()
+						vim.fn["ddu#start"]({ name = "rg" })
+					end,
 				},
 				{
 					icon = "  ",
@@ -39,7 +43,9 @@ return {
 					desc_hl = "Comment",
 					key = "r",
 					key_hl = "Comment",
-					action = "Telescope oldfiles",
+					action = function()
+						vim.fn["ddu#start"]({ name = "recent_file" })
+					end,
 				},
 				{
 					icon = "󰒲  ",

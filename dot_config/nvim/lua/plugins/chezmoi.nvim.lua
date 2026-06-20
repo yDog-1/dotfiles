@@ -3,20 +3,7 @@ vim.g.chezmoidir = os.getenv("HOME") .. "/.local/share/chezmoi"
 return {
 	"xvzc/chezmoi.nvim",
 	lazy = true,
-	dependencies = {
-		"nvim-telescope/telescope.nvim",
-	},
-	keys = {
-		{
-			"<leader>fc",
-			function()
-				require("telescope").extensions.chezmoi.find_files()
-			end,
-			desc = "Find chezmoi files",
-		},
-	},
 	cmd = {
-		"Telescope chezmoi",
 		"ChezmoiReAdd",
 	},
 	-- chezmoiのファイルを開いたらこのプラグインを読み込む
@@ -47,9 +34,6 @@ return {
 		return {
 			edit = {
 				watch = true,
-			},
-			telescope = {
-				select = { "<CR>", "<C-v>" },
 			},
 		}
 	end,
