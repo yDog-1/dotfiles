@@ -18,9 +18,10 @@ return {
 				overrides = function(colors)
 					local palette_colors = colors.palette
 					return {
-						NormalFloat = { bg = palette_colors.waveBlue1 },
-						FloatBorder = { bg = palette_colors.waveBlue1 },
-						FloatTitle = { bg = palette_colors.waveBlue1 },
+						NormalFloat = { bg = "none" },
+						FloatBorder = { fg = palette_colors.fujiWhite, bg = "none" },
+						FloatTitle = { bg = "none" },
+						Pmenu = { bg = "none" },
 						CursorLine = { bg = palette_colors.sumiInk5 },
 					}
 				end,
