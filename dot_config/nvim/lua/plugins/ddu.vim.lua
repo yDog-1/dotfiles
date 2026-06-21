@@ -139,6 +139,24 @@ return {
 					},
 				},
 			})
+			vim.fn["ddu#custom#patch_local"]("recent_file_cwd", {
+				sources = {
+					{
+						name = "mr",
+						sorters = { "sorter_mtime" },
+						options = {
+							matchers = {
+								"matcher_kensaku",
+								"matcher_relative",
+							},
+							converters = {
+								"converter_hl_dir",
+								"converter_devicon",
+							},
+						},
+					},
+				},
+			})
 			vim.fn["ddu#custom#patch_local"]("recent_dir", {
 				sources = {
 					{
@@ -189,9 +207,15 @@ return {
 			vim.keymap.set("n", "<leader>fg", [[<Cmd>call ddu#start({'name': 'rg'})<CR>]], { desc = "Find in files" })
 			vim.keymap.set(
 				"n",
-				"<leader>fr",
+				"<leader>fR",
 				[[<Cmd>call ddu#start({'name': 'recent_file'})<CR>]],
 				{ desc = "Find recent file" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>fr",
+				[[<Cmd>call ddu#start({'name': 'recent_file_cwd'})<CR>]],
+				{ desc = "Find recent file in cwd" }
 			)
 			vim.keymap.set(
 				"n",
@@ -272,6 +296,7 @@ return {
 	"https://github.com/yuki-yano/ddu-filter-fzf",
 	"https://github.com/kuuote/ddu-filter-sorter_mtime",
 	{ "https://github.com/Milly/ddu-filter-kensaku", dependencies = { "https://github.com/lambdalisue/vim-kensaku" } },
+	"https://github.com/Shougo/ddu-filter-matcher_relative",
 	-- kind
 	"https://github.com/Shougo/ddu-kind-file",
 	-- converter
