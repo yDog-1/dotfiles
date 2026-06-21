@@ -71,10 +71,41 @@ return {
 					vim.o.hidden = true
 
 					local opts = { buffer = bufnr, nowait = true, silent = true }
+
+					---@param direction "up"|"down"
+					local send_mouse_scroll = function(direction)
+						local button = ({ up = 64, down = 65 })[direction]
+						if not button then
+							error(string.format("invalid scroll direction: %s", direction))
+						end
+
+						local mouse = vim.fn.getmousepos()
+						local row = mouse.winrow
+						local col = mouse.wincol
+
+						if row <= 0 or col <= 0 then
+							local cursor = vim.api.nvim_win_get_cursor(0)
+							row = cursor[1]
+							col = cursor[2] + 1
+						end
+
+						require("aibo.internal.console_window").send(
+							bufnr,
+							-- xterm SGR mouse: 64 = wheel up, 65 = wheel down.
+							string.format("\27[<%d;%d;%dM", button, col, row)
+						)
+					end
+
 					vim.keymap.set({ "n" }, "<C-K>", "<Plug>(aibo-send)<Up>", opts)
 					vim.keymap.set({ "n" }, "<C-J>", "<Plug>(aibo-send)<Down>", opts)
 					vim.keymap.set({ "n" }, "<PageDown>", "<Plug>(aibo-send)<PageDown>", opts)
 					vim.keymap.set({ "n" }, "<PageUp>", "<Plug>(aibo-send)<PageUp>", opts)
+					vim.keymap.set({ "n", "i" }, "<ScrollWheelDown>", function()
+						send_mouse_scroll("down")
+					end, opts)
+					vim.keymap.set({ "n", "i" }, "<ScrollWheelUp>", function()
+						send_mouse_scroll("up")
+					end, opts)
 					vim.keymap.set({ "n" }, "<C-U>", "<Plug>(aibo-send)<PageUp>", opts)
 					vim.keymap.set({ "n" }, "<C-D>", "<Plug>(aibo-send)<PageDown>", opts)
 					vim.keymap.set({ "n" }, "<End>", "<Plug>(aibo-send)<End>", opts)
