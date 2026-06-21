@@ -458,11 +458,48 @@ return {
 			)
 
 			local grp = vim.api.nvim_create_augroup("ydog-1.ddu", { clear = true })
+			local active_ddu_ff_names = {}
+
+			local function quit_ddu_ff_if_focus_lost()
+				vim.schedule(function()
+					local current_winid = vim.api.nvim_get_current_win()
+
+					for name in pairs(active_ddu_ff_names) do
+						local ok, winids = pcall(vim.fn["ddu#ui#winids"], name)
+						if not ok or #winids == 0 then
+							active_ddu_ff_names[name] = nil
+						else
+							local focused = false
+							for _, winid in ipairs(winids) do
+								if winid == current_winid then
+									focused = true
+									break
+								end
+							end
+
+							if not focused then
+								pcall(vim.fn["ddu#pop"], name, { quit = true, sync = true })
+								active_ddu_ff_names[name] = nil
+							end
+						end
+					end
+				end)
+			end
+
+			vim.api.nvim_create_autocmd("WinEnter", {
+				group = grp,
+				callback = quit_ddu_ff_if_focus_lost,
+			})
 
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = "ddu-ff",
 				group = grp,
 				callback = function()
+					local ui_name = vim.b.ddu_ui_name
+					if ui_name ~= nil and ui_name ~= "" then
+						active_ddu_ff_names[ui_name] = true
+					end
+
 					local opts = { buffer = true }
 					vim.keymap.set("n", "q", [[<Cmd>call ddu#ui#do_action('quit')<CR>]], opts)
 					vim.keymap.set("n", "<Cr>", [[<Cmd>call ddu#ui#do_action('itemAction')<CR>]], opts)
