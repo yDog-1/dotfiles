@@ -45,6 +45,38 @@ return {
 					vim.o.hidden = true
 
 					local opts = { buffer = bufnr, nowait = true, silent = true }
+					local send_prompt_to_console = function()
+						local prompt = require("aibo.internal.prompt_window")
+						local console = require("aibo.internal.console_window")
+						local history = require("aibo.internal.history")
+
+						local info = prompt.get_info_by_bufnr(bufnr)
+						if not info or not info.console_info then
+							vim.notify(
+								"Failed to find associated Aibo console",
+								vim.log.levels.ERROR,
+								{ title = "Aibo prompt" }
+							)
+							return
+						end
+
+						local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+						local content = table.concat(lines, "\n")
+						if content == "" then
+							return
+						end
+
+						history.add(content)
+						history.clear_state(bufnr)
+
+						if console.send(info.console_info.bufnr, content) then
+							console.follow(info.console_info.bufnr)
+							vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {})
+							vim.bo[bufnr].modified = false
+							vim.api.nvim_win_set_cursor(0, { 1, 0 })
+						end
+					end
+
 					vim.keymap.set({ "n" }, "q", "<Cmd>q<CR>", opts)
 					vim.keymap.set({ "n" }, "g<C-C>", "<Plug>(aibo-send)<C-C>", opts)
 					vim.keymap.set({ "n" }, "<C-K>", "<Plug>(aibo-send)<Up>", opts)
@@ -56,9 +88,13 @@ return {
 					vim.keymap.set({ "n" }, "<Up>", "<Plug>(aibo-send)<Up>", opts)
 					vim.keymap.set({ "n" }, "<Down>", "<Plug>(aibo-send)<Down>", opts)
 					vim.keymap.set({ "n" }, "<C-L>", "<Plug>(aibo-send)<C-L>", opts)
-					vim.keymap.set({ "n" }, "<CR>", "<Plug>(aibo-submit)<Cmd>q<CR>", opts)
+					vim.keymap.set({ "n" }, "<CR>", function()
+						send_prompt_to_console()
+						vim.cmd("q")
+					end, opts)
 					vim.keymap.set({ "n" }, "<F5>", "<Plug>(aibo-submit)<Cmd>q<CR>", opts)
-					vim.keymap.set({ "n", "i" }, "<C-CR>", "<Plug>(aibo-submit)<Cmd>q<CR>", opts)
+					vim.keymap.set("n", "<C-CR>", "<Plug>(aibo-submit)<Cmd>q<CR>", opts)
+					vim.keymap.set("i", "<C-CR>", "<Esc><Plug>(aibo-submit)<Cmd>q<CR>", opts)
 					vim.keymap.set({ "n" }, "<C-G><C-O>", "<Plug>(aibo-send)", opts)
 
 					-- for ddc.vim
