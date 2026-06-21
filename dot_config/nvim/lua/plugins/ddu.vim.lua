@@ -40,6 +40,9 @@ return {
 					lsp_codeAction = {
 						defaultAction = "apply",
 					},
+					highlight = {
+						defaultAction = "edit",
+					},
 				},
 				uiParams = {
 					ff = {
@@ -381,6 +384,18 @@ return {
 					"lsp_codeAction",
 				},
 			})
+			vim.fn["ddu#custom#patch_local"]("highlight", {
+				sources = {
+					"highlight",
+				},
+				uiParams = {
+					ff = {
+						-- highlight source doesn't have preview window
+						-- so col of the main window should be set center - win_width / 2
+						winCol = vim.o.columns / 2 - (vim.o.columns / 2 - ddu_win_col) / 2,
+					},
+				},
+			})
 
 			local file_ui_names = {
 				"file",
@@ -455,6 +470,12 @@ return {
 				"<leader>ca",
 				[[<Cmd>call ddu#start({'name': 'lsp_action'})<CR>]],
 				{ desc = "Code actions" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>fH",
+				[[<Cmd>call ddu#start({'name': 'highlight'})<CR>]],
+				{ desc = "Find highlight groups" }
 			)
 
 			local grp = vim.api.nvim_create_augroup("ydog-1.ddu", { clear = true })
@@ -561,6 +582,7 @@ return {
 	"https://github.com/kamecha/ddu-source-keymap",
 	"https://github.com/Shougo/ddu-source-action",
 	"https://github.com/uga-rosa/ddu-source-lsp",
+	"https://github.com/matsui54/ddu-source-highlight",
 	-- filter
 	"https://github.com/yuki-yano/ddu-filter-fzf",
 	"https://github.com/kuuote/ddu-filter-sorter_mtime",
