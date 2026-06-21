@@ -33,6 +33,30 @@ local is_eslint_file_exist = function()
 	return is_file_exist(config_files)
 end
 
+---@param bufnr? integer
+---@return boolean
+local is_editing_file = function(bufnr)
+	local buffer = bufnr or vim.api.nvim_get_current_buf()
+
+	if vim.bo[buffer].buftype ~= "" then
+		return false
+	end
+
+	if vim.api.nvim_buf_get_name(buffer) == "" then
+		return false
+	end
+
+	if not vim.bo[buffer].modifiable then
+		return false
+	end
+
+	if vim.bo[buffer].readonly then
+		return false
+	end
+
+	return true
+end
+
 ---Create an autocmd to run the linter on buffer enter and after writing the buffer.
 ---@param linter? string
 ---@param bufnr? integer
@@ -41,8 +65,12 @@ local create_lint_autocmd = function(linter, bufnr)
 	vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 		buffer = buffer,
 		group = vim.api.nvim_create_augroup("ydog.lint." .. (linter or "default"), { clear = true }),
-		callback = function()
-			require("lint").try_lint(linter)
+		callback = function(ctx)
+			if not is_editing_file(ctx.buf) then
+				return
+			end
+
+			require("lint").try_lint(linter, { ignore_errors = true })
 		end,
 	})
 end
