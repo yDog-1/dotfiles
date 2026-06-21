@@ -55,7 +55,7 @@ return {
 		keys = {
 			{ "<Leader>gP", "<cmd>Gin push<CR>", desc = "Push" },
 			{ "<Leader>gp", "<cmd>Gin pull --autostash<CR>", desc = "Pull" },
-			{ "<leader>gs", "<Cmd>GinStatus<Cr> ++opener=tabedit", desc = "Status" },
+			{ "<leader>gs", "<Cmd>GinStatus ++opener=tabedit<Cr>", desc = "Status" },
 			{ "<leader>gx", "<Cmd>GinBrowse ++repository<Cr>", desc = "Open the repository webpage" },
 			{ "<leader>gbr", "<Cmd>GinBranch<Cr>", desc = "Branch" },
 			{ "<leader>gbl", "<Cmd>GinBlame HEAD %<Cr>", desc = "Blame" },
@@ -102,11 +102,7 @@ return {
 					set({ "n" }, "P", "<Cmd>Gin pull<Cr>", opts({ desc = "Pull" }))
 					set({ "n" }, "if", "<Plug>(gin-action-fixup:instant-fixup)", opts({ desc = "Fixup" }))
 					set({ "n" }, "ir", "<Plug>(gin-action-fixup:instant-reword)", opts({ desc = "Reword" }))
-					set({ "n" }, "q", "<Cmd>bd<Cr>", opts({ desc = "Close" }))
-
-					if vim.bo.filetype == "gin-status" or vim.bo.filetype == "gin-log" then
-						set({ "n" }, "q", "<Cmd>tabclose<Cr>", opts({ desc = "Close" }))
-					end
+					set({ "n" }, "q", "<Cmd>q<Cr>", opts({ desc = "Close" }))
 					vim.opt_local.buflisted = false
 				end,
 			})
