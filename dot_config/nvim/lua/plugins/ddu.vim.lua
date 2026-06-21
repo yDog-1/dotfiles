@@ -6,6 +6,15 @@ return {
 			"vim-denops/denops.vim",
 		},
 		config = function()
+			local ddu_vertical_margin = 10
+			local ddu_horizontal_margin = 20
+			local ddu_win_row = ddu_vertical_margin / 2
+			local ddu_win_col = ddu_horizontal_margin / 2
+			local ddu_win_height = ("&lines - %d"):format(ddu_vertical_margin)
+			local ddu_win_width = ("&columns / 2 - %d"):format(ddu_win_col)
+			local ddu_preview_col = "&columns / 2"
+			local ddu_float_border = "single"
+
 			vim.fn["ddu#custom#patch_global"]({
 				ui = "ff",
 				sourceOptions = {
@@ -35,9 +44,21 @@ return {
 				uiParams = {
 					ff = {
 						-- styling
-						split = "tab",
+						-- Keep both floating windows centered using the margin constants above.
+						split = "floating",
+						winHeight = ddu_win_height,
+						winWidth = ddu_win_width,
+						winRow = ddu_win_row,
+						winCol = ddu_win_col,
+						floatingBorder = ddu_float_border,
+						previewFloating = true,
 						previewSplit = "vertical",
-						previewWidth = "&columns / 2",
+						previewHeight = ddu_win_height,
+						previewWidth = ddu_win_width,
+						previewRow = ddu_win_row,
+						previewCol = ddu_preview_col,
+						previewFloatingBorder = ddu_float_border,
+						previewFocusable = false,
 						-- behavior
 						startAutoAction = true,
 						autoAction = {
