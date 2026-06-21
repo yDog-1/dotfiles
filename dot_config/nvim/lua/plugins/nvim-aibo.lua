@@ -23,7 +23,7 @@ return {
 		},
 		{
 			"<leader>as",
-			"<cmd>AiboSend -input",
+			"<cmd>AiboSend -input<CR>",
 			desc = "Send to Aibo",
 			mode = "n",
 		},
