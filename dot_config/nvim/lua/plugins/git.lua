@@ -13,6 +13,22 @@ require("plugins.which-key.spec").add({
 	{ "<Leader>gb", group = "B~" },
 })
 
+function git_commit_with_diff()
+	-- tab を開いて、上に diff、下に commit メッセージ入力欄を表示
+	vim.cmd([[tabnew]])
+	vim.cmd([[GinDiff --staged]])
+	vim.cmd.Gin("commit")
+	-- autocmdで、Commitウィンドウを閉じたときにtabも閉じるようにする
+	local commit_group = vim.api.nvim_create_augroup("CommitCloseTab", { clear = true })
+	vim.api.nvim_create_autocmd("BufUnload", {
+		pattern = "*COMMIT_EDITMSG",
+		group = commit_group,
+		callback = function()
+			vim.cmd([[tabclose]])
+			vim.api.nvim_del_augroup_by_id(commit_group)
+		end,
+	})
+end
 return {
 	{
 		"lambdalisue/vim-gin",
@@ -39,30 +55,15 @@ return {
 		keys = {
 			{ "<Leader>gP", "<cmd>Gin push<CR>", desc = "Push" },
 			{ "<Leader>gp", "<cmd>Gin pull --autostash<CR>", desc = "Pull" },
-			{ "<leader>gs", "<Cmd>GinStatus<Cr>", desc = "Status" },
+			{ "<leader>gs", "<Cmd>GinStatus<Cr> ++opener=tabedit", desc = "Status" },
 			{ "<leader>gx", "<Cmd>GinBrowse ++repository<Cr>", desc = "Open the repository webpage" },
 			{ "<leader>gbr", "<Cmd>GinBranch<Cr>", desc = "Branch" },
 			{ "<leader>gbl", "<Cmd>GinBlame HEAD %<Cr>", desc = "Blame" },
 			{ "<leader>gD", "<Cmd>GinDiff<Cr>", desc = "Gin diff" },
-			{ "<leader>gl", "<Cmd>GinLog<Cr>", desc = "Log" },
+			{ "<leader>gl", "<Cmd>GinLog ++opener=tabedit --oneline<Cr>", desc = "Log" },
 			{
 				"<leader>gc",
-				function()
-					-- tab を開いて、上に diff、下に commit メッセージ入力欄を表示
-					vim.cmd([[tabnew]])
-					vim.cmd([[GinDiff --staged]])
-					vim.cmd.Gin("commit")
-					-- autocmdで、Commitウィンドウを閉じたときにtabも閉じるようにする
-					local commit_group = vim.api.nvim_create_augroup("CommitCloseTab", { clear = true })
-					vim.api.nvim_create_autocmd("BufUnload", {
-						pattern = "*COMMIT_EDITMSG",
-						group = commit_group,
-						callback = function()
-							vim.cmd([[tabclose]])
-							vim.api.nvim_del_augroup_by_id(commit_group)
-						end,
-					})
-				end,
+				git_commit_with_diff,
 				desc = "Commit",
 			},
 			{ "<leader>gf", ":Gin fetch ", desc = "Fetch" },
@@ -75,11 +76,8 @@ return {
 			vim.g["gin_proxy_apply_without_confirm"] = 1
 			-- エディタの開き方
 			vim.g["gin_proxy_editor_opener"] = "split"
-			vim.g["gin_diff_persistent_args"] = { "++processor=delta -n --color-only" }
-			vim.g["gin_log_default_args"] = { "++emojify", "--oneline", "--graph" }
-			vim.g["gin_log_persistent_args"] = { "++opener=tabedit" }
+			vim.g["gin_log_persistent_args"] = { "++emojify", "--graph" }
 			vim.g["gin_blame_persistent_args"] = { "++emojify" }
-			vim.g["gin_status_persistent_args"] = { "++opener=tabedit" }
 			vim.g["gin_patch_default_args"] = { "++no-worktree" }
 		end,
 		config = function()
@@ -87,7 +85,7 @@ return {
 
 			local gin_keymap_group = vim.api.nvim_create_augroup("GinKeymap", { clear = true })
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "gin", "gin-diff", "gin-log", "gin-status", "gin-branch" },
+				pattern = { "gin", "gin-diff", "gin-log", "gin-status", "gin-branch", "gin-buffer" },
 				group = gin_keymap_group,
 				callback = function()
 					local set = vim.keymap.set
@@ -97,7 +95,7 @@ return {
 						end
 						return o
 					end
-					set({ "n" }, "c", "<Cmd>Gin commit<Cr>", opts({ desc = "Commit" }))
+					set({ "n" }, "c", git_commit_with_diff, opts({ desc = "Commit" }))
 					set({ "n" }, "s", "<Cmd>GinStatus<Cr>", opts({ desc = "Status" }))
 					set({ "n" }, "d", "<Cmd>GinDiff --staged<Cr>", opts({ desc = "Diff" }))
 					set({ "n" }, "p", "<Cmd>Gin push<Cr>", opts({ desc = "Push" }))
@@ -146,7 +144,6 @@ return {
 						local width = vim.api.nvim_win_get_width(0)
 						local margin = 6
 						local fit_width = width - margin
-						local args = vim.g["gin_diff_persistent_args"]
 
 						-- staged バッファかどうかを判定
 						local diffIsStaged = string.find(vim.api.nvim_buf_get_name(0), ";staged", 1, true) ~= nil
@@ -158,10 +155,7 @@ return {
 								return ""
 							end
 						end)()
-						-- persistent argsで ++processor が指定されている場合、再度指定するとエラーになるので、一旦クリアしてから設定し直す
-						vim.g["gin_diff_persistent_args"] = {}
-						vim.cmd([[GinDiff++processor=delta\ -n\ --features\ side-by-side\ -w=]] .. fit_width .. staged)
-						vim.g["gin_diff_persistent_args"] = args
+						vim.cmd([[GinDiff]] .. fit_width .. staged)
 					end, opts({ desc = "Split diff" }))
 				end,
 			})
