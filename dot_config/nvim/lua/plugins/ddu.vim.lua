@@ -25,6 +25,12 @@ return {
 					keymap = {
 						defaultAction = "type",
 					},
+					lsp = {
+						defaultAction = "open",
+					},
+					lsp_codeAction = {
+						defaultAction = "apply",
+					},
 				},
 				uiParams = {
 					ff = {
@@ -193,6 +199,167 @@ return {
 					"keymap",
 				},
 			})
+			vim.fn["ddu#custom#alias"]("lsp_definition", "source", "lsp_typeDefinition", "lsp_definition")
+			vim.fn["ddu#custom#alias"]("lsp_definition", "source", "lsp_declaration", "lsp_definition")
+			vim.fn["ddu#custom#alias"]("lsp_definition", "source", "lsp_implementation", "lsp_definition")
+			vim.fn["ddu#custom#patch_local"]("lsp_definition", {
+				sync = true,
+				sources = {
+					{
+						name = "lsp_definition",
+						options = {
+							converters = {
+								"converter_hl_dir",
+								"converter_devicon",
+							},
+						},
+					},
+					{
+						name = "lsp_typeDefinition",
+						options = {
+							converters = {
+								"converter_hl_dir",
+								"converter_devicon",
+							},
+						},
+					},
+					{
+						name = "lsp_declaration",
+						options = {
+							converters = {
+								"converter_hl_dir",
+								"converter_devicon",
+							},
+						},
+					},
+					{
+						name = "lsp_implementation",
+						options = {
+							converters = {
+								"converter_hl_dir",
+								"converter_devicon",
+							},
+						},
+					},
+				},
+				uiParams = {
+					ff = {
+						-- skip selection when there is only one candidate
+						immediateAction = "open",
+					},
+				},
+				sourceParams = {
+					lsp_typeDefinition = {
+						method = "textDocument/typeDefinition",
+					},
+					lsp_declaration = {
+						method = "textDocument/declaration",
+					},
+					lsp_implementation = {
+						method = "textDocument/implementation",
+					},
+				},
+				unique = true,
+			})
+			vim.fn["ddu#custom#patch_local"]("lsp_references", {
+				sources = {
+					{
+						name = "lsp_references",
+						options = {
+							converters = {
+								"converter_hl_dir",
+								"converter_devicon",
+							},
+						},
+					},
+				},
+			})
+			vim.fn["ddu#custom#patch_local"]("lsp_documentSymbol", {
+				sources = {
+					{
+						name = "lsp_documentSymbol",
+						options = {
+							converters = {
+								"converter_lsp_symbol",
+							},
+						},
+					},
+				},
+			})
+			vim.fn["ddu#custom#patch_local"]("lsp_workspaceSymbol", {
+				sources = {
+					{
+						name = "lsp_workspaceSymbol",
+						options = {
+							converters = {
+								"converter_lsp_symbol",
+							},
+						},
+					},
+				},
+			})
+			vim.fn["ddu#custom#alias"]("lsp_callHierarchy", "source", "lsp_outgoingCalls", "lsp_callHierarchy")
+			vim.fn["ddu#custom#patch_local"]("lsp_callHierarchy", {
+				sources = {
+					{
+						name = "lsp_callHierarchy",
+						options = {
+							converters = {
+								"converter_hl_dir",
+								"converter_devicon",
+							},
+						},
+					},
+					{
+						name = "lsp_outgoingCalls",
+						options = {
+							converters = {
+								"converter_hl_dir",
+								"converter_devicon",
+							},
+						},
+					},
+				},
+				sourceParams = {
+					lsp_outgoingCalls = {
+						method = "callHierarchy/outgoingCalls",
+					},
+				},
+				unique = true,
+			})
+			vim.fn["ddu#custom#alias"]("lsp_typeHierarchy", "source", "lsp_subtypes", "lsp_typeHierarchy")
+			vim.fn["ddu#custom#patch_local"]("lsp_typeHierarchy", {
+				sources = {
+					{
+						name = "lsp_typeHierarchy",
+						options = {
+							converters = {
+								"converter_hl_dir",
+								"converter_devicon",
+							},
+						},
+					},
+					{
+						name = "lsp_subtypes",
+						options = {
+							converters = {
+								"converter_hl_dir",
+								"converter_devicon",
+							},
+						},
+					},
+				},
+				sourceParams = {
+					lsp_subtypes = {
+						method = "typeHierarchy/subtypes",
+					},
+				},
+			})
+			vim.fn["ddu#custom#patch_local"]("lsp_action", {
+				sources = {
+					"lsp_codeAction",
+				},
+			})
 
 			local file_ui_names = {
 				"file",
@@ -225,6 +392,49 @@ return {
 			)
 			vim.keymap.set("n", "<leader>fh", [[<Cmd>call ddu#start({'name': 'help'})<CR>]], { desc = "Find help" })
 			vim.keymap.set("n", "<leader>fk", [[<Cmd>call ddu#start({'name': 'keymap'})<CR>]], { desc = "Find keymap" })
+			-- LSP(code)'s keymaps are beginning with <leader>c
+			vim.keymap.set(
+				"n",
+				"<leader>cd",
+				[[<Cmd>call ddu#start({'name': 'lsp_definition'})<CR>]],
+				{ desc = "Find definition" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>cR",
+				[[<Cmd>call ddu#start({'name': 'lsp_references'})<CR>]],
+				{ desc = "Find references" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>cs",
+				[[<Cmd>call ddu#start({'name': 'lsp_documentSymbol'})<CR>]],
+				{ desc = "Find symbols in buffer" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>cS",
+				[[<Cmd>call ddu#start({'name': 'lsp_workspaceSymbol'})<CR>]],
+				{ desc = "Find symbols in workspace" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>cc",
+				[[<Cmd>call ddu#start({'name': 'lsp_callHierarchy'})<CR>]],
+				{ desc = "Find incoming/outgoing calls" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>ct",
+				[[<Cmd>call ddu#start({'name': 'lsp_typeHierarchy'})<CR>]],
+				{ desc = "Find type hierarchy" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>ca",
+				[[<Cmd>call ddu#start({'name': 'lsp_action'})<CR>]],
+				{ desc = "Code actions" }
+			)
 
 			local grp = vim.api.nvim_create_augroup("ydog-1.ddu", { clear = true })
 
@@ -292,6 +502,7 @@ return {
 	"https://github.com/matsui54/ddu-source-help",
 	"https://github.com/kamecha/ddu-source-keymap",
 	"https://github.com/Shougo/ddu-source-action",
+	"https://github.com/uga-rosa/ddu-source-lsp",
 	-- filter
 	"https://github.com/yuki-yano/ddu-filter-fzf",
 	"https://github.com/kuuote/ddu-filter-sorter_mtime",
